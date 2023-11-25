@@ -147,24 +147,7 @@ public class InBody {
 
                 default:
                     System.out.println("unavalible choise");
-
-
             }
         }
-
     }
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-

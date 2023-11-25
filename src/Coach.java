@@ -2,9 +2,11 @@ public class Coach extends Person{
     private float workingHoursPerDay;
     private int numberOfClients = 0;
     private Customer[] clients = new Customer[10];
+    public int coachCount = 0;
 
     public Coach(int ID, String Name, String Email, String Password, String Phonenumber){
         super(ID,Name,Email,Password,Phonenumber);
+        coachCount++;
     }
 
     public float getWorkingHoursPerDay() {

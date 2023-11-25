@@ -2,9 +2,11 @@ public class Customer extends Person{
     private Subscription subscription;
     private InBody inBodies;
     private Coach coach;
+    public static int customersCount = 0;
 
     public Customer(int ID, String Name, String Email, String Password, String Phonenumber){
         super(ID,Name,Email,Password,Phonenumber);
+        customersCount++;
     }
 
     public Subscription getSubscription() {
