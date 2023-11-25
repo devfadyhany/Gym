@@ -1,5 +1,3 @@
-package eg.edu.asu.cis;
-
 public class Customer extends Person{
     private Subscription subscription;
     private InBody inBodies;
