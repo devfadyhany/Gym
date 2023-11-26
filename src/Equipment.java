@@ -2,7 +2,7 @@ public class Equipment {
     private String name;
     private String[] targetedMuscles;
     private int quantity ;
-    private final int equipmentCode;
+    private final int EQUIPMENTCODE;
 
     //private String photo;
 
@@ -10,7 +10,7 @@ public class Equipment {
     {
         this.name=name;
         this.quantity=quantity;
-        this.equipmentCode =equipmentCode;
+        this.EQUIPMENTCODE =equipmentCode;
         this.targetedMuscles =targetedMuscle;
     }
 
@@ -28,8 +28,8 @@ public class Equipment {
     public int getQuantity() {
         return quantity;
     }
-    public int getEquipmentCode() {
-        return equipmentCode;
+    public int getEQUIPMENTCODE() {
+        return EQUIPMENTCODE;
     }
 
    /* public String getPhoto() {
@@ -45,9 +45,9 @@ public class Equipment {
 
     public void DisplayInfo()
     {
-        System.out.println(getName());
-        System.out.println(getEquipmentCode());
-        System.out.println(getQuantity());
+        System.out.println(this.getName());
+        System.out.println(this.getEQUIPMENTCODE());
+        System.out.println(this.getQuantity());
     }
     
     public void DisplayTargetedMuscles()

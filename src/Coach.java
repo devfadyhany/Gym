@@ -4,8 +4,8 @@ public class Coach extends Person{
     private Customer[] clients = new Customer[10];
     public int coachCount = 0;
 
-    public Coach(int ID, String Name, String Email, String Password, String Phonenumber){
-        super(ID,Name,Email,Password,Phonenumber);
+    public Coach(int ID ,String name , String email, String password, int phone_number, char gender){
+        super(ID,name,email,password,phone_number,gender);
         coachCount++;
     }
 
