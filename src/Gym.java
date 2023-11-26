@@ -78,9 +78,9 @@ public class Gym {
         return numberOfSubscriptions;
     }
 
-    public void AddEquipment(Equipment[] Sports_equipment){
+    public void AddEquipment(Equipment equipment){
 
-        Equipment[NumberOfEquipments] = Sports_equipment;
+        Sports_equipment[numberOfEquipments] = equipment;
     }
 
     public void RemoveEquipment(int Code){
@@ -110,9 +110,9 @@ public class Gym {
         }
     }
 
-    public void AddCoach(Coach[] Coaches){
+    public void AddCoach(Coach coach){
 
-        Coach[numberOfCoaches] = Coaches;
+        Coaches[numberOfCoaches] = coach;
     }
 
     public void RemoveCoach(int ID){
