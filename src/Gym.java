@@ -87,7 +87,7 @@ public class Gym {
         int removedIndex = 0;
 
         for(int i = 0; i < 10; i++) {
-            if (Sports_equipment[i].getEquipmentCode() == Code) {
+            if (Sports_equipment[i].getEQUIPMENTCODE() == Code) {
                 Sports_equipment[i] = null;
                 removedIndex = i;
                 break;
@@ -102,7 +102,7 @@ public class Gym {
     }
     public void ViewEquipments(int ID){
         for (int i = 0; i < 10; i++){
-            if (Sports_equipment[i].getEquipmentCode() == ID){
+            if (Sports_equipment[i].getEQUIPMENTCODE() == ID){
                 Sports_equipment[i].DisplayInfo();
                 System.out.println("=================");
                 break;
@@ -119,7 +119,7 @@ public class Gym {
         int removedIndex = 0;
 
         for(int i = 0; i < 10; i++) {
-            if (Coaches[i].getId == ID) {
+            if (Coaches[i].getID() == ID) {
                 Coaches[i] = null;
                 removedIndex = i;
                 break;
@@ -134,23 +134,23 @@ public class Gym {
     }
     public void ViewCoaches(int ID){
         for (int i = 0; i < 10; i++){
-            if (Coaches[i].getId == ID){
+            if (Coaches[i].getID() == ID){
                 Coaches[i].DisplayInfo();
                 System.out.println("=================");
                 break;
             }
         }
     }
-    public void AddSubscription(Subscription[] Subscriptions){
+    public void AddSubscription(Subscription Subscription){
 
-        Subscription[numberOfSubscriptions] = Subscriptions;
+        Subscriptions[numberOfSubscriptions] = Subscription;
     }
 
     public void RemoveSubscriptions(int ID){
         int removedIndex = 0;
 
         for(int i = 0; i < 10; i++) {
-            if (Subscriptions[i].getId == ID) {
+            if (Subscriptions[i].getID() == ID) {
                 Subscriptions[i] = null;
                 removedIndex = i;
                 break;
@@ -165,7 +165,7 @@ public class Gym {
     }
     public void ViewSubscriptions(int ID){
         for (int i = 0; i < 10; i++){
-            if (Subscriptions[i].getId == ID){
+            if (Subscriptions[i].getID() == ID){
                 Subscriptions[i].DisplaySubscriptionInfo();
                 System.out.println("=================");
                 break;

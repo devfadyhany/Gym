@@ -37,7 +37,7 @@ public class Coach extends Person{
         int removedIndex = 0;
 
         for(int i = 0; i < 10; i++) {
-            if (clients[i].getId == ID) {
+            if (clients[i].getID() == ID) {
                 clients[i] = null;
                 removedIndex = i;
                 break;
@@ -52,18 +52,18 @@ public class Coach extends Person{
     }
 
     public void DisplayInfo(){
-        System.out.println("ID: " + this.getId());
+        System.out.println("ID: " + this.getID());
         System.out.println("Name: " + this.getName());
         System.out.println("Email: " + this.getEmail());
         System.out.println("Password: " + this.getPassword());
-        System.out.println("Phonenumber: " + this.getPhonenumber());
+        System.out.println("Phonenumber: " + this.getPhone_number());
         System.out.println("Working Hours_Per_Day: " + this.getWorkingHoursPerDay());
         System.out.println("Number Of Clients: " + this.getNumberOfClients());
     }
 
     public void DisplayClientInfo(int ID){
         for (int i = 0; i < 10; i++){
-            if (clients[i].getId == ID){
+            if (clients[i].getID() == ID){
                 clients[i].DisplayInfo();
                 break;
             }

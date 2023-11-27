@@ -9,7 +9,7 @@ public class Date {
         this.year=year;
     }
 
-    public void getDate() {
+    public void DisplayDate() {
         System.out.println(this.day + "/" + this.month + "/" + this.year);
     }
 }

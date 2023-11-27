@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class Membership_Plan {
     private Date Start_Date;
     private char Monthly_plan;
@@ -79,6 +77,14 @@ public class Membership_Plan {
 
         }
         return this.Plan_price;
+    }
+
+    public void DisplayInfo(){
+        System.out.print("Start_Date: ");
+        Start_Date.DisplayDate();
+        System.out.println("Monthly_Plan: " + getMonthly_plan());
+        System.out.println("Number of Months Registered: " + getRegistred_Months_num());
+        System.out.println("Plan_Price: " + getPlan_price());
     }
 
 }

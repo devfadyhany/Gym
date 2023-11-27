@@ -34,11 +34,11 @@ public class Customer extends Person{
     }
 
     public void DisplayInfo(){
-        System.out.println("ID: " + this.getId());
+        System.out.println("ID: " + this.getID());
         System.out.println("Name: " + this.getName());
         System.out.println("Email: " + this.getEmail());
         System.out.println("Password: " + this.getPassword());
-        System.out.println("Phonenumber: " + this.getPhonenumber());
+        System.out.println("Phonenumber: " + this.getPhone_number());
         System.out.println("Subscription: " + this.getSubscription());
         System.out.println("Coach: " + this.getCoach().getName());
     }
