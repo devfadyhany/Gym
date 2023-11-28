@@ -60,8 +60,8 @@ public class Person {
         this.phone_number = phone_number;
     }
 
-    public void setGender(char gender) {
-        this.gender = gender;
+    public void setGender(String gender) {
+        this.gender = gender.charAt(0);
     }
 
     public boolean isApproved() {

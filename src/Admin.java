@@ -1,5 +1,5 @@
 public class Admin {
-    private final int ID;
+    private int ID;
     private String Name;
     private String Email;
     private String Password;
@@ -15,6 +15,10 @@ public class Admin {
 
     public int getID() {
         return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getName() {

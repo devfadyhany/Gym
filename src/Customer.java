@@ -1,7 +1,9 @@
 public class Customer extends Person{
     private Subscription subscription;
+    private int subscription_ID = subscription.getID();
     private InBody inBodies;
     private Coach coach;
+    private int coach_ID = coach.getID();
     public static int customersCount = 0;
 
     public Customer(int ID ,String name , String email, String password, String phone_number, char gender){
@@ -31,6 +33,22 @@ public class Customer extends Person{
 
     public void setCoach(Coach coach) {
         this.coach = coach;
+    }
+
+    public int getSubscription_ID() {
+        return subscription_ID;
+    }
+
+    public void setSubscription_ID(int subscription_ID) {
+        this.subscription_ID = subscription_ID;
+    }
+
+    public int getCoach_ID() {
+        return coach_ID;
+    }
+
+    public void setCoach_ID(int coach_ID) {
+        this.coach_ID = coach_ID;
     }
 
     public void DisplayInfo(){
