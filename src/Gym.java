@@ -5,6 +5,7 @@ public class Gym {
     private String Address;
     private String Phone_number;
     public static Customer[] Customers;
+    public static Admin[] Admins;
     private Equipment[] Sports_equipment;
     private int numberOfEquipments= 0;
     public static Coach[] Coaches;
@@ -13,12 +14,11 @@ public class Gym {
 
 
 
-    public Gym(String Name, String Address, String Phone_number, Equipment[] Sports_equipment, Coach[] Coaches, Subscription[] Subscriptions) {
+    public Gym(String Name, String Address, String Phone_number, Equipment[] Sports_equipment, Subscription[] Subscriptions) {
         this.Name = Name;
         this.Address = Address;
         this.Phone_number = Phone_number;
         this.Sports_equipment = Sports_equipment;
-        this.Coaches = Coaches;
         this.Subscriptions = Subscriptions;
     }
 
@@ -26,31 +26,24 @@ public class Gym {
     public void setName(String Name) {
         this.Name = Name;
     }
-
-
     public String getName() {
         return Name;
     }
 
-
     public void setAddress(String Address) {
         this.Address = Address;
     }
-
-
     public String getAddress() {
         return Address;
     }
 
-
     public void setPhoneNumber(String Phone_number) {
         this.Phone_number = Phone_number;
     }
-
-
     public String getPhoneNumber() {
         return Phone_number;
     }
+
     public void setNumberOfEquipments(int numberOfEquipments) {
 
         this.numberOfEquipments = numberOfEquipments;
@@ -59,12 +52,11 @@ public class Gym {
 
         return numberOfEquipments;
     }
+
     public void setNumberOfSubscriptions(int numberOfSubscriptions) {
 
         this.numberOfSubscriptions = numberOfSubscriptions;
     }
-
-
     public int getNumberOfSubscriptions() {
 
         return numberOfSubscriptions;
@@ -74,7 +66,6 @@ public class Gym {
 
         Sports_equipment[numberOfEquipments] = equipment;
     }
-
     public void RemoveEquipment(int Code){
         int removedIndex = 0;
 
@@ -102,10 +93,42 @@ public class Gym {
         }
     }
 
+    public static void AddAdmin(Admin admin){
+        Admins[Admin.adminsCount] = admin;
+    }
+    public static void RemoveAdmin(int ID){
+        int removedIndex = 0;
+
+        for(int i = 0; i < Admin.adminsCount; i++) {
+            if (Admins[i].getID() == ID) {
+                Admins[i] = null;
+                removedIndex = i;
+                break;
+            }
+        }
+
+        for (int j = 0; j < Admin.adminsCount; j++){
+            if (j < Admin.adminsCount - 1) {
+                if (j >= removedIndex){
+                    Admins[j] = Admins[j+1];
+                }
+            }
+        }
+        Admin.adminsCount--;
+    }
+    public static void ViewAdmins(int ID){
+        for (int i = 0; i < Admin.adminsCount; i++){
+            if (Admins[i].getID() == ID){
+                Admins[i].DisplayInfo();
+                System.out.println("=================");
+                break;
+            }
+        }
+    }
+
     public static void AddCustomer(Customer customer){
         Customers[Customer.customersCount] = customer;
     }
-
     public static void RemoveCustomer(int ID){
         int removedIndex = 0;
 
@@ -126,7 +149,6 @@ public class Gym {
         }
         Customer.customersCount--;
     }
-
     public static void ViewCustomers(int ID){
         for (int i = 0; i < Customer.customersCount; i++){
             if (Customers[i].getID() == ID){
@@ -140,7 +162,6 @@ public class Gym {
     public static void AddCoach(Coach coach){
         Coaches[Coach.coachCount] = coach;
     }
-
     public static void RemoveCoach(int ID){
         int removedIndex = 0;
 
@@ -161,7 +182,6 @@ public class Gym {
         }
         Coach.coachCount--;
     }
-
     public static void ViewCoaches(int ID){
         for (int i = 0; i < Coach.coachCount; i++){
             if (Coaches[i].getID() == ID){
@@ -176,7 +196,6 @@ public class Gym {
 
         Subscriptions[numberOfSubscriptions] = Subscription;
     }
-
     public void RemoveSubscriptions(int ID){
         int removedIndex = 0;
 

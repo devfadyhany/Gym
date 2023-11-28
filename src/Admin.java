@@ -1,13 +1,18 @@
+import java.sql.SQLOutput;
+
 public class Admin {
     private final int ID;
     private String Name;
     private String Email;
     private String Password;
+    public static int adminsCount = 0;
+
     Admin(int i,String n,String e,String p){
         this.ID=i;
         this.Name=n;
         this.Email=e;
         this.Password=p;
+        adminsCount++;
     }
 
     public int getID() {
@@ -36,5 +41,12 @@ public class Admin {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public void DisplayInfo(){
+        System.out.println("ID: " + this.getID());
+        System.out.println("Name: " + this.getName());
+        System.out.println("Email: " + this.getEmail());
+        System.out.println("Password: " + this.getPassword());
     }
 }

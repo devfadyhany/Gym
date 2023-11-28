@@ -21,4 +21,15 @@ public class Login{
         }
         return true;
     }
+
+    public static boolean AdminLogin(String Email, String Password){
+        for (int i = 0; i < Admin.adminsCount; i++){
+            if (Gym.Admins[i].getEmail().equals(Email) && Gym.Admins[i].getPassword().equals(Password)){
+                break;
+            }else {
+                return false;
+            }
+        }
+        return true;
+    }
 }
