@@ -1,5 +1,3 @@
-import java.sql.SQLOutput;
-
 public class Admin {
     private final int ID;
     private String Name;
