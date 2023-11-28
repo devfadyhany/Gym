@@ -4,7 +4,7 @@ public class Customer extends Person{
     private Coach coach;
     public static int customersCount = 0;
 
-    public Customer(int ID ,String name , String email, String password, int phone_number, char gender){
+    public Customer(int ID ,String name , String email, String password, String phone_number, char gender){
         super(ID,name,email,password,phone_number,gender);
         customersCount++;
     }

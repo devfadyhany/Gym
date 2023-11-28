@@ -3,10 +3,11 @@ public class Person {
     private String name;
     private String email;
     private String password;
-    private int phone_number;
+    private String phone_number;
     private char gender;
+    private boolean isApproved = false;
 
-    public Person(int ID ,String name , String email, String password, int phone_number, char gender ){
+    public Person(int ID ,String name , String email, String password, String phone_number, char gender ){
         this.ID=ID;
         this.name=name;
         this.email=email;
@@ -31,7 +32,7 @@ public class Person {
         return password;
     }
 
-    public int getPhone_number() {
+    public String getPhone_number() {
         return phone_number;
     }
 
@@ -55,11 +56,19 @@ public class Person {
         this.password = password;
     }
 
-    public void setPhone_number(int phone_number) {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 
     public void setGender(char gender) {
         this.gender = gender;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 }

@@ -1,14 +1,13 @@
 
 public class Gym {
 
-
     private String Name;
     private String Address;
     private String Phone_number;
+    public static Customer[] Customers;
     private Equipment[] Sports_equipment;
     private int numberOfEquipments= 0;
-    private Coach[] Coaches;
-    private int numberOfCoaches = 0;
+    public static Coach[] Coaches;
     private Subscription[] Subscriptions;
     private int numberOfSubscriptions = 0;
 
@@ -60,13 +59,6 @@ public class Gym {
 
         return numberOfEquipments;
     }
-    public void setNumberOfCoaches(int numberOfCoaches) {
-
-        this.numberOfCoaches = numberOfCoaches;
-    }
-    public int getNumberOfCoaches() {
-        return numberOfCoaches;
-    }
     public void setNumberOfSubscriptions(int numberOfSubscriptions) {
 
         this.numberOfSubscriptions = numberOfSubscriptions;
@@ -110,15 +102,49 @@ public class Gym {
         }
     }
 
-    public void AddCoach(Coach coach){
-
-        Coaches[numberOfCoaches] = coach;
+    public static void AddCustomer(Customer customer){
+        Customers[Customer.customersCount] = customer;
     }
 
-    public void RemoveCoach(int ID){
+    public static void RemoveCustomer(int ID){
         int removedIndex = 0;
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < Customer.customersCount; i++) {
+            if (Customers[i].getID() == ID) {
+                Customers[i] = null;
+                removedIndex = i;
+                break;
+            }
+        }
+
+        for (int j = 0; j < Customer.customersCount; j++){
+            if (j < Customer.customersCount - 1) {
+                if (j >= removedIndex){
+                    Customers[j] = Customers[j+1];
+                }
+            }
+        }
+        Customer.customersCount--;
+    }
+
+    public static void ViewCustomers(int ID){
+        for (int i = 0; i < Customer.customersCount; i++){
+            if (Customers[i].getID() == ID){
+                Customers[i].DisplayInfo();
+                System.out.println("=================");
+                break;
+            }
+        }
+    }
+
+    public static void AddCoach(Coach coach){
+        Coaches[Coach.coachCount] = coach;
+    }
+
+    public static void RemoveCoach(int ID){
+        int removedIndex = 0;
+
+        for(int i = 0; i < Coach.coachCount; i++) {
             if (Coaches[i].getID() == ID) {
                 Coaches[i] = null;
                 removedIndex = i;
@@ -126,14 +152,18 @@ public class Gym {
             }
         }
 
-        for (int j = 0; j < 10; j++){
-            if (j >= removedIndex){
-                Coaches[j] = Coaches[j+1];
+        for (int j = 0; j < Coach.coachCount; j++){
+            if (j < Coach.coachCount - 1) {
+                if (j >= removedIndex){
+                    Coaches[j] = Coaches[j+1];
+                }
             }
         }
+        Coach.coachCount--;
     }
-    public void ViewCoaches(int ID){
-        for (int i = 0; i < 10; i++){
+
+    public static void ViewCoaches(int ID){
+        for (int i = 0; i < Coach.coachCount; i++){
             if (Coaches[i].getID() == ID){
                 Coaches[i].DisplayInfo();
                 System.out.println("=================");
@@ -141,6 +171,7 @@ public class Gym {
             }
         }
     }
+
     public void AddSubscription(Subscription Subscription){
 
         Subscriptions[numberOfSubscriptions] = Subscription;
