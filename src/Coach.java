@@ -45,8 +45,10 @@ public class Coach extends Person{
         }
 
         for (int j = 0; j < 10; j++){
-            if (j >= removedIndex){
-                clients[j] = clients[j+1];
+            if (j < 9){
+                if (j >= removedIndex){
+                    clients[j] = clients[j+1];
+                }
             }
         }
     }
