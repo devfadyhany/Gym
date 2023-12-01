@@ -150,4 +150,14 @@ public class InBody {
             }
         }
     }
+
+    public void displayInBody(){
+        System.out.println("Height:"+getHight());
+        System.out.println("Total Weight"+getTotal_weight());
+        System.out.println("Mass:"+getMass());
+        System.out.println("Water:"+getWater());
+        System.out.println("Fats:"+getFats());
+        System.out.println("Minerals:"+getMinerals());
+        System.out.println("Protein:"+getProtien());
+    }
 }

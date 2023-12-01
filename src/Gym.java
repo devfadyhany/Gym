@@ -12,7 +12,9 @@ public class Gym {
     private Subscription[] Subscriptions;
     private int numberOfSubscriptions = 0;
 
+public Gym(){
 
+}
     public Gym(String Name, String Address, String Phone_number, Equipment[] Sports_equipment, Subscription[] Subscriptions) {
         this.Name = Name;
         this.Address = Address;
@@ -89,13 +91,11 @@ public class Gym {
         }
     }
 
-    public void ViewEquipments(int ID) {
-        for (int i = 0; i < 10; i++) {
-            if (Sports_equipment[i].getEQUIPMENTCODE() == ID) {
+    public void ViewEquipments() {
+        for (int i = 0; i < Sports_equipment.length+1; i++) {
                 Sports_equipment[i].DisplayInfo();
                 System.out.println("=================");
-                break;
-            }
+
         }
     }
 
@@ -135,7 +135,7 @@ public class Gym {
     }
 
     public static void AddCustomer(Customer customer) {
-        Customers[Customer.customersCount] = customer;
+        Customers[Customer.customersCount-1] = customer;
     }
 
     public static void RemoveCustomer(int ID) {

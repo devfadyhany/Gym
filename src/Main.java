@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
-
+Menu menu=new Menu();
 
     public static void main(String[] args) {
         boolean flag;
@@ -43,7 +43,7 @@ public class Main {
                     newchoice=0;
                     break;
                 case 2:
-                    RegisterMenu(choice);
+                    menu.RegisterMenu(choice);
                     newchoice=0;
                     break;
             }
@@ -63,26 +63,12 @@ public class Main {
             Login.CoachLogin(email,password);
         } else if (choice==2) {
             Login.CustomerLogin(email,password);
+
         }
        else {
           Login.AdminLogin(email,password);
         }
-    }
 
-    public static void RegisterMenu(int choice){
-        Scanner input=new Scanner(System.in);
-        String name,email,password,phoneNumber;
-        char gender;
-        System.out.println("enter your name");
-        name=input.next();
-        System.out.println("enter your email");
-        email=input.next();
-        System.out.println("enter your password");
-        password=input.next();
-        System.out.println("enter your phone number");
-        phoneNumber=input.next();
-        System.out.println("enter your gender");
-        gender=input.next().charAt(0);
     }
 }
 
