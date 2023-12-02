@@ -2,8 +2,8 @@ public class Equipment {
     private String name;
     private String[] targetedMuscles;
     private int quantity ;
-    private final int EQUIPMENTCODE;
-
+    private int EQUIPMENTCODE;
+    public static int numberOfEquipments = 0;
     //private String photo;
 
     public Equipment (String name,int quantity,int equipmentCode,String[] targetedMuscle)
@@ -12,6 +12,7 @@ public class Equipment {
         this.quantity=quantity;
         this.EQUIPMENTCODE =equipmentCode;
         this.targetedMuscles =targetedMuscle;
+        numberOfEquipments++;
     }
 
     public void setName(String name) {

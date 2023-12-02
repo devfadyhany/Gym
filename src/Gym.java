@@ -4,23 +4,22 @@ public class Gym {
     private String Name;
     private String Address;
     private String Phone_number;
-    public static Customer[] Customers;
-    public static Admin[] Admins;
-    private Equipment[] Sports_equipment;
-    private int numberOfEquipments = 0;
-    public static Coach[] Coaches;
-    private Subscription[] Subscriptions;
-    private int numberOfSubscriptions = 0;
+    public static Customer[] Customers = new Customer[300];
+    public static Coach[] Coaches = new Coach[100];
+    public static Admin[] Admins = new Admin[10];
+    private Equipment[] Sports_equipment = new Equipment[50];
+    private Subscription[] Subscriptions = new Subscription[10];
 
-public Gym(){
+    public Gym() {
+        this.Name = "GYM";
+        this.Address = "Default";
+        this.Phone_number = "00000000000";
+    }
 
-}
-    public Gym(String Name, String Address, String Phone_number, Equipment[] Sports_equipment, Subscription[] Subscriptions) {
+    public Gym(String Name, String Address, String Phone_number) {
         this.Name = Name;
         this.Address = Address;
         this.Phone_number = Phone_number;
-        this.Sports_equipment = Sports_equipment;
-        this.Subscriptions = Subscriptions;
     }
 
 
@@ -48,29 +47,8 @@ public Gym(){
         return Phone_number;
     }
 
-    public void setNumberOfEquipments(int numberOfEquipments) {
-
-        this.numberOfEquipments = numberOfEquipments;
-    }
-
-    public int getNumberOfEquipments() {
-
-        return numberOfEquipments;
-    }
-
-    public void setNumberOfSubscriptions(int numberOfSubscriptions) {
-
-        this.numberOfSubscriptions = numberOfSubscriptions;
-    }
-
-    public int getNumberOfSubscriptions() {
-
-        return numberOfSubscriptions;
-    }
-
     public void AddEquipment(Equipment equipment) {
-
-        Sports_equipment[numberOfEquipments] = equipment;
+        Sports_equipment[Equipment.numberOfEquipments] = equipment;
     }
 
     public void RemoveEquipment(int Code) {
@@ -92,9 +70,9 @@ public Gym(){
     }
 
     public void ViewEquipments() {
-        for (int i = 0; i < Sports_equipment.length+1; i++) {
-                Sports_equipment[i].DisplayInfo();
-                System.out.println("=================");
+        for (int i = 0; i < Sports_equipment.length + 1; i++) {
+            Sports_equipment[i].DisplayInfo();
+            System.out.println("=================");
 
         }
     }
@@ -135,7 +113,7 @@ public Gym(){
     }
 
     public static void AddCustomer(Customer customer) {
-        Customers[Customer.customersCount-1] = customer;
+        Customers[Customer.customersCount - 1] = customer;
     }
 
     public static void RemoveCustomer(int ID) {
@@ -204,16 +182,27 @@ public Gym(){
         }
     }
 
+    public static Coach SearchCoachByID(int id) {
+        int index = 0;
+        for (int i = 0; i < Coach.coachCount; i++) {
+            if (Coaches[i].getID() == id) {
+                index = i;
+                break;
+            }
+        }
+        return Coaches[index];
+    }
+
     public void AddSubscription(Subscription Subscription) {
 
-        Subscriptions[numberOfSubscriptions] = Subscription;
+        Subscriptions[Subscription.numberOfSubscriptions] = Subscription;
     }
 
     public void RemoveSubscriptions(int ID) {
         int removedIndex = 0;
 
         for (int i = 0; i < 10; i++) {
-            if (Subscriptions[i].getID() == ID) {
+            if (Subscriptions[i].getSUBSCRIPTION_ID() == ID) {
                 Subscriptions[i] = null;
                 removedIndex = i;
                 break;
@@ -229,7 +218,7 @@ public Gym(){
 
     public void ViewSubscriptions(int ID) {
         for (int i = 0; i < 10; i++) {
-            if (Subscriptions[i].getID() == ID) {
+            if (Subscriptions[i].getSUBSCRIPTION_ID() == ID) {
                 Subscriptions[i].DisplaySubscriptionInfo();
                 System.out.println("=================");
                 break;
@@ -237,15 +226,6 @@ public Gym(){
         }
     }
 
-    public static Coach SearchCoachByID(int id) {
-        int index=0;
-        for (int i = 0; i < Coach.coachCount; i++) {
-            if (Coaches[i].getID() == id) {
-                index=i;
-                break;
-            }
-        }
-        return Coaches[index];
-    }
+
 }
 

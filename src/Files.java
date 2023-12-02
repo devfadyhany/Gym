@@ -15,7 +15,7 @@ public class Files {
                 writer.append(Gym.Customers[counter-1].getPassword() + ",");
                 writer.append(Gym.Customers[counter-1].getPhone_number() + ",");
                 writer.append(Gym.Customers[counter-1].getGender() + ",");
-                writer.append(Gym.Customers[counter-1].getSubscription().getID() + ",");
+                writer.append(Gym.Customers[counter-1].getSubscription().getSUBSCRIPTION_ID() + ",");
                 writer.append(Gym.Customers[counter-1].getCoach().getID() + "\n");
                 counter++;
             }
@@ -62,8 +62,8 @@ public class Files {
                 Gym.Customers[counter].setPassword(row[3]);
                 Gym.Customers[counter].setPhone_number(row[4]);
                 Gym.Customers[counter].setGender(row[5]);
-                Gym.Customers[counter].setSubscription_ID(Integer.parseInt(row[6]));
-                Gym.Customers[counter].setCoach_ID(Integer.parseInt(row[7]));
+//                Gym.Customers[counter].setSubscription_ID(Integer.parseInt(row[6]));
+//                Gym.Customers[counter].setCoach_ID(Integer.parseInt(row[7]));
                 counter++;
             }
         }catch (IOException e){

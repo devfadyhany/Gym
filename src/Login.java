@@ -1,35 +1,35 @@
 public class Login{
 
-    public static boolean CustomerLogin(String Email, String Password){
-        boolean loggedIn = false;
+    public static Customer CustomerLogin(String Email, String Password){
+        Customer Loggedcustomer = null;
         for (int i = 0; i < Customer.customersCount; i++){
             if (Gym.Customers[i].getEmail().equals(Email) && Gym.Customers[i].getPassword().equals(Password)){
-                loggedIn = true;
+                Loggedcustomer = Gym.Customers[i];
                 break;
             }
         }
-        return loggedIn;
+        return Loggedcustomer;
     }
 
-    public static boolean CoachLogin(String Email, String Password){
-        boolean loggedIn = false;
+    public static Coach CoachLogin(String Email, String Password){
+        Coach LoggedCoach = null;
         for (int i = 0; i < Coach.coachCount; i++){
             if (Gym.Coaches[i].getEmail().equals(Email) && Gym.Coaches[i].getPassword().equals(Password)){
-                loggedIn = true;
+                LoggedCoach = Gym.Coaches[i];
                 break;
             }
         }
-        return loggedIn;
+        return LoggedCoach;
     }
 
-    public static boolean AdminLogin(String Email, String Password){
-        boolean loggedIn = false;
+    public static Admin AdminLogin(String Email, String Password){
+        Admin LoggedAdmin = null;
         for (int i = 0; i < Admin.adminsCount; i++){
             if (Gym.Admins[i].getEmail().equals(Email) && Gym.Admins[i].getPassword().equals(Password)){
-                loggedIn = true;
+                LoggedAdmin = Gym.Admins[i];
                 break;
             }
         }
-        return loggedIn;
+        return LoggedAdmin;
     }
 }
