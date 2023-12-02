@@ -137,13 +137,10 @@ public class Gym {
         Customer.customersCount--;
     }
 
-    public static void ViewCustomers(int ID) {
+    public static void ViewCustomers() {
         for (int i = 0; i < Customer.customersCount; i++) {
-            if (Customers[i].getID() == ID) {
-                Customers[i].DisplayInfo();
-                System.out.println("=================");
-                break;
-            }
+            Customers[i].DisplayInfo();
+            System.out.println("=================");
         }
     }
 
@@ -226,6 +223,14 @@ public class Gym {
         }
     }
 
-
+    public Coach getCoachByID(int ID) {
+        Coach C = null;
+        for (int i = 0; i < Coach.coachCount; i++) {
+            if (Coaches[i].getID() == ID) {
+                C = Coaches[i];
+            }
+        }
+        return C;
+    }
 }
 

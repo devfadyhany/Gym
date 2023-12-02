@@ -1,11 +1,27 @@
 import java.util.Scanner;
 
-//1. Get his coach info (Name, Phone number, working hours)
-//2. Display for all the Gym Equipment.
-//3. Display the customer the membership’s plan details.
-//4. Display the in-body information at a specific date.
-//5. Display for the user how many kilos need to be reduced according to his body
-//(you can get any calculation through the internet)
+//        For Customer:
+//        1. Get his coach info (Name, Phone number, working hours)
+//        2. Display for all the Gym Equipment.
+//        3. Display the customer the membership’s plan details.
+//        4. Display the in-body information at a specific date.
+//        5. Display for the user how many kilos need to be reduced according to his body
+//        (you can get any calculation through the internet)
+//
+//        For Coach:
+//        1. Show a list of all his customers.
+//        2. Get the inbody history of any of his customers.
+//        3. Get all the details of a customer by his name.
+//        4. Show a list of all his female/male customers.
+//
+//        For Admin:
+//        1. Can add/edit/delete coaches, types of equipment, and customers to the gym.
+//        2. Show the subscription history for a customer.
+//        3. Display all the customers that subscribed to the gym in a given month/day.
+//        4. Display all the customers of a specific coach.
+//        5. Display the GYM income in a given month.
+//        6. Display the coaches sorted in terms of the most assigned number of
+//        customers to the coaches.
 
 public class Menu extends Gym {
     Scanner input = new Scanner(System.in);
@@ -85,7 +101,6 @@ public class Menu extends Gym {
     }
 
     public void RegisterMenu(int choice) {
-        Scanner input = new Scanner(System.in);
         String name, email, password, phoneNumber;
         char gender;
         System.out.println("enter your name");
@@ -143,10 +158,200 @@ public class Menu extends Gym {
     }
 
     public void coachMenu(Coach coach) {
-
+        if (coach.isApproved()) {
+            boolean flag;
+            do {
+                flag = false;
+                System.out.println("Welcome, " + coach.getName());
+                System.out.println("1-Customers info\n2-InBody History for any of the Customers\n3-Get all the details of a customer by his name.\n4-Show a list of all female/male customers.");
+                int choice = input.nextInt();
+                String customerName;
+                char customerGender;
+                switch (choice) {
+                    case 1:
+                        coach.DisplayClientsInfo();
+                        flag = true;
+                        break;
+                    //   case 2:
+//                        ViewEquipments();
+                    //    flag = true;
+                    //    break;
+                    case 3:
+                        System.out.println("Enter Customer's Name");
+                        customerName = input.next();
+                        coach.DisplayClientInfo(customerName);
+                        flag = true;
+                        break;
+                    case 4:
+                        System.out.println("Choose Male or Female: M for Male,F for Female.");
+                        customerGender = input.next().charAt(0);
+                        coach.DisplayClientsByGender(customerGender);
+                        flag = true;
+                        break;
+                }
+            } while (!flag);
+        } else {
+            System.out.println("Account is on Hold\nWaiting for Admin is Approval...");
+        }
     }
 
     public void adminMenu(Admin admin) {
 
+        boolean flag;
+        do {
+            flag = false;
+            System.out.println("Welcome, " + admin.getName());
+            System.out.println("Choose what you want to edit");
+            System.out.println("1-Customers\n2-Gym Equipments\n3-Coaches");
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    AdminCustomerMenu();
+                    flag = true;
+                    break;
+                case 2:
+                    AdminEquipmentMenu();
+                    flag = true;
+                    break;
+                case 3:
+                    AdminCoachMenu();
+                    flag = true;
+                    break;
+            }
+        } while (!flag);
+    }
+    public void AdminCustomerMenu(){
+        boolean flag;
+        do {
+            flag = false;
+            System.out.println("1-Add Customers\n2-Edit Customers\n3-Delete Customers\n4-Show the subscription history for a customer.\n5-Display all the customers that subscribed to the gym in a given month/day.");
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    String name, email, password, phoneNumber;
+                    char gender;
+                    System.out.println("enter your name");
+                    name = input.next();
+                    System.out.println("enter your email");
+                    email = input.next();
+                    System.out.println("enter your password");
+                    password = input.next();
+                    System.out.println("enter your phone number");
+                    phoneNumber = input.next();
+                    System.out.println("enter your gender");
+                    gender = input.next().charAt(0);
+                    Customer C = new Customer(Customer.customersCount+1,name,email,password,phoneNumber,gender);
+                    AddCustomer(C);
+                    flag = true;
+                    break;
+//                case 2:
+//                    EditCustomer();
+//                    flag = true;
+//                    break;
+                case 3:
+                    int ID;
+                    System.out.println("Enter Customer ID:");
+                    ID = input.nextInt();
+                    RemoveCustomer(ID);
+                    flag = true;
+                    break;
+//                case 4:
+//                    AdminCoachMenu();
+//                    flag = true;
+//                    break;
+                case 5:
+                    ViewCustomers();
+                    flag = true;
+                    break;
+            }
+        } while (!flag);
+    }
+
+    public void AdminEquipmentMenu(){
+        boolean flag;
+        do {
+            flag = false;
+            System.out.println("1-Add Equipment\n2-Edit Equipment\n3-Delete Equipment");
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    String name;
+                    int quantity;
+                    String[]targetedMuscle;
+                    System.out.println("enter equipment name");
+                    name = input.next();
+                    System.out.println("enter equipment quantity");
+                    quantity = input.nextInt();
+//                    System.out.println("enter equipment targetedMuscle");
+//                    targetedMuscle = input.next();
+                    Equipment E = new Equipment(Equipment.numberOfEquipments+1,name,quantity,targetedMuscle);
+                    AddEquipment(E);
+                    flag = true;
+                    break;
+//                case 2:
+//                    EditEquipment();
+//                    flag = true;
+//                    break;
+                case 3:
+                    int ID;
+                    System.out.println("Enter Equipment ID:");
+                    ID = input.nextInt();
+                    RemoveEquipment(ID);
+                    flag = true;
+                    break;
+            }
+        } while (!flag);
+    }
+
+    public void AdminCoachMenu(){
+        boolean flag;
+        do {
+            flag = false;
+            System.out.println("1-Add Coaches\n2-Edit Coaches\n3-Delete Coaches\n4-Display all the customers of a specific coach.\n5-Display the coaches sorted in terms of the most assigned number of " +
+                    "customers to the coaches.");
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    String name, email, password, phoneNumber;
+                    char gender;
+                    System.out.println("enter your name");
+                    name = input.next();
+                    System.out.println("enter your email");
+                    email = input.next();
+                    System.out.println("enter your password");
+                    password = input.next();
+                    System.out.println("enter your phone number");
+                    phoneNumber = input.next();
+                    System.out.println("enter your gender");
+                    gender = input.next().charAt(0);
+                    Coach C = new Coach(Coach.coachCount+1,name,email,password,phoneNumber,gender);
+                    AddCoach(C);
+                    flag = true;
+                    break;
+//                case 2:
+//                    EditCustomer();
+//                    flag = true;
+//                    break;
+                case 3:
+                    int ID;
+                    System.out.println("Enter Coach ID:");
+                    ID = input.nextInt();
+                    RemoveCoach(ID);
+                    flag = true;
+                    break;
+                case 4:
+                    int CoachID;
+                    System.out.println("Enter Coach ID:");
+                    CoachID = input.nextInt();
+                    getCoachByID(CoachID).DisplayClientsInfo();
+                    flag = true;
+                    break;
+//                case 5:
+//                    ViewCustomers();
+//                    flag = true;
+//                    break;
+            }
+        } while (!flag);
     }
 }
+
