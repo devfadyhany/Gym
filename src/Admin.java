@@ -1,54 +1,17 @@
 public class Admin {
-    private int ID;
-    private String Name;
-    private String Email;
-    private String Password;
-    public static int adminsCount = 0;
-
-    Admin(int i,String n,String e,String p){
-        this.ID=i;
-        this.Name=n;
-        this.Email=e;
-        this.Password=p;
-        adminsCount++;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+    private final String NAME = "Admin";
+    private final String EMAIL = "Admin@gmail.com";
+    private final String PASSWORD = "admin";
 
     public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
+        return NAME;
     }
 
     public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
+        return EMAIL;
     }
 
     public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public void DisplayInfo(){
-        System.out.println("ID: " + this.getID());
-        System.out.println("Name: " + this.getName());
-        System.out.println("Email: " + this.getEmail());
-        System.out.println("Password: " + this.getPassword());
+        return PASSWORD;
     }
 }

@@ -1,7 +1,8 @@
 public class Equipment {
     private String name;
-    private String[] targetedMuscles;
+    public String[] targetedMuscles;
     private int quantity ;
+
     private int EQUIPMENTCODE;
     public static int numberOfEquipments = 0;
     //private String photo;
@@ -31,6 +32,10 @@ public class Equipment {
     }
     public int getEQUIPMENTCODE() {
         return EQUIPMENTCODE;
+    }
+
+    public void setEQUIPMENTCODE(int EQUIPMENTCODE) {
+        this.EQUIPMENTCODE = EQUIPMENTCODE;
     }
 
    /* public String getPhoto() {

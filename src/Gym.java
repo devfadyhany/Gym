@@ -6,9 +6,10 @@ public class Gym {
     private String Phone_number;
     public static Customer[] Customers = new Customer[300];
     public static Coach[] Coaches = new Coach[100];
-    public static Admin[] Admins = new Admin[10];
-    private Equipment[] Sports_equipment = new Equipment[50];
-    private Subscription[] Subscriptions = new Subscription[10];
+    public static Equipment[] Sports_equipment = new Equipment[50];
+    public static Subscription[] Subscriptions = new Subscription[10];
+
+    public static InBody[] Inbodies = new InBody[10];
 
     public Gym() {
         this.Name = "GYM";
@@ -74,41 +75,6 @@ public class Gym {
             Sports_equipment[i].DisplayInfo();
             System.out.println("=================");
 
-        }
-    }
-
-    public static void AddAdmin(Admin admin) {
-        Admins[Admin.adminsCount] = admin;
-    }
-
-    public static void RemoveAdmin(int ID) {
-        int removedIndex = 0;
-
-        for (int i = 0; i < Admin.adminsCount; i++) {
-            if (Admins[i].getID() == ID) {
-                Admins[i] = null;
-                removedIndex = i;
-                break;
-            }
-        }
-
-        for (int j = 0; j < Admin.adminsCount; j++) {
-            if (j < Admin.adminsCount - 1) {
-                if (j >= removedIndex) {
-                    Admins[j] = Admins[j + 1];
-                }
-            }
-        }
-        Admin.adminsCount--;
-    }
-
-    public static void ViewAdmins(int ID) {
-        for (int i = 0; i < Admin.adminsCount; i++) {
-            if (Admins[i].getID() == ID) {
-                Admins[i].DisplayInfo();
-                System.out.println("=================");
-                break;
-            }
         }
     }
 

@@ -1,7 +1,6 @@
-import java.util.Scanner;
-
 public class InBody {
 
+    private int Customer_ID;
     protected Date InBody_date;
     protected float hight;
     protected float Total_Weight;
@@ -14,7 +13,10 @@ public class InBody {
     public int age;
    // public float activity_factor;
 
-    public InBody(Date InBody_date, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
+    public static int numberOfInbodies = 0;
+
+    public InBody(int customer_ID, Date InBody_date, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
+        this.Customer_ID = customer_ID;
         this.InBody_date = InBody_date;
         this.hight = hight;
         this.Total_Weight = Total_Weight;
@@ -26,6 +28,15 @@ public class InBody {
         // this.Bmi=Bmi;
         this.age = age;
        // this.activity_factor = activity_factor;
+        numberOfInbodies++;
+    }
+
+    public int getCustomer_ID() {
+        return Customer_ID;
+    }
+
+    public void setCustomer_ID(int customer_ID) {
+        Customer_ID = customer_ID;
     }
 
     public void setInBody_date(Date inBody_date) {
@@ -101,8 +112,12 @@ public class InBody {
    /* public float getBmi() {
         return Bmi;
     }*/
-    public int getage() {
+    public int getAge() {
         return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public float CalcBmi() {
@@ -115,12 +130,12 @@ public class InBody {
     }
 
     public float Calc_bmr_male() {
-        return (float) ((10 * getTotal_weight()) + (6.25 * (getHight() * 100)) - (5 * getage()) + 5);
+        return (float) ((10 * getTotal_weight()) + (6.25 * (getHight() * 100)) - (5 * getAge()) + 5);
 
     }
 
     public float Calc_bmr_fmale() {
-        return (float) ((10 * getTotal_weight()) + (6.25 * (getHight() * 100)) - (5 * getage()) - 16);
+        return (float) ((10 * getTotal_weight()) + (6.25 * (getHight() * 100)) - (5 * getAge()) - 16);
 
     }
 
