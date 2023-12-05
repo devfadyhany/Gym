@@ -1,6 +1,7 @@
 public class Equipment {
     private String name;
     public String[] targetedMuscles;
+    public int numOfTargetedMuscles = 0;
     private int quantity ;
 
     private int EQUIPMENTCODE;

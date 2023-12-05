@@ -314,7 +314,6 @@ public class Files {
         }
     }
 
-    //    Logic Needs Fix
     public static void ReadTargetedMuscles() {
         String file = "Data/TargetedMuscles.csv";
         BufferedReader reader = null;
@@ -326,8 +325,10 @@ public class Files {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 for (int i = 0; i < Equipment.numberOfEquipments; i++) {
-                    if (Integer.parseInt(row[0]) == Gym.Sports_equipment[i].getEQUIPMENTCODE()) {
-                        Gym.Sports_equipment[i].targetedMuscles[i] = (row[1]);
+                    if (Gym.Sports_equipment[i].getEQUIPMENTCODE() == Integer.parseInt(row[0])) {
+                        Gym.Sports_equipment[i].targetedMuscles[Gym.Sports_equipment[i].numOfTargetedMuscles] = (row[1]);
+                        Gym.Sports_equipment[i].numOfTargetedMuscles++;
+                        break;
                     }
                 }
                 counter++;
@@ -351,8 +352,8 @@ public class Files {
                 for (Customer c : Gym.Customers) {
                     if (!c.isApproved()) {
                         writer.append(c.getID() + "\n");
-                        counter++;
                     }
+                    counter++;
                 }
 
 
@@ -374,11 +375,11 @@ public class Files {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 for (Customer c : Gym.Customers) {
-                    if (Integer.parseInt(row[0]) == c.getID()) {
+                    if (c.getID() == Integer.parseInt(row[0])) {
                         c.setApproved(false);
                     }
+                    counter++;
                 }
-                counter++;
 
             }
         } catch (IOException e) {
@@ -400,8 +401,8 @@ public class Files {
                 for (Coach c : Gym.Coaches) {
                     if (!c.isApproved()) {
                         writer.append(c.getID() + "\n");
-                        counter++;
                     }
+                    counter++;
                 }
 
 
@@ -423,11 +424,12 @@ public class Files {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 for (Coach c : Gym.Coaches) {
-                    if (Integer.parseInt(row[0]) == c.getID()) {
+                    if (c.getID() == Integer.parseInt(row[0])) {
                         c.setApproved(false);
                     }
+                    counter++;
                 }
-                counter++;
+
 
             }
         } catch (IOException e) {
@@ -446,9 +448,11 @@ public class Files {
             int counter = 1;
             FileWriter writer = new FileWriter("Data/CoachClients.csv");
             while (counter <= Coach.coachCount) {
-                for (Customer c : Gym.Coaches[counter-1].getClients()) {
-                    writer.append(Gym.Coaches[counter-1].getID() + ",");
-                    writer.append(c.getID() + "\n");
+                for (Coach coach : Gym.Coaches) {
+                    for (Customer customer: coach.getClients()){
+                        writer.append(coach.getID() + ",");
+                        writer.append(customer.getID() + "\n");
+                    }
                     counter++;
                 }
             }
@@ -468,13 +472,14 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                for (Customer c : Gym.Coaches[counter].getClients()) {
-                    if (c.getID() == Integer.parseInt(row[1])) {
-                        Gym.Coaches[counter].addClient(c);
+                for (Coach coach : Gym.Coaches) {
+                    if (coach.getID() == Integer.parseInt(row[0])) {
+                        coach.getClients()[coach.getNumberOfClients()] = Gym.SearchCustomerByID(Integer.parseInt(row[0]));
+                        coach.setNumberOfClients(coach.getNumberOfClients() + 1);
+                        break;
                     }
                 }
                 counter++;
-
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -156,6 +156,17 @@ public class Gym {
         return Coaches[index];
     }
 
+    public static Customer SearchCustomerByID(int id) {
+        int index = 0;
+        for (int i = 0; i < Customer.customersCount; i++) {
+            if (Customers[i].getID() == id) {
+                index = i;
+                break;
+            }
+        }
+        return Customers[index];
+    }
+
     public void AddSubscription(Subscription Subscription) {
 
         Subscriptions[Subscription.numberOfSubscriptions] = Subscription;
