@@ -353,5 +353,113 @@ public class Menu extends Gym {
             }
         } while (!flag);
     }
+
+    public void EditCustomer() {
+        int  customerID;
+        String newName, newEmail, newPassword, newGender, newNumber;
+
+        System.out.println("Enter customer ID");
+        customerID = input.nextInt();
+        Customer editedcustomer = null;
+        editedcustomer = Gym.SearchCustomerByID(customerID);
+        System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
+        int answer = input.nextInt();
+        switch (answer) {
+            case 1:
+                System.out.println("enter the new name");
+                newName = input.next();
+                editedcustomer.setName(newName);
+                break;
+            case 2:
+                System.out.println("enter the new email");
+                newEmail = input.next();
+                editedcustomer.setEmail(newEmail);
+                break;
+            case 3:
+                System.out.println("enter the new password");
+                newPassword = input.next();
+                editedcustomer.setPassword(newPassword);
+                break;
+            case 4:
+                System.out.println("enter the new phone number");
+                newNumber = input.next();
+                editedcustomer.setPhone_number(newNumber);
+                break;
+            case 5:
+                System.out.println("enter the new Gender");
+                newGender = input.next();
+                editedcustomer.setEmail(newGender);
+                break;
+        }
+    }
+
+    public void EditCoach() {
+        int coachID;
+        String newName, newEmail, newPassword, newGender, newNumber;
+
+        System.out.println("Enter coach ID");
+        coachID = input.nextInt();
+        Coach editedcoach = null;
+        editedcoach = Gym.SearchCoachByID(coachID);
+        System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
+        int answer = input.nextInt();
+        switch (answer) {
+            case 1:
+                System.out.println("enter the new name");
+                newName = input.next();
+                editedcoach.setName(newName);
+                break;
+            case 2:
+                System.out.println("enter the new email");
+                newEmail = input.next();
+                editedcoach.setEmail(newEmail);
+                break;
+            case 3:
+                System.out.println("enter the new password");
+                newPassword = input.next();
+                editedcoach.setPassword(newPassword);
+                break;
+            case 4:
+                System.out.println("enter the new phone number");
+                newNumber = input.next();
+                editedcoach.setPhone_number(newNumber);
+                break;
+            case 5:
+                System.out.println("enter the new Gender");
+                newGender = input.next();
+                editedcoach.setEmail(newGender);
+                break;
+        }
+    }
+
+    public void EditEquipments() {
+        int equipmentcode;
+        String newName,newTargetMuscles;
+        int newQuantity;
+
+        System.out.println("Enter equipment code");
+        equipmentcode= input.nextInt();
+        Equipment editedequipment = null;
+        editedequipment= Gym.SearchEquipmentByCode(equipmentcode);
+        System.out.println("what do you want to edit ====== 1)Name     2)quantity      3)targeted muscles");
+        int answer = input.nextInt();
+        switch (answer) {
+            case 1:
+                System.out.println("enter the new name");
+                newName = input.next();
+                editedequipment.setName(newName);
+                break;
+            case 2:
+                System.out.println("enter the new quantity");
+                newQuantity = input.nextInt();
+                editedequipment.setQuantity(newQuantity);
+                break;
+//            case 3:
+//                System.out.println("enter the new targeted muscles");
+//                newTargetMuscles = input.next();
+//                editedequipment.setTargetedMuscles(newTargetMuscles[]);
+//                break;
+        }
+    }
 }
 

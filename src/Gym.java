@@ -140,6 +140,17 @@ public class Gym {
         return cus;
     }
 
+    public static Equipment SearchEquipmentByCode(int code) {
+        Equipment equ=null;
+        for (Equipment equipment:Sports_equipment) {
+            if (equipment.getEQUIPMENTCODE() == code) {
+                equ=equipment;
+                break;
+            }
+        }
+        return equ;
+    }
+
     public void AddSubscription(Subscription Subscription) {
 
         Subscriptions.add(Subscription);
