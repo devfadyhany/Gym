@@ -1,15 +1,16 @@
+import java.util.ArrayList;
 
 public class Gym {
 
     private String Name;
     private String Address;
     private String Phone_number;
-    public static Customer[] Customers = new Customer[300];
-    public static Coach[] Coaches = new Coach[100];
-    public static Equipment[] Sports_equipment = new Equipment[50];
-    public static Subscription[] Subscriptions = new Subscription[10];
+    public static ArrayList<Customer> Customers = new ArrayList<>();
+    public static ArrayList<Coach> Coaches = new ArrayList<>();
+    public static ArrayList<Equipment> Sports_equipment = new ArrayList<>();
+    public static ArrayList<Subscription> Subscriptions = new ArrayList<>();
 
-    public static InBody[] Inbodies = new InBody[10];
+    public static ArrayList<InBody> Inbodies = new ArrayList<>();
 
     public Gym() {
         this.Name = "GYM";
@@ -49,96 +50,70 @@ public class Gym {
     }
 
     public void AddEquipment(Equipment equipment) {
-        Sports_equipment[Equipment.numberOfEquipments] = equipment;
+        Sports_equipment.add(equipment);
     }
 
     public void RemoveEquipment(int Code) {
-        int removedIndex = 0;
 
-        for (int i = 0; i < 10; i++) {
-            if (Sports_equipment[i].getEQUIPMENTCODE() == Code) {
-                Sports_equipment[i] = null;
-                removedIndex = i;
+
+        for (Equipment equipment:Sports_equipment) {
+            if (equipment.getEQUIPMENTCODE() == Code) {
+                Sports_equipment.remove(equipment);
                 break;
-            }
-        }
-
-        for (int j = 0; j < 10; j++) {
-            if (j >= removedIndex) {
-                Sports_equipment[j] = Sports_equipment[j + 1];
             }
         }
     }
 
     public void ViewEquipments() {
-        for (int i = 0; i < Sports_equipment.length + 1; i++) {
-            Sports_equipment[i].DisplayInfo();
+        for (Equipment equipment:Sports_equipment) {
+            equipment.DisplayInfo();
             System.out.println("=================");
 
         }
     }
 
     public static void AddCustomer(Customer customer) {
-        Customers[Customer.customersCount - 1] = customer;
+        Customers.add(customer);
     }
 
     public static void RemoveCustomer(int ID) {
-        int removedIndex = 0;
 
-        for (int i = 0; i < Customer.customersCount; i++) {
-            if (Customers[i].getID() == ID) {
-                Customers[i] = null;
-                removedIndex = i;
+
+        for (Customer customer:Customers) {
+            if (customer.getID() == ID) {
+                Customers.remove(customer);
                 break;
-            }
-        }
-
-        for (int j = 0; j < Customer.customersCount; j++) {
-            if (j < Customer.customersCount - 1) {
-                if (j >= removedIndex) {
-                    Customers[j] = Customers[j + 1];
-                }
             }
         }
         Customer.customersCount--;
     }
 
     public static void ViewCustomers() {
-        for (int i = 0; i < Customer.customersCount; i++) {
-            Customers[i].DisplayInfo();
+        for (Customer customer:Customers) {
+            customer.DisplayInfo();
             System.out.println("=================");
         }
     }
 
     public static void AddCoach(Coach coach) {
-        Coaches[Coach.coachCount] = coach;
+        Coaches.add(coach);
     }
 
     public static void RemoveCoach(int ID) {
-        int removedIndex = 0;
 
-        for (int i = 0; i < Coach.coachCount; i++) {
-            if (Coaches[i].getID() == ID) {
-                Coaches[i] = null;
-                removedIndex = i;
+        for (Coach coach:Coaches) {
+            if (coach.getID() == ID) {
+                Coaches.remove(coach);
                 break;
-            }
-        }
-
-        for (int j = 0; j < Coach.coachCount; j++) {
-            if (j < Coach.coachCount - 1) {
-                if (j >= removedIndex) {
-                    Coaches[j] = Coaches[j + 1];
-                }
             }
         }
         Coach.coachCount--;
     }
 
     public static void ViewCoaches(int ID) {
-        for (int i = 0; i < Coach.coachCount; i++) {
-            if (Coaches[i].getID() == ID) {
-                Coaches[i].DisplayInfo();
+        for (Coach coach:Coaches) {
+            if (coach.getID() == ID) {
+                coach.DisplayInfo();
                 System.out.println("=================");
                 break;
             }
@@ -146,54 +121,48 @@ public class Gym {
     }
 
     public static Coach SearchCoachByID(int id) {
-        int index = 0;
-        for (int i = 0; i < Coach.coachCount; i++) {
-            if (Coaches[i].getID() == id) {
-                index = i;
+        Coach c=null;
+        for (Coach coach:Coaches) {
+            if (coach.getID() == id) {
+                c=coach;
                 break;
             }
         }
-        return Coaches[index];
+        return c;
     }
 
     public static Customer SearchCustomerByID(int id) {
-        int index = 0;
-        for (int i = 0; i < Customer.customersCount; i++) {
-            if (Customers[i].getID() == id) {
-                index = i;
+        Customer cus=null;
+        for (Customer customer:Customers) {
+            if (customer.getID() == id) {
+                cus=customer;
                 break;
             }
         }
-        return Customers[index];
+        return cus;
     }
 
     public void AddSubscription(Subscription Subscription) {
 
-        Subscriptions[Subscription.numberOfSubscriptions] = Subscription;
+        Subscriptions.add(Subscription);
     }
 
     public void RemoveSubscriptions(int ID) {
-        int removedIndex = 0;
 
-        for (int i = 0; i < 10; i++) {
-            if (Subscriptions[i].getSUBSCRIPTION_ID() == ID) {
-                Subscriptions[i] = null;
-                removedIndex = i;
+        for (Subscription subscription:Subscriptions) {
+            if (subscription.getSUBSCRIPTION_ID() == ID) {
+                Subscriptions.remove(subscription);
                 break;
             }
         }
 
-        for (int j = 0; j < 10; j++) {
-            if (j >= removedIndex) {
-                Subscriptions[j] = Subscriptions[j + 1];
-            }
-        }
+
     }
 
     public void ViewSubscriptions(int ID) {
-        for (int i = 0; i < 10; i++) {
-            if (Subscriptions[i].getSUBSCRIPTION_ID() == ID) {
-                Subscriptions[i].DisplaySubscriptionInfo();
+        for (Subscription subscription:Subscriptions) {
+            if (subscription.getSUBSCRIPTION_ID() == ID) {
+                subscription.DisplaySubscriptionInfo();
                 System.out.println("=================");
                 break;
             }
@@ -202,9 +171,9 @@ public class Gym {
 
     public Coach getCoachByID(int ID) {
         Coach C = null;
-        for (int i = 0; i < Coach.coachCount; i++) {
-            if (Coaches[i].getID() == ID) {
-                C = Coaches[i];
+        for (Coach coach:Coaches) {
+            if (coach.getID() == ID) {
+                C = coach;
             }
         }
         return C;
