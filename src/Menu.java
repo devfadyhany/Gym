@@ -284,7 +284,7 @@ public class Menu extends Gym {
                     quantity = input.nextInt();
 //                    System.out.println("enter equipment targetedMuscle");
 //                    targetedMuscle = input.next();
-                    Equipment E = new Equipment(Equipment.numberOfEquipments+1,name,quantity,targetedMuscle);
+                    Equipment E = new Equipment(Sports_equipment.size()+1,name,quantity,targetedMuscle);
                     AddEquipment(E);
                     flag = true;
                     break;

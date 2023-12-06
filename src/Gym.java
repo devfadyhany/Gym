@@ -85,7 +85,6 @@ public class Gym {
                 break;
             }
         }
-        Customer.customersCount--;
     }
 
     public static void ViewCustomers() {
@@ -107,7 +106,6 @@ public class Gym {
                 break;
             }
         }
-        Coach.coachCount--;
     }
 
     public static void ViewCoaches(int ID) {

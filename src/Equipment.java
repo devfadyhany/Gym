@@ -1,20 +1,19 @@
+import java.util.ArrayList;
+
 public class Equipment {
     private String name;
-    public String[] targetedMuscles;
-    public int numOfTargetedMuscles = 0;
+    public ArrayList<String> targetedMuscles = new ArrayList<>();
     private int quantity ;
 
     private int EQUIPMENTCODE;
-    public static int numberOfEquipments = 0;
     //private String photo;
 
-    public Equipment (String name,int quantity,int equipmentCode,String[] targetedMuscle)
+    public Equipment (String name,int quantity,int equipmentCode,ArrayList<String> targetedMuscle)
     {
         this.name=name;
         this.quantity=quantity;
         this.EQUIPMENTCODE =equipmentCode;
         this.targetedMuscles =targetedMuscle;
-        numberOfEquipments++;
     }
 
     public void setName(String name) {
@@ -45,8 +44,7 @@ public class Equipment {
     public void setPhoto(String photo) {
         this.photo = photo;
     }*/
-
-    public void setTargetedMuscles(String[] targetedMuscles) {
+    public void setTargetedMuscles(ArrayList<String> targetedMuscles) {
         this.targetedMuscles = targetedMuscles;
     }
 

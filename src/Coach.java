@@ -2,11 +2,9 @@ public class Coach extends Person {
     private float workingHoursPerDay;
     private int numberOfClients = 0;
     private Customer[] clients = new Customer[10];
-    public static int coachCount = 0;
 
     public Coach(int ID, String name, String email, String password, String phone_number, char gender) {
         super(ID, name, email, password, phone_number, gender);
-        coachCount++;
     }
 
     public float getWorkingHoursPerDay() {
@@ -81,13 +79,13 @@ public class Coach extends Person {
     }
 
 
-    public void DisplayClientsByGender(char Gender){
+    public void DisplayClientsByGender(char Gender) {
 
         for (int i = 0; i < 10; i++) {
-        if (clients[i].getGender()==Gender) {
-            clients[i].DisplayInfo();
-            System.out.println("=================");
-        }
+            if (clients[i].getGender() == Gender) {
+                clients[i].DisplayInfo();
+                System.out.println("=================");
+            }
         }
     }
 }
