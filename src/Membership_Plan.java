@@ -1,21 +1,23 @@
+import java.time.LocalDate;
+
 public class Membership_Plan {
-    private Date Start_Date;
+    private LocalDate Start_Date;
     private char Monthly_plan;
     private int Registred_Months_num;
     private float Plan_price;
-    Membership_Plan(Date d,char c,int i,float f){
-        this.Start_Date=d;
+    Membership_Plan(char c,int i,float f){
+        this.Start_Date= LocalDate.now();
         this.Monthly_plan=c;
         this.Registred_Months_num=i;
         this.Plan_price=f;
 
     }
 
-    public void setStart_Date(Date start_Date) {
+    public void setStart_Date(LocalDate start_Date) {
         Start_Date = start_Date;
     }
 
-    public Date getStart_Date() {
+    public LocalDate getStart_Date() {
         return Start_Date;
     }
 
@@ -80,8 +82,7 @@ public class Membership_Plan {
     }
 
     public void DisplayInfo(){
-        System.out.print("Start_Date: ");
-        Start_Date.DisplayDate();
+        System.out.println("Start_Date: " + Start_Date);
         System.out.println("Monthly_Plan: " + getMonthly_plan());
         System.out.println("Number of Months Registered: " + getRegistred_Months_num());
         System.out.println("Plan_Price: " + getPlan_price());

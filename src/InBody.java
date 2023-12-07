@@ -1,7 +1,9 @@
+import java.time.LocalDate;
+
 public class InBody {
 
     private int Customer_ID;
-    protected Date InBody_date;
+    protected LocalDate InBody_date;
     protected float hight;
     protected float Total_Weight;
     protected float Fats;
@@ -15,9 +17,9 @@ public class InBody {
 
     public static int numberOfInbodies = 0;
 
-    public InBody(int customer_ID, Date InBody_date, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
+    public InBody(int customer_ID, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
         this.Customer_ID = customer_ID;
-        this.InBody_date = InBody_date;
+        this.InBody_date = LocalDate.now();
         this.hight = hight;
         this.Total_Weight = Total_Weight;
         this.Fats = Fats;
@@ -39,11 +41,11 @@ public class InBody {
         Customer_ID = customer_ID;
     }
 
-    public void setInBody_date(Date inBody_date) {
+    public void setInBody_date(LocalDate inBody_date) {
         InBody_date = inBody_date;
     }
 
-    public Date getInBody_date() {
+    public LocalDate getInBody_date() {
         return InBody_date;
     }
 

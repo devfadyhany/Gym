@@ -3,14 +3,12 @@ public class Subscription {
     private int Customer_ID;
     private int Assigned_Coach_ID;
     private Membership_Plan plan;
-    public static int numberOfSubscriptions = 0;
 
     public Subscription(int SUBSCRIPTION_ID, int Customer_ID, int Assigned_Coach_ID, Membership_Plan plan) {
         this.SUBSCRIPTION_ID = SUBSCRIPTION_ID;
         this.Customer_ID = Customer_ID;
         this.Assigned_Coach_ID = Assigned_Coach_ID;
         this.plan = plan;
-        numberOfSubscriptions++;
     }
 
     public int getSUBSCRIPTION_ID() {

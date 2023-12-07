@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 //        For Customer:
@@ -10,7 +11,7 @@ import java.util.Scanner;
 //
 //        For Coach:
 //        1. Show a list of all his customers.
-//        2. Get the inbody history of any of his customers.
+//        2. Get the inBody history of any of his customers.
 //        3. Get all the details of a customer by his name.
 //        4. Show a list of all his female/male customers.
 //
@@ -280,10 +281,23 @@ public class Menu extends Gym {
                     ID = input.nextInt();
                     Gym.ViewSubscriptions(ID);
                     break;
-//                case 5:
-//                    ViewCustomers();
-//
-//                    break;
+                case 5:
+                    int day, month, year;
+                    System.out.println("Enter a day:");
+                    day = input.nextInt();
+                    System.out.println("Enter a month:");
+                    month = input.nextInt();
+//                    System.out.println("Enter a year:");
+//                    year = input.nextInt();
+
+                    LocalDate specificDate = LocalDate.of(0,month,day);
+
+                    for (Subscription s: Gym.Subscriptions){
+                        if (specificDate.getDayOfMonth() == s.getPlan().getStart_Date().getDayOfMonth() && specificDate.getMonth() == s.getPlan().getStart_Date().getMonth()){
+                            Gym.SearchCustomerByID(s.getCustomerId()).DisplayInfo();
+                        }
+                    }
+                    break;
             }
             System.out.println("do you want to continue?y/n");
             flag = input.next().charAt(0);

@@ -2,11 +2,38 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Files {
 
+    public void WriteFiles(){
+        WriteCustomers();
+        WriteCoaches();
+        WriteSubscriptions();
+        WriteMembershipPlan();
+        WriteInBodies();
+        WriteTargetedMuscles();
+        WriteEquipments();
+        WriteCustomerApproval();
+        WriteCoachApproval();
+        WriteCoachClients();
+    }
+
+    public void ReadFiles(){
+        ReadCustomers();
+        ReadCoaches();
+        ReadSubscriptions();
+        ReadMembershipPlan();
+        ReadInBodies();
+        ReadTargetedMuscles();
+        ReadEquipments();
+        ReadCustomerApproval();
+        ReadCoachApproval();
+        ReadCoachClients();
+    }
+
     // *************************************************    Write Functions    *************************************************
-    public static void WriteCustomers() {
+    public void WriteCustomers() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/Customers.csv");
@@ -27,11 +54,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in Customers File.");
         }
     }
 
-    public static void WriteCoaches() {
+    public void WriteCoaches() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/Coaches.csv");
@@ -52,11 +79,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in Coaches File.");
         }
     }
 
-    public static void WriteSubscriptions() {
+    public void WriteSubscriptions() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/Subscriptions.csv");
@@ -72,11 +99,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in Subscriptions File.");
         }
     }
 
-    public static void WriteMembershipPlan() {
+    public void WriteMembershipPlan() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/Membership_Plan.csv");
@@ -94,14 +121,14 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in Membership_Plan File.");
         }
     }
 
-    public static void WriteInbodies() {
+    public void WriteInBodies() {
         try {
             int counter = 0;
-            FileWriter writer = new FileWriter("Data/Inbodies.csv");
+            FileWriter writer = new FileWriter("Data/InBodies.csv");
             writer.write("");
             while (counter < Gym.Inbodies.size()) {
                 for (InBody inbody : Gym.Inbodies) {
@@ -121,11 +148,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in InBodies File.");
         }
     }
 
-    public static void WriteEquipments() {
+    public void WriteEquipments() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/Equipments.csv");
@@ -141,11 +168,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in Equipments File.");
         }
     }
 
-    public static void WriteTargetedMuscles() {
+    public void WriteTargetedMuscles() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/TargetedMuscles.csv");
@@ -161,11 +188,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in TargetedMuscles File.");
         }
     }
 
-    public static void WriteCustomerApproval() {
+    public void WriteCustomerApproval() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/CustomerApproval.csv");
@@ -179,11 +206,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in CustomerApproval File.");
         }
     }
 
-    public static void WriteCoachApproval() {
+    public void WriteCoachApproval() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/CoachApproval.csv");
@@ -198,11 +225,11 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in CoachApproval File.");
         }
     }
 
-    public static void WriteCoachClients() {
+    public void WriteCoachClients() {
         try {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/CoachClients.csv");
@@ -218,12 +245,12 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Write in CoachClients File.");
         }
     }
 
     // *************************************************    Read Functions    *************************************************
-    public static void ReadCustomers() {
+    public void ReadCustomers() {
         String file = "Data/Customers.csv";
         BufferedReader reader = null;
         String line = "";
@@ -245,17 +272,17 @@ public class Files {
                 counter++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From Customers File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Customers File is already Closed.");
             }
         }
     }
 
-    public static void ReadCoaches() {
+    public void ReadCoaches() {
         String file = "Data/Coaches.csv";
         BufferedReader reader = null;
         String line = "";
@@ -277,17 +304,17 @@ public class Files {
                 counter++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From Coaches File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Coaches File is already Closed.");
             }
         }
     }
 
-    public static void ReadSubscriptions() {
+    public void ReadSubscriptions() {
         String file = "Data/Subscriptions.csv";
         BufferedReader reader = null;
         String line = "";
@@ -304,17 +331,17 @@ public class Files {
                 counter++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From Subscriptions File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Subscriptions File is already Closed.");
             }
         }
     }
 
-    public static void ReadMembershipPlan() {
+    public void ReadMembershipPlan() {
         String file = "Data/Membership_Plan.csv";
         BufferedReader reader = null;
         String line = "";
@@ -325,7 +352,8 @@ public class Files {
                 String[] row = line.split(",");
                 for (Subscription subscription : Gym.Subscriptions) {
                     if (subscription.getSUBSCRIPTION_ID() == Integer.parseInt(row[0])) {
-//                        subscription.getPlan().setStart_Date(row[1]);
+                        LocalDate l = LocalDate.parse(row[1]);
+                        subscription.getPlan().setStart_Date(l);
                         subscription.getPlan().setMonthly_plan(row[2].charAt(0));
                         subscription.getPlan().setRegistred_Months_num(Integer.parseInt(row[3]));
                         subscription.getPlan().setPlan_price(Integer.parseInt(row[4]));
@@ -333,18 +361,18 @@ public class Files {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From Membership_Plan File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Membership_Plan File is already Closed.");
             }
         }
     }
 
-    public static void ReadInbodies() {
-        String file = "Data/Inbodies.csv";
+    public void ReadInBodies() {
+        String file = "Data/InBodies.csv";
         BufferedReader reader = null;
         String line = "";
 
@@ -354,7 +382,8 @@ public class Files {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 Gym.Inbodies.get(counter).setCustomer_ID(Integer.parseInt(row[0]));
-//                    Gym.Inbodies.get(counter).setInBody_date(row[1]);
+                LocalDate l = LocalDate.parse(row[1]);
+                Gym.Inbodies.get(counter).setInBody_date(l);
                 Gym.Inbodies.get(counter).setHight(Float.parseFloat(row[2]));
                 Gym.Inbodies.get(counter).setTotal_wight(Float.parseFloat(row[3]));
                 Gym.Inbodies.get(counter).setFats(Float.parseFloat(row[4]));
@@ -367,17 +396,17 @@ public class Files {
                 counter++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From InBodies File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("InBodies File is already Closed.");
             }
         }
     }
 
-    public static void ReadEquipments() {
+    public void ReadEquipments() {
         String file = "Data/Equipments.csv";
         BufferedReader reader = null;
         String line = "";
@@ -393,17 +422,17 @@ public class Files {
                 counter++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From Equipments File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Equipments File is already Closed.");
             }
         }
     }
 
-    public static void ReadTargetedMuscles() {
+    public void ReadTargetedMuscles() {
         String file = "Data/TargetedMuscles.csv";
         BufferedReader reader = null;
         String line = "";
@@ -421,20 +450,19 @@ public class Files {
                 }
                 counter++;
             }
-        } catch (
-                IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Failed to Read From TargetedMuscles File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("TargetedMuscles File is already Closed.");
             }
         }
 
     }
 
-    public static void ReadCustomerApproval() {
+    public void ReadCustomerApproval() {
         String file = "Data/CustomerApproval.csv";
         BufferedReader reader = null;
         String line = "";
@@ -451,17 +479,17 @@ public class Files {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From CustomerApproval File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("CustomerApproval File is already Closed.");
             }
         }
     }
 
-    public static void ReadCoachApproval() {
+    public void ReadCoachApproval() {
         String file = "Data/CoachApproval.csv";
         BufferedReader reader = null;
         String line = "";
@@ -478,17 +506,17 @@ public class Files {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From CoachApproval File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("CoachApproval File is already Closed.");
             }
         }
     }
 
-    public static void ReadCoachClients() {
+    public void ReadCoachClients() {
         String file = "Data/CoachClients.csv";
         BufferedReader reader = null;
         String line = "";
@@ -506,12 +534,12 @@ public class Files {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to Read From CoachClients File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("CoachClients File is already Closed.");
             }
         }
     }
