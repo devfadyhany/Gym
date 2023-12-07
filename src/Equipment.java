@@ -62,4 +62,11 @@ public class Equipment {
             System.out.println(s);
         }
     }
+    public void replaceTargetedMuscles(int index,String muscle) {
+
+        targetedMuscles.remove(index);
+        targetedMuscles.add(muscle);
+
+
+    }
 }

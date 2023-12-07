@@ -1,4 +1,7 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 //        For Customer:
@@ -282,18 +285,16 @@ public class Menu extends Gym {
                     Gym.ViewSubscriptions(ID);
                     break;
                 case 5:
-                    int day, month, year;
+                    int day, month;
                     System.out.println("Enter a day:");
                     day = input.nextInt();
                     System.out.println("Enter a month:");
                     month = input.nextInt();
-//                    System.out.println("Enter a year:");
-//                    year = input.nextInt();
 
-                    LocalDate specificDate = LocalDate.of(0,month,day);
+                    LocalDate specificDate = LocalDate.of(0, month, day);
 
-                    for (Subscription s: Gym.Subscriptions){
-                        if (specificDate.getDayOfMonth() == s.getPlan().getStart_Date().getDayOfMonth() && specificDate.getMonth() == s.getPlan().getStart_Date().getMonth()){
+                    for (Subscription s : Gym.Subscriptions) {
+                        if (specificDate.getDayOfMonth() == s.getPlan().getStart_Date().getDayOfMonth() && specificDate.getMonth() == s.getPlan().getStart_Date().getMonth()) {
                             Gym.SearchCustomerByID(s.getCustomerId()).DisplayInfo();
                         }
                     }
@@ -305,48 +306,57 @@ public class Menu extends Gym {
     }
 
 
-                   //ياجدعان احنا خلصنا الفوق ناقص التحت سلامو عليكو
+    //ياجدعان احنا خلصنا الفوق ناقص التحت سلامو عليكو
+    //اشطا يا معلم
 
     public void AdminEquipmentMenu() {
-        boolean flag;
+        char flag;
         do {
-            flag = false;
+
             System.out.println("1-Add Equipment\n2-Edit Equipment\n3-Delete Equipment");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
                     String name;
-                    int quantity;
-                    String[] targetedMuscle;
+                    int quantity, noOfMuscles;
+                    ArrayList<String> targetedMuscles = new ArrayList<>();
                     System.out.println("enter equipment name");
                     name = input.next();
                     System.out.println("enter equipment quantity");
                     quantity = input.nextInt();
-//                    System.out.println("enter equipment targetedMuscle");
-//                    targetedMuscle = input.next();
-                    Equipment E = new Equipment(Sports_equipment.size() + 1, name, quantity, targetedMuscle);
+                    System.out.println("How many Targeted Muscles?");
+                    noOfMuscles = input.nextInt();
+                    for (int i = 0; i < noOfMuscles; i++) {
+                        String muscle;
+                        System.out.println("enter equipment targetedMuscle" + i + 1);
+                        muscle = input.next();
+                        targetedMuscles.add(muscle);
+                    }
+
+                    Equipment E = new Equipment(name, quantity, Sports_equipment.size() + 1, targetedMuscles);
                     AddEquipment(E);
-                    flag = true;
+
                     break;
-//                case 2:
-//                    EditEquipment();
-//                    flag = true;
-//                    break;
+                case 2:
+                    EditEquipments();
+                    break;
                 case 3:
                     int ID;
                     System.out.println("Enter Equipment ID:");
                     ID = input.nextInt();
                     RemoveEquipment(ID);
-                    flag = true;
+
                     break;
             }
-        } while (!flag);
+            System.out.println("do you want to continue?y/n");
+            flag = input.next().charAt(0);
+        } while (flag == 'y' || flag == 'Y');
     }
 
     public void AdminCoachMenu() {
-        boolean flag;
+        char flag;
         do {
-            flag = false;
+
             System.out.println("1-Add Coaches\n2-Edit Coaches\n3-Delete Coaches\n4-Display all the customers of a specific coach.\n5-Display the coaches sorted in terms of the most assigned number of " +
                     "customers to the coaches.");
             int choice = input.nextInt();
@@ -364,34 +374,37 @@ public class Menu extends Gym {
                     phoneNumber = input.next();
                     System.out.println("enter your gender");
                     gender = input.next().charAt(0);
-                    Coach C = new Coach(Coach.coachCount + 1, name, email, password, phoneNumber, gender);
+                    Coach C = new Coach(Gym.Coaches.size() + 1, name, email, password, phoneNumber, gender);
                     AddCoach(C);
-                    flag = true;
+
                     break;
-//                case 2:
-//                    EditCustomer();
-//                    flag = true;
-//                    break;
+                case 2:
+                    EditCoach();
+                    break;
                 case 3:
                     int ID;
                     System.out.println("Enter Coach ID:");
                     ID = input.nextInt();
                     RemoveCoach(ID);
-                    flag = true;
+
                     break;
                 case 4:
                     int CoachID;
                     System.out.println("Enter Coach ID:");
                     CoachID = input.nextInt();
                     getCoachByID(CoachID).DisplayClientsInfo();
-                    flag = true;
+
                     break;
-//                case 5:
-//                    ViewCustomers();
-//                    flag = true;
-//                    break;
+                case 5:
+                    Collections.sort(Gym.Coaches, Comparator.comparingInt(coach->coach.getNumberOfClients()));
+                    Gym.ViewCoaches();
+                    break;
+
             }
-        } while (!flag);
+            System.out.println("do you want to continue?y/n");
+            flag = input.next().charAt(0);
+        } while (flag == 'y' || flag == 'Y');
+
     }
 
     public void EditCustomer() {
@@ -451,66 +464,95 @@ public class Menu extends Gym {
         System.out.println("Enter coach ID");
         coachID = input.nextInt();
         Coach editedcoach = null;
-        editedcoach = Gym.SearchCoachByID(coachID);
-        System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
-        int answer = input.nextInt();
-        switch (answer) {
-            case 1:
-                System.out.println("enter the new name");
-                newName = input.next();
-                editedcoach.setName(newName);
-                break;
-            case 2:
-                System.out.println("enter the new email");
-                newEmail = input.next();
-                editedcoach.setEmail(newEmail);
-                break;
-            case 3:
-                System.out.println("enter the new password");
-                newPassword = input.next();
-                editedcoach.setPassword(newPassword);
-                break;
-            case 4:
-                System.out.println("enter the new phone number");
-                newNumber = input.next();
-                editedcoach.setPhone_number(newNumber);
-                break;
-            case 5:
-                System.out.println("enter the new Gender");
-                newGender = input.next();
-                editedcoach.setEmail(newGender);
-                break;
-        }
+        char flag;
+
+
+        int index = Gym.Coaches.indexOf(Gym.SearchCoachByID(coachID));
+        editedcoach.setID(Gym.Coaches.get(index).getID());
+        do {
+            System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
+            int answer = input.nextInt();
+            switch (answer) {
+                case 1:
+                    System.out.println("enter the new name");
+                    newName = input.next();
+                    editedcoach.setName(newName);
+                    break;
+                case 2:
+                    System.out.println("enter the new email");
+                    newEmail = input.next();
+                    editedcoach.setEmail(newEmail);
+                    break;
+                case 3:
+                    System.out.println("enter the new password");
+                    newPassword = input.next();
+                    editedcoach.setPassword(newPassword);
+                    break;
+                case 4:
+                    System.out.println("enter the new phone number");
+                    newNumber = input.next();
+                    editedcoach.setPhone_number(newNumber);
+                    break;
+                case 5:
+                    System.out.println("enter the new Gender");
+                    newGender = input.next();
+                    editedcoach.setEmail(newGender);
+                    break;
+            }
+
+            Gym.replaceCoach(index, editedcoach);
+            System.out.println("do you want to continue?y/n");
+            flag = input.next().charAt(0);
+        } while (flag == 'y' || flag == 'Y');
     }
 
     public void EditEquipments() {
         int equipmentcode;
-        String newName, newTargetMuscles;
+        String newName;
         int newQuantity;
 
         System.out.println("Enter equipment code");
         equipmentcode = input.nextInt();
         Equipment editedequipment = null;
-        editedequipment = Gym.SearchEquipmentByCode(equipmentcode);
-        System.out.println("what do you want to edit ====== 1)Name     2)quantity      3)targeted muscles");
-        int answer = input.nextInt();
-        switch (answer) {
-            case 1:
-                System.out.println("enter the new name");
-                newName = input.next();
-                editedequipment.setName(newName);
-                break;
-            case 2:
-                System.out.println("enter the new quantity");
-                newQuantity = input.nextInt();
-                editedequipment.setQuantity(newQuantity);
-                break;
-//            case 3:
-//                System.out.println("enter the new targeted muscles");
-//                newTargetMuscles = input.next();
-//                editedequipment.setTargetedMuscles(newTargetMuscles[]);
-//                break;
-        }
+        char flag;
+
+        int index = Gym.Sports_equipment.indexOf(Gym.SearchEquipmentByCode(equipmentcode));
+        editedequipment.setEQUIPMENTCODE(Gym.Sports_equipment.get(index).getEQUIPMENTCODE());
+        do {
+            System.out.println("what do you want to edit ====== 1)Name     2)quantity      3)targeted muscles");
+            int answer = input.nextInt();
+            switch (answer) {
+                case 1:
+                    System.out.println("enter the new name");
+                    newName = input.next();
+                    editedequipment.setName(newName);
+                    break;
+                case 2:
+                    System.out.println("enter the new quantity");
+                    newQuantity = input.nextInt();
+                    editedequipment.setQuantity(newQuantity);
+                    break;
+                case 3:
+                    int choice;
+                    System.out.println("Choose the targeted muscle you want to edit");
+                    for (int i = 0; i < Gym.Sports_equipment.get(index).targetedMuscles.size(); i++) {
+                        System.out.println(i + 1 + ":" + Gym.Sports_equipment.get(index).targetedMuscles.get(i));
+
+                    }
+                    choice = input.nextInt();
+                    String muscle;
+                    System.out.println("Enter the new Targeted Muscle");
+
+                    muscle = input.next();
+
+                    editedequipment.replaceTargetedMuscles(choice - 1, muscle);
+                    break;
+            }
+
+            Gym.replaceEquipment(index, editedequipment);
+            System.out.println("do you want to continue?y/n");
+            flag = input.next().charAt(0);
+        } while (flag == 'y' || flag == 'Y');
     }
 }
 

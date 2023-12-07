@@ -108,13 +108,12 @@ public class Gym {
         }
     }
 
-    public static void ViewCoaches(int ID) {
+    public static void ViewCoaches() {
         for (Coach coach:Coaches) {
-            if (coach.getID() == ID) {
+
                 coach.DisplayInfo();
                 System.out.println("=================");
-                break;
-            }
+
         }
     }
 
@@ -146,6 +145,21 @@ public class Gym {
 
 
     }
+    public static void replaceCoach(int index,Coach co) {
+
+        Coaches.remove(index);
+        Coaches.add(co);
+
+
+    }
+    public static void replaceEquipment(int index,Equipment eq) {
+
+        Sports_equipment.remove(index);
+        Sports_equipment.add(eq);
+
+
+    }
+
 
     public static Equipment SearchEquipmentByCode(int code) {
         Equipment equ=null;

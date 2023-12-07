@@ -29,6 +29,7 @@ public class Coach extends Person {
 
     public void AddClient(Customer client) {
         clients[numberOfClients] = client;
+        numberOfClients++;
     }
 
     public void RemoveClient(int ID) {
@@ -49,6 +50,7 @@ public class Coach extends Person {
                 }
             }
         }
+        numberOfClients--;
     }
 
     public void DisplayInfo() {
