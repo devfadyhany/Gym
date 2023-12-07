@@ -139,6 +139,13 @@ public class Gym {
         }
         return cus;
     }
+    public static void replaceCustomer(int index,Customer co) {
+
+       Customers.remove(index);
+       Customers.add(co);
+
+
+    }
 
     public static Equipment SearchEquipmentByCode(int code) {
         Equipment equ=null;
@@ -155,6 +162,10 @@ public class Gym {
 
         Subscriptions.add(Subscription);
     }
+    public void AddInbody(InBody inBody) {
+
+        Inbodies.add(inBody);
+    }
 
     public void RemoveSubscriptions(int ID) {
 
@@ -168,12 +179,12 @@ public class Gym {
 
     }
 
-    public void ViewSubscriptions(int ID) {
+    public static void ViewSubscriptions(int ID) {
         for (Subscription subscription:Subscriptions) {
-            if (subscription.getSUBSCRIPTION_ID() == ID) {
+            if (subscription.getCustomerId() == ID) {
                 subscription.DisplaySubscriptionInfo();
                 System.out.println("=================");
-                break;
+
             }
         }
     }
@@ -186,6 +197,15 @@ public class Gym {
             }
         }
         return C;
+    }
+    public InBody getInbody_By_CustomerID(int ID) {
+        InBody inBody = null;
+        for (InBody inbody:Inbodies) {
+            if (inbody.getCustomer_ID() == ID) {
+                inBody = inbody;
+            }
+        }
+        return inBody;
     }
 }
 

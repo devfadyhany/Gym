@@ -3,9 +3,9 @@ public class Login {
 
     public static Customer CustomerLogin(String Email, String Password) {
         Customer Loggedcustomer = null;
-        for (int i = 0; i < Customer.customersCount; i++) {
-            if (Gym.Customers[i].getEmail().equals(Email) && Gym.Customers[i].getPassword().equals(Password)) {
-                Loggedcustomer = Gym.Customers[i];
+        for (int i = 0; i < Gym.Customers.size(); i++) {
+            if (Gym.Customers.get(i).getEmail().equals(Email) &&Gym.Customers.get(i).getPassword().equals(Password)) {
+                Loggedcustomer = Gym.Customers.get(i);
                 break;
             }
         }
@@ -14,9 +14,9 @@ public class Login {
 
     public static Coach CoachLogin(String Email, String Password) {
         Coach LoggedCoach = null;
-        for (int i = 0; i < Coach.coachCount; i++) {
-            if (Gym.Coaches[i].getEmail().equals(Email) && Gym.Coaches[i].getPassword().equals(Password)) {
-                LoggedCoach = Gym.Coaches[i];
+        for (int i = 0; i < Gym.Coaches.size(); i++) {
+            if (Gym.Coaches.get(i).getEmail().equals(Email) && Gym.Coaches.get(i).getPassword().equals(Password)) {
+                LoggedCoach = Gym.Coaches.get(i);
                 break;
             }
         }
