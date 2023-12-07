@@ -74,9 +74,10 @@ public class Coach extends Person {
 
     public void DisplayClientsInfo() {
         for (int i = 0; i < 10; i++) {
-
-            clients[i].DisplayInfo();
-            System.out.println("=================");
+            if (clients[i] != null) {
+                clients[i].DisplayInfo();
+                System.out.println("=================");
+            }
         }
     }
 

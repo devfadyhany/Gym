@@ -5,7 +5,7 @@ public class Person {
     private String password;
     private String phone_number;
     private char gender;
-    private boolean isApproved = false;
+    private boolean isApproved;
 
     public Person(int ID ,String name , String email, String password, String phone_number, char gender ){
         this.ID=ID;

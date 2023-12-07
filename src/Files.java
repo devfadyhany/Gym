@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class Files {
 
-    public void WriteFiles(){
+    public void WriteFiles() {
         WriteCustomers();
         WriteCoaches();
         WriteSubscriptions();
@@ -19,7 +19,7 @@ public class Files {
         WriteCoachClients();
     }
 
-    public void ReadFiles(){
+    public void ReadFiles() {
         ReadCustomers();
         ReadCoaches();
         ReadSubscriptions();
@@ -260,12 +260,9 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                Gym.Customers.get(counter).setID(Integer.parseInt(row[0]));
-                Gym.Customers.get(counter).setName(row[1]);
-                Gym.Customers.get(counter).setEmail(row[2]);
-                Gym.Customers.get(counter).setPassword(row[3]);
-                Gym.Customers.get(counter).setPhone_number(row[4]);
-                Gym.Customers.get(counter).setGender(row[5]);
+
+                Gym.Customers.add(new Customer(Integer.parseInt(row[0]), row[1], row[2], row[3], row[4], row[5].charAt(0)));
+
                 Gym.Customers.get(counter).setSubscription_ID(Integer.parseInt(row[6]));
                 Gym.Customers.get(counter).setCoach_ID(Integer.parseInt(row[7]));
 
@@ -292,12 +289,8 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                Gym.Coaches.get(counter).setID(Integer.parseInt(row[0]));
-                Gym.Coaches.get(counter).setName(row[1]);
-                Gym.Coaches.get(counter).setEmail(row[2]);
-                Gym.Coaches.get(counter).setPassword(row[3]);
-                Gym.Coaches.get(counter).setPhone_number(row[4]);
-                Gym.Coaches.get(counter).setGender(row[5]);
+                Gym.Coaches.add(new Coach(Integer.parseInt(row[0]), row[1], row[2], row[3], row[4], row[5].charAt(0)));
+
                 Gym.Coaches.get(counter).setWorkingHoursPerDay(Integer.parseInt(row[6]));
                 Gym.Coaches.get(counter).setNumberOfClients(Integer.parseInt(row[7]));
 
@@ -324,9 +317,7 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                Gym.Subscriptions.get(counter).setSUBSCRIPTION_ID(Integer.parseInt(row[0]));
-                Gym.Subscriptions.get(counter).setCustomerId(Integer.parseInt(row[1]));
-                Gym.Subscriptions.get(counter).setCoach(Integer.parseInt(row[2]));
+                Gym.Subscriptions.add(new Subscription(Integer.parseInt(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]), null));
 
                 counter++;
             }
@@ -353,10 +344,7 @@ public class Files {
                 for (Subscription subscription : Gym.Subscriptions) {
                     if (subscription.getSUBSCRIPTION_ID() == Integer.parseInt(row[0])) {
                         LocalDate l = LocalDate.parse(row[1]);
-                        subscription.getPlan().setStart_Date(l);
-                        subscription.getPlan().setMonthly_plan(row[2].charAt(0));
-                        subscription.getPlan().setRegistred_Months_num(Integer.parseInt(row[3]));
-                        subscription.getPlan().setPlan_price(Integer.parseInt(row[4]));
+                        subscription.setPlan(new Membership_Plan(l, row[2].charAt(0), Integer.parseInt(row[3]), Integer.parseInt(row[4])));
                     }
                 }
             }
@@ -381,17 +369,8 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                Gym.Inbodies.get(counter).setCustomer_ID(Integer.parseInt(row[0]));
                 LocalDate l = LocalDate.parse(row[1]);
-                Gym.Inbodies.get(counter).setInBody_date(l);
-                Gym.Inbodies.get(counter).setHight(Float.parseFloat(row[2]));
-                Gym.Inbodies.get(counter).setTotal_wight(Float.parseFloat(row[3]));
-                Gym.Inbodies.get(counter).setFats(Float.parseFloat(row[4]));
-                Gym.Inbodies.get(counter).setMass(Float.parseFloat(row[5]));
-                Gym.Inbodies.get(counter).setMinerals(Float.parseFloat(row[6]));
-                Gym.Inbodies.get(counter).setWater(Float.parseFloat(row[7]));
-                Gym.Inbodies.get(counter).setProtien(Float.parseFloat(row[8]));
-                Gym.Inbodies.get(counter).setAge(Integer.parseInt(row[9]));
+                Gym.Inbodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Integer.parseInt(row[9])));
 
                 counter++;
             }
@@ -416,9 +395,8 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                Gym.Sports_equipment.get(counter).setEQUIPMENTCODE(Integer.parseInt(row[0]));
-                Gym.Sports_equipment.get(counter).setName(row[1]);
-                Gym.Sports_equipment.get(counter).setQuantity(Integer.parseInt(row[2]));
+                Gym.Sports_equipment.add(new Equipment(row[1], Integer.parseInt(row[2]), Integer.parseInt(row[0]), null));
+
                 counter++;
             }
         } catch (IOException e) {
@@ -474,7 +452,8 @@ public class Files {
                 for (Customer c : Gym.Customers) {
                     if (c.getID() == Integer.parseInt(row[0])) {
                         c.setApproved(false);
-                        break;
+                    }else {
+                        c.setApproved(true);
                     }
                 }
             }
@@ -501,7 +480,8 @@ public class Files {
                 for (Coach c : Gym.Coaches) {
                     if (c.getID() == Integer.parseInt(row[0])) {
                         c.setApproved(false);
-                        break;
+                    }else {
+                        c.setApproved(true);
                     }
                 }
             }

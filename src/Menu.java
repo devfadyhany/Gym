@@ -31,12 +31,12 @@ public class Menu extends Gym {
     Scanner input = new Scanner(System.in);
 
     public void MainMenu() {
-        char flag;
+
+        char flag = 'y';
         do {
             int choice;
-
-            Scanner input = new Scanner(System.in);
-            System.out.println("What is your role?\n====================\n1-coach\n2-client\n3-admin");
+            System.out.println("========================================");
+            System.out.println("What is your role?\n====================\n1-coach\n2-client\n3-admin\n4-Exit.");
             choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -48,17 +48,19 @@ public class Menu extends Gym {
                     LoginMenu(choice);
 
                     break;
+                case 4:
+                    flag = 'n';
+                    break;
             }
-            System.out.println("do you want to continue?y/n");
-            flag = input.next().charAt(0);
-        } while (flag == 'y' || flag == 'Y');
+        } while (flag == 'y');
     }
 
     public void RoleMenu(int choice) {
+
         int newchoice;
         do {
             newchoice = 0;
-            Scanner input = new Scanner(System.in);
+            System.out.println("========================================");
             System.out.println("1- Login      2-Register");
             newchoice = input.nextInt();
             switch (newchoice) {
@@ -75,8 +77,9 @@ public class Menu extends Gym {
     }
 
     public void LoginMenu(int choice) {
+
         String email, password;
-        Scanner input = new Scanner(System.in);
+        System.out.println("========================================");
         System.out.println("enter your email");
         email = input.next();
         System.out.println("enter your password");
@@ -107,8 +110,10 @@ public class Menu extends Gym {
     }
 
     public void RegisterMenu(int choice) {
+
         String name, email, password, phoneNumber;
         char gender;
+        System.out.println("========================================");
         System.out.println("enter your name");
         name = input.next();
         System.out.println("enter your email");
@@ -128,12 +133,14 @@ public class Menu extends Gym {
     }
 
     public void customerMenu(Customer customer) {
-        if (customer.isApproved()) {
-            char flag;
-            do {
 
+        System.out.println(customer.isApproved());
+        if (customer.isApproved()) {
+            char flag = 'y';
+            do {
+                System.out.println("========================================");
                 System.out.println("Welcome, " + customer.getName());
-                System.out.println("1-coach info\n2-Gym Equpments\n3-membership plan\n4-INBODY\n5-Kilos remaining");
+                System.out.println("1-coach info\n2-Gym Equpments\n3-membership plan\n4-INBODY\n5-Kilos remaining\n6-Back To Main Menu");
                 int choice = input.nextInt();
                 switch (choice) {
                     case 1:
@@ -145,21 +152,25 @@ public class Menu extends Gym {
 
                         break;
                     case 3:
-                        customer.getSubscription().DisplaySubscriptionInfo();
-
+                        if (customer.getSubscription() != null) {
+                            customer.getSubscription().DisplaySubscriptionInfo();
+                        }
                         break;
                     case 4:
-                        customer.getInBodies().displayInBody();
-
+                        if (customer.getInBodies() != null) {
+                            customer.getInBodies().displayInBody();
+                        }
                         break;
                     case 5:
-                        System.out.println(customer.getInBodies().CalcIdealWeight());
-
+                        if (customer.getInBodies() != null) {
+                            System.out.println(customer.getInBodies().CalcIdealWeight());
+                        }
+                        break;
+                    case 6:
+                        flag = 'n';
                         break;
                 }
-                System.out.println("do you want to continue?y/n");
-                flag = input.next().charAt(0);
-            } while (flag == 'y' || flag == 'Y');
+            } while (flag == 'y');
         } else {
             System.out.println("Account is on Hold\nWaiting for Admin is Approval...");
         }
@@ -168,11 +179,11 @@ public class Menu extends Gym {
     public void coachMenu(Coach coach) {
 
         if (coach.isApproved()) {
-            char flag;
+            char flag = 'y';
             do {
-
+                System.out.println("========================================");
                 System.out.println("Welcome, " + coach.getName());
-                System.out.println("1-Customers info\n2-InBody History for any of the Customers\n3-Get all the details of a customer by his name.\n4-Show a list of all female/male customers.");
+                System.out.println("1-Customers info\n2-InBody History for any of the Customers\n3-Get all the details of a customer by his name.\n4-Show a list of all female/male customers.\n5-Back To Main Menu.");
                 int choice = input.nextInt();
                 String customerName;
                 int customerId;
@@ -189,27 +200,23 @@ public class Menu extends Gym {
                             if (B.getCustomer_ID() == customerId) {
                                 B.displayInBody();
                             }
-
                         }
-
                         break;
-
                     case 3:
                         System.out.println("Enter Customer's Name");
                         customerName = input.next();
                         coach.DisplayClientInfo(customerName);
-
                         break;
                     case 4:
                         System.out.println("Choose Male or Female: M for Male,F for Female.");
                         customerGender = input.next().charAt(0);
                         coach.DisplayClientsByGender(customerGender);
-
+                        break;
+                    case 5:
+                        flag = 'n';
                         break;
                 }
-                System.out.println("do you want to continue?y/n");
-                flag = input.next().charAt(0);
-            } while (flag == 'y' || flag == 'Y');
+            } while (flag == 'y');
         } else {
             System.out.println("Account is on Hold\nWaiting for Admin is Approval...");
         }
@@ -217,37 +224,36 @@ public class Menu extends Gym {
 
     public void adminMenu() {
 
-        char flag;
+        char flag = 'y';
         do {
-
+            System.out.println("========================================");
             System.out.println("Welcome, " + Admin.getName());
             System.out.println("Choose what you want to edit");
-            System.out.println("1-Customers\n2-Gym Equipments\n3-Coaches");
+            System.out.println("1-Customers\n2-Gym Equipments\n3-Coaches\n4-Back To Main Menu");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
                     AdminCustomerMenu();
-
                     break;
                 case 2:
                     AdminEquipmentMenu();
-
                     break;
                 case 3:
                     AdminCoachMenu();
-
+                    break;
+                case 4:
+                    flag = 'n';
                     break;
             }
-            System.out.println("do you want to continue?y/n");
-            flag = input.next().charAt(0);
-        } while (flag == 'y' || flag == 'Y');
+        } while (flag == 'y');
     }
 
     public void AdminCustomerMenu() {
-        char flag;
-        do {
 
-            System.out.println("1-Add Customers\n2-Edit Customers\n3-Delete Customers\n4-Show the subscription history for a customer.\n5-Display all the customers that subscribed to the gym in a given month/day.");
+        char flag = 'y';
+        do {
+            System.out.println("========================================");
+            System.out.println("1-Add Customers\n2-Edit Customers\n3-Delete Customers\n4-Show the subscription history for a customer.\n5-Display all the customers that subscribed to the gym in a given month/day.\n6-Back.");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -264,19 +270,17 @@ public class Menu extends Gym {
                     System.out.println("enter your gender");
                     gender = input.next().charAt(0);
                     Customer C = new Customer(Gym.Customers.size() + 1, name, email, password, phoneNumber, gender);
+                    C.setApproved(true);
                     AddCustomer(C);
-
                     break;
                 case 2:
                     EditCustomer();
-
                     break;
                 case 3:
                     int ID;
                     System.out.println("Enter Customer ID:");
                     ID = input.nextInt();
                     RemoveCustomer(ID);
-
                     break;
                 case 4:
                     int cID;
@@ -299,10 +303,11 @@ public class Menu extends Gym {
                         }
                     }
                     break;
+                case 6:
+                    flag = 'n';
+                    break;
             }
-            System.out.println("do you want to continue?y/n");
-            flag = input.next().charAt(0);
-        } while (flag == 'y' || flag == 'Y');
+        } while (flag == 'y');
     }
 
 
@@ -310,10 +315,11 @@ public class Menu extends Gym {
     //اشطا يا معلم
 
     public void AdminEquipmentMenu() {
-        char flag;
-        do {
 
-            System.out.println("1-Add Equipment\n2-Edit Equipment\n3-Delete Equipment");
+        char flag = 'y';
+        do {
+            System.out.println("========================================");
+            System.out.println("1-Add Equipment\n2-Edit Equipment\n3-Delete Equipment\n4-Back.");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -347,18 +353,20 @@ public class Menu extends Gym {
                     RemoveEquipment(ID);
 
                     break;
+                case 4:
+                    flag = 'n';
+                    break;
             }
-            System.out.println("do you want to continue?y/n");
-            flag = input.next().charAt(0);
-        } while (flag == 'y' || flag == 'Y');
+        } while (flag == 'y');
     }
 
     public void AdminCoachMenu() {
-        char flag;
-        do {
 
+        char flag = 'y';
+        do {
+            System.out.println("========================================");
             System.out.println("1-Add Coaches\n2-Edit Coaches\n3-Delete Coaches\n4-Display all the customers of a specific coach.\n5-Display the coaches sorted in terms of the most assigned number of " +
-                    "customers to the coaches.");
+                    "customers to the coaches.\n6-Back.");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -375,8 +383,8 @@ public class Menu extends Gym {
                     System.out.println("enter your gender");
                     gender = input.next().charAt(0);
                     Coach C = new Coach(Gym.Coaches.size() + 1, name, email, password, phoneNumber, gender);
+                    C.setApproved(true);
                     AddCoach(C);
-
                     break;
                 case 2:
                     EditCoach();
@@ -396,31 +404,31 @@ public class Menu extends Gym {
 
                     break;
                 case 5:
-                    Collections.sort(Gym.Coaches, Comparator.comparingInt(coach->coach.getNumberOfClients()));
+                    Gym.Coaches.sort(Comparator.comparingInt(Coach::getNumberOfClients));
                     Gym.ViewCoaches();
                     break;
-
+                case 6:
+                    flag = 'n';
+                    break;
             }
-            System.out.println("do you want to continue?y/n");
-            flag = input.next().charAt(0);
-        } while (flag == 'y' || flag == 'Y');
+        } while (flag == 'y');
 
     }
 
     public void EditCustomer() {
+
         int customerID;
         String newName, newEmail, newPassword, newGender, newNumber;
-
+        System.out.println("========================================");
         System.out.println("Enter customer ID");
         customerID = input.nextInt();
         Customer editedcustomer = null;
         char flag;
 
         int index = Gym.Customers.indexOf(Gym.SearchCustomerByID(customerID));
-        editedcustomer.setID(Gym.Customers.get(index).getID());
+        editedcustomer = Gym.Customers.get(index);
         do {
-
-
+            System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
             int answer = input.nextInt();
             switch (answer) {
@@ -452,7 +460,7 @@ public class Menu extends Gym {
             }
 
             Gym.replaceCustomer(index, editedcustomer);
-            System.out.println("do you want to continue?y/n");
+            System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
         } while (flag == 'y' || flag == 'Y');
     }
@@ -460,16 +468,16 @@ public class Menu extends Gym {
     public void EditCoach() {
         int coachID;
         String newName, newEmail, newPassword, newGender, newNumber;
-
+        System.out.println("========================================");
         System.out.println("Enter coach ID");
         coachID = input.nextInt();
         Coach editedcoach = null;
         char flag;
 
-
         int index = Gym.Coaches.indexOf(Gym.SearchCoachByID(coachID));
-        editedcoach.setID(Gym.Coaches.get(index).getID());
+        editedcoach = Gym.Coaches.get(index);
         do {
+            System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
             int answer = input.nextInt();
             switch (answer) {
@@ -501,24 +509,26 @@ public class Menu extends Gym {
             }
 
             Gym.replaceCoach(index, editedcoach);
-            System.out.println("do you want to continue?y/n");
+            System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
         } while (flag == 'y' || flag == 'Y');
     }
 
     public void EditEquipments() {
+
         int equipmentcode;
         String newName;
         int newQuantity;
-
+        System.out.println("========================================");
         System.out.println("Enter equipment code");
         equipmentcode = input.nextInt();
         Equipment editedequipment = null;
         char flag;
 
         int index = Gym.Sports_equipment.indexOf(Gym.SearchEquipmentByCode(equipmentcode));
-        editedequipment.setEQUIPMENTCODE(Gym.Sports_equipment.get(index).getEQUIPMENTCODE());
+        editedequipment = Gym.Sports_equipment.get(index);
         do {
+            System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)quantity      3)targeted muscles");
             int answer = input.nextInt();
             switch (answer) {
@@ -550,7 +560,7 @@ public class Menu extends Gym {
             }
 
             Gym.replaceEquipment(index, editedequipment);
-            System.out.println("do you want to continue?y/n");
+            System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
         } while (flag == 'y' || flag == 'Y');
     }

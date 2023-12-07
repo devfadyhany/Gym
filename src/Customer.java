@@ -1,10 +1,10 @@
-public class Customer extends Person{
+public class Customer extends Person {
     private Subscription subscription;
     private InBody inBodies;
     private Coach coach;
 
-    public Customer(int ID ,String name , String email, String password, String phone_number, char gender){
-        super(ID,name,email,password,phone_number,gender);
+    public Customer(int ID, String name, String email, String password, String phone_number, char gender) {
+        super(ID, name, email, password, phone_number, gender);
     }
 
     public Subscription getSubscription() {
@@ -32,22 +32,32 @@ public class Customer extends Person{
     }
 
     public int getSubscription_ID() {
-        return this.subscription.getSUBSCRIPTION_ID();
+        if (subscription != null) {
+            return this.subscription.getSUBSCRIPTION_ID();
+        }
+        return 0;
     }
 
     public void setSubscription_ID(int subscription_ID) {
-        this.subscription.setSUBSCRIPTION_ID(subscription_ID);
+        if (subscription != null) {
+            subscription.setSUBSCRIPTION_ID(subscription_ID);
+        }
     }
 
     public int getCoach_ID() {
-        return this.coach.getID();
+        if (coach != null) {
+            return this.coach.getID();
+        }
+        return 0;
     }
 
     public void setCoach_ID(int coach_ID) {
-        this.coach.setID(coach_ID);
+        if (coach != null) {
+            coach.setID(coach_ID);
+        }
     }
 
-    public void DisplayInfo(){
+    public void DisplayInfo() {
         System.out.println("ID: " + this.getID());
         System.out.println("Name: " + this.getName());
         System.out.println("Email: " + this.getEmail());
@@ -57,7 +67,9 @@ public class Customer extends Person{
         System.out.println("Coach: " + this.getCoach().getName());
     }
 
-    public void DisplayCoachInfo(){
-        this.getCoach().DisplayInfo();
+    public void DisplayCoachInfo() {
+        if (coach != null){
+            coach.DisplayInfo();
+        }
     }
 }

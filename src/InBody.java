@@ -17,9 +17,9 @@ public class InBody {
 
     public static int numberOfInbodies = 0;
 
-    public InBody(int customer_ID, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
+    public InBody(int customer_ID,LocalDate l, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
         this.Customer_ID = customer_ID;
-        this.InBody_date = LocalDate.now();
+        this.InBody_date = l;
         this.hight = hight;
         this.Total_Weight = Total_Weight;
         this.Fats = Fats;

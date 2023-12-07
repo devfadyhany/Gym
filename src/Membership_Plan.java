@@ -5,8 +5,8 @@ public class Membership_Plan {
     private char Monthly_plan;
     private int Registred_Months_num;
     private float Plan_price;
-    Membership_Plan(char c,int i,float f){
-        this.Start_Date= LocalDate.now();
+    Membership_Plan(LocalDate l, char c,int i,float f){
+        this.Start_Date= l;
         this.Monthly_plan=c;
         this.Registred_Months_num=i;
         this.Plan_price=f;
