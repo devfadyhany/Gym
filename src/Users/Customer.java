@@ -1,3 +1,8 @@
+package Users;
+
+import Services.InBody;
+import Services.Subscription;
+
 public class Customer extends Person {
     private Subscription subscription;
     private InBody inBodies;
@@ -63,8 +68,8 @@ public class Customer extends Person {
         System.out.println("Email: " + this.getEmail());
         System.out.println("Password: " + this.getPassword());
         System.out.println("Phonenumber: " + this.getPhone_number());
-        System.out.println("Subscription: " + this.getSubscription());
-        System.out.println("Coach: " + this.getCoach().getName());
+        System.out.println("Services.Subscription: " + this.getSubscription());
+        System.out.println("Users.Coach: " + this.getCoach().getName());
     }
 
     public void DisplayCoachInfo() {

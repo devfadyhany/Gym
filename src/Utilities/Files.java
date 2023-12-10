@@ -1,3 +1,13 @@
+package Utilities;
+
+import Master.Gym;
+import Services.Equipment;
+import Services.InBody;
+import Services.Membership_Plan;
+import Services.Subscription;
+import Users.Coach;
+import Users.Customer;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -121,7 +131,7 @@ public class Files {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("Failed to Write in Membership_Plan File.");
+            System.out.println("Failed to Write in Services.Membership_Plan File.");
         }
     }
 
@@ -349,12 +359,12 @@ public class Files {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Failed to Read From Membership_Plan File.");
+            System.out.println("Failed to Read From Services.Membership_Plan File.");
         } finally {
             try {
                 reader.close();
             } catch (IOException e) {
-                System.out.println("Membership_Plan File is already Closed.");
+                System.out.println("Services.Membership_Plan File is already Closed.");
             }
         }
     }
@@ -448,13 +458,8 @@ public class Files {
         try {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
                 for (Customer c : Gym.Customers) {
-                    if (c.getID() == Integer.parseInt(row[0])) {
-                        c.setApproved(false);
-                    }else {
-                        c.setApproved(true);
-                    }
+                    c.setApproved(!(String.valueOf(c.getID()).equals(line)));
                 }
             }
         } catch (IOException e) {
@@ -476,13 +481,8 @@ public class Files {
         try {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
                 for (Coach c : Gym.Coaches) {
-                    if (c.getID() == Integer.parseInt(row[0])) {
-                        c.setApproved(false);
-                    }else {
-                        c.setApproved(true);
-                    }
+                    c.setApproved(!(String.valueOf(c.getID()).equals(line)));
                 }
             }
         } catch (IOException e) {

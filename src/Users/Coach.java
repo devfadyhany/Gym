@@ -1,3 +1,5 @@
+package Users;
+
 public class Coach extends Person {
     private float workingHoursPerDay;
     private int numberOfClients = 0;

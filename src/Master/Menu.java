@@ -1,12 +1,22 @@
+package Master;
+
+import Services.Equipment;
+import Services.InBody;
+import Services.Subscription;
+import Users.Admin;
+import Users.Coach;
+import Users.Customer;
+import Utilities.Login;
+import Utilities.Register;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
 //        For Customer:
 //        1. Get his coach info (Name, Phone number, working hours)
-//        2. Display for all the Gym Equipment.
+//        2. Display for all the Master.Gym Services.Equipment.
 //        3. Display the customer the membership’s plan details.
 //        4. Display the in-body information at a specific date.
 //        5. Display for the user how many kilos need to be reduced according to his body
@@ -59,18 +69,21 @@ public class Menu extends Gym {
 
         int newchoice;
         do {
-            newchoice = 0;
             System.out.println("========================================");
-            System.out.println("1- Login      2-Register");
+            System.out.println("1- Login      2-Register      3-cancel");
             newchoice = input.nextInt();
             switch (newchoice) {
                 case 1:
                     LoginMenu(choice);
-                    newchoice = 0;
                     break;
                 case 2:
                     RegisterMenu(choice);
+                    break;
+                case 3:
                     newchoice = 0;
+                    break;
+                default:
+                    System.out.println("INVALID CHOICE");
                     break;
             }
         } while (newchoice != 0);
@@ -78,6 +91,7 @@ public class Menu extends Gym {
 
     public void LoginMenu(int choice) {
 
+        int ErrorChoice;
         String email, password;
         System.out.println("========================================");
         System.out.println("enter your email");
@@ -89,15 +103,21 @@ public class Menu extends Gym {
             if (Login.CoachLogin(email, password) != null) {
                 coachMenu(Login.CoachLogin(email, password));
             } else {
-                System.out.println("Incorrect Email or Password, Try again.");
-                LoginMenu(1);
+                System.out.println("Incorrect Email or Password, Press 1 to 'TryAgain' or any number to go 'Back'.");
+                ErrorChoice = input.nextInt();
+                if (ErrorChoice == 1){
+                    LoginMenu(1);
+                }
             }
         } else if (choice == 2) {
             if (Login.CustomerLogin(email, password) != null) {
                 customerMenu(Login.CustomerLogin(email, password));
             } else {
-                System.out.println("Incorrect Email or Password, Try again.");
-                LoginMenu(2);
+                System.out.println("Incorrect Email or Password, Press 1 to 'TryAgain' or any number to go 'Back'.");
+                ErrorChoice = input.nextInt();
+                if (ErrorChoice == 1){
+                    LoginMenu(2);
+                }
             }
         } else if (choice == 3) {
             if (Login.AdminLogin(email, password)) {
@@ -140,7 +160,7 @@ public class Menu extends Gym {
             do {
                 System.out.println("========================================");
                 System.out.println("Welcome, " + customer.getName());
-                System.out.println("1-coach info\n2-Gym Equpments\n3-membership plan\n4-INBODY\n5-Kilos remaining\n6-Back To Main Menu");
+                System.out.println("1-coach info\n2-Gym Equipment\n3-membership plan\n4-IN-BODY\n5-Kilos remaining\n6-Back To Main Menu");
                 int choice = input.nextInt();
                 switch (choice) {
                     case 1:
@@ -172,6 +192,7 @@ public class Menu extends Gym {
                 }
             } while (flag == 'y');
         } else {
+            System.out.println("========================================");
             System.out.println("Account is on Hold\nWaiting for Admin is Approval...");
         }
     }
@@ -208,7 +229,7 @@ public class Menu extends Gym {
                         coach.DisplayClientInfo(customerName);
                         break;
                     case 4:
-                        System.out.println("Choose Male or Female: M for Male,F for Female.");
+                        System.out.println("Choose Male or Female: (M for Male,F for Female).");
                         customerGender = input.next().charAt(0);
                         coach.DisplayClientsByGender(customerGender);
                         break;
@@ -218,6 +239,7 @@ public class Menu extends Gym {
                 }
             } while (flag == 'y');
         } else {
+            System.out.println("========================================");
             System.out.println("Account is on Hold\nWaiting for Admin is Approval...");
         }
     }
@@ -228,7 +250,7 @@ public class Menu extends Gym {
         do {
             System.out.println("========================================");
             System.out.println("Welcome, " + Admin.getName());
-            System.out.println("Choose what you want to edit");
+            System.out.println("Which menu do you want?\n");
             System.out.println("1-Customers\n2-Gym Equipments\n3-Coaches\n4-Back To Main Menu");
             int choice = input.nextInt();
             switch (choice) {
@@ -253,7 +275,7 @@ public class Menu extends Gym {
         char flag = 'y';
         do {
             System.out.println("========================================");
-            System.out.println("1-Add Customers\n2-Edit Customers\n3-Delete Customers\n4-Show the subscription history for a customer.\n5-Display all the customers that subscribed to the gym in a given month/day.\n6-Back.");
+            System.out.println("1-Add Customers\n2-Edit Customers\n3-Delete Customers\n4-Show the subscription history for a customer.\n5-Display all the customers that subscribed to the gym in a given month/day.\n6-Approve Customers.\n7-Back.");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -304,22 +326,46 @@ public class Menu extends Gym {
                     }
                     break;
                 case 6:
+                    int approveId, needApproveCounter = 0;
+                    if (Gym.Customers.isEmpty()) {
+                        System.out.println("There is no registered customers");
+                    } else {
+                        for (Customer c : Gym.Customers) {
+                            if (!c.isApproved()) {
+                                System.out.println("customer#" + needApproveCounter + 1 + ": id-" + c.getID() + " name-" + c.getName());
+                                needApproveCounter++;
+                            }
+                        }
+                        if (needApproveCounter != 0) {
+                            System.out.println("Enter the id of the customer you want to approve:");
+                            approveId = input.nextInt();
+                            if (Gym.SearchCustomerByID(approveId) != null && !Gym.SearchCustomerByID(approveId).isApproved()) {
+                                Gym.SearchCustomerByID(approveId).setApproved(true);
+                                System.out.println("========================================");
+                                System.out.println("CUSTOMER APPROVED");
+                            } else {
+                                System.out.println("========================================");
+                                System.out.println("Invalid option");
+                            }
+                        } else {
+                            System.out.println("========================================");
+                            System.out.println("No Customers needs approve.");
+                        }
+                    }
+                    break;
+                case 7:
                     flag = 'n';
                     break;
             }
         } while (flag == 'y');
     }
 
-
-    //ياجدعان احنا خلصنا الفوق ناقص التحت سلامو عليكو
-    //اشطا يا معلم
-
     public void AdminEquipmentMenu() {
 
         char flag = 'y';
         do {
             System.out.println("========================================");
-            System.out.println("1-Add Equipment\n2-Edit Equipment\n3-Delete Equipment\n4-Back.");
+            System.out.println("1-Add Services.Equipment\n2-Edit Services.Equipment\n3-Delete Services.Equipment\n4-Back.");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -348,7 +394,7 @@ public class Menu extends Gym {
                     break;
                 case 3:
                     int ID;
-                    System.out.println("Enter Equipment ID:");
+                    System.out.println("Enter Services.Equipment ID:");
                     ID = input.nextInt();
                     RemoveEquipment(ID);
 
@@ -366,7 +412,7 @@ public class Menu extends Gym {
         do {
             System.out.println("========================================");
             System.out.println("1-Add Coaches\n2-Edit Coaches\n3-Delete Coaches\n4-Display all the customers of a specific coach.\n5-Display the coaches sorted in terms of the most assigned number of " +
-                    "customers to the coaches.\n6-Back.");
+                    "customers to the coaches.\n6-Approve Coaches.\n7-Back.");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -408,6 +454,34 @@ public class Menu extends Gym {
                     Gym.ViewCoaches();
                     break;
                 case 6:
+                    int approveId, needApproveCounter = 0;
+                    if (Gym.Coaches.isEmpty()) {
+                        System.out.println("There is no registered coaches");
+                    } else {
+                        for (Coach c : Gym.Coaches) {
+                            if (!c.isApproved()) {
+                                System.out.println("coach#" + needApproveCounter + 1 + ": id-" + c.getID() + " name-" + c.getName());
+                                needApproveCounter++;
+                            }
+                        }
+                        if (needApproveCounter != 0) {
+                            System.out.println("Enter the id of the coach you want to approve:");
+                            approveId = input.nextInt();
+                            if (Gym.SearchCoachByID(approveId) != null && !Gym.SearchCoachByID(approveId).isApproved()) {
+                                Gym.SearchCoachByID(approveId).setApproved(true);
+                                System.out.println("========================================");
+                                System.out.println("COACH APPROVED");
+                            } else {
+                                System.out.println("========================================");
+                                System.out.println("Invalid option");
+                            }
+                        } else {
+                            System.out.println("========================================");
+                            System.out.println("No Coaches needs approve.");
+                        }
+                    }
+                    break;
+                case 7:
                     flag = 'n';
                     break;
             }

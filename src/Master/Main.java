@@ -1,3 +1,7 @@
+package Master;
+
+import Utilities.Files;
+
 public class Main {
     static Files files = new Files();
     static Menu menu = new Menu();

@@ -1,3 +1,11 @@
+package Master;
+
+import Services.Equipment;
+import Services.InBody;
+import Services.Subscription;
+import Users.Coach;
+import Users.Customer;
+
 import java.util.ArrayList;
 
 public class Gym {
@@ -56,7 +64,7 @@ public class Gym {
     public void RemoveEquipment(int Code) {
 
 
-        for (Equipment equipment:Sports_equipment) {
+        for (Equipment equipment : Sports_equipment) {
             if (equipment.getEQUIPMENTCODE() == Code) {
                 Sports_equipment.remove(equipment);
                 break;
@@ -65,7 +73,7 @@ public class Gym {
     }
 
     public void ViewEquipments() {
-        for (Equipment equipment:Sports_equipment) {
+        for (Equipment equipment : Sports_equipment) {
             equipment.DisplayInfo();
             System.out.println("=================");
 
@@ -79,7 +87,7 @@ public class Gym {
     public static void RemoveCustomer(int ID) {
 
 
-        for (Customer customer:Customers) {
+        for (Customer customer : Customers) {
             if (customer.getID() == ID) {
                 Customers.remove(customer);
                 break;
@@ -88,7 +96,7 @@ public class Gym {
     }
 
     public static void ViewCustomers() {
-        for (Customer customer:Customers) {
+        for (Customer customer : Customers) {
             customer.DisplayInfo();
             System.out.println("=================");
         }
@@ -100,7 +108,7 @@ public class Gym {
 
     public static void RemoveCoach(int ID) {
 
-        for (Coach coach:Coaches) {
+        for (Coach coach : Coaches) {
             if (coach.getID() == ID) {
                 Coaches.remove(coach);
                 break;
@@ -109,19 +117,19 @@ public class Gym {
     }
 
     public static void ViewCoaches() {
-        for (Coach coach:Coaches) {
+        for (Coach coach : Coaches) {
 
-                coach.DisplayInfo();
-                System.out.println("=================");
+            coach.DisplayInfo();
+            System.out.println("=================");
 
         }
     }
 
     public static Coach SearchCoachByID(int id) {
-        Coach c=null;
-        for (Coach coach:Coaches) {
+        Coach c = null;
+        for (Coach coach : Coaches) {
             if (coach.getID() == id) {
-                c=coach;
+                c = coach;
                 break;
             }
         }
@@ -129,30 +137,33 @@ public class Gym {
     }
 
     public static Customer SearchCustomerByID(int id) {
-        Customer cus=null;
-        for (Customer customer:Customers) {
+        Customer cus = null;
+        for (Customer customer : Customers) {
             if (customer.getID() == id) {
-                cus=customer;
+                cus = customer;
                 break;
             }
         }
         return cus;
     }
-    public static void replaceCustomer(int index,Customer co) {
 
-       Customers.remove(index);
-       Customers.add(co);
+    public static void replaceCustomer(int index, Customer co) {
+
+        Customers.remove(index);
+        Customers.add(co);
 
 
     }
-    public static void replaceCoach(int index,Coach co) {
+
+    public static void replaceCoach(int index, Coach co) {
 
         Coaches.remove(index);
         Coaches.add(co);
 
 
     }
-    public static void replaceEquipment(int index,Equipment eq) {
+
+    public static void replaceEquipment(int index, Equipment eq) {
 
         Sports_equipment.remove(index);
         Sports_equipment.add(eq);
@@ -162,10 +173,10 @@ public class Gym {
 
 
     public static Equipment SearchEquipmentByCode(int code) {
-        Equipment equ=null;
-        for (Equipment equipment:Sports_equipment) {
+        Equipment equ = null;
+        for (Equipment equipment : Sports_equipment) {
             if (equipment.getEQUIPMENTCODE() == code) {
-                equ=equipment;
+                equ = equipment;
                 break;
             }
         }
@@ -176,6 +187,7 @@ public class Gym {
 
         Subscriptions.add(Subscription);
     }
+
     public void AddInbody(InBody inBody) {
 
         Inbodies.add(inBody);
@@ -183,7 +195,7 @@ public class Gym {
 
     public void RemoveSubscriptions(int ID) {
 
-        for (Subscription subscription:Subscriptions) {
+        for (Subscription subscription : Subscriptions) {
             if (subscription.getSUBSCRIPTION_ID() == ID) {
                 Subscriptions.remove(subscription);
                 break;
@@ -194,7 +206,7 @@ public class Gym {
     }
 
     public static void ViewSubscriptions(int ID) {
-        for (Subscription subscription:Subscriptions) {
+        for (Subscription subscription : Subscriptions) {
             if (subscription.getCustomerId() == ID) {
                 subscription.DisplaySubscriptionInfo();
                 System.out.println("=================");
@@ -205,16 +217,17 @@ public class Gym {
 
     public Coach getCoachByID(int ID) {
         Coach C = null;
-        for (Coach coach:Coaches) {
+        for (Coach coach : Coaches) {
             if (coach.getID() == ID) {
                 C = coach;
             }
         }
         return C;
     }
+
     public InBody getInbody_By_CustomerID(int ID) {
         InBody inBody = null;
-        for (InBody inbody:Inbodies) {
+        for (InBody inbody : Inbodies) {
             if (inbody.getCustomer_ID() == ID) {
                 inBody = inbody;
             }

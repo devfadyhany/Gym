@@ -1,10 +1,16 @@
+package Utilities;
+
+import Master.Gym;
+import Users.Admin;
+import Users.Coach;
+import Users.Customer;
+
 public class Login {
-    static Admin admin = new Admin();
 
     public static Customer CustomerLogin(String Email, String Password) {
         Customer Loggedcustomer = null;
         for (int i = 0; i < Gym.Customers.size(); i++) {
-            if (Gym.Customers.get(i).getEmail().equals(Email) &&Gym.Customers.get(i).getPassword().equals(Password)) {
+            if (Gym.Customers.get(i).getEmail().equals(Email) && Gym.Customers.get(i).getPassword().equals(Password)) {
                 Loggedcustomer = Gym.Customers.get(i);
                 break;
             }
@@ -24,9 +30,6 @@ public class Login {
     }
 
     public static boolean AdminLogin(String Email, String Password) {
-        if (admin.getEmail().equals(Email) && admin.getPassword().equals(Password)) {
-            return true;
-        }
-        return false;
+        return Admin.getEmail().equals(Email) && Admin.getPassword().equals(Password);
     }
 }

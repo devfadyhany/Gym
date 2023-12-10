@@ -1,6 +1,8 @@
+package Users;
+
 public class Admin {
     private static final String NAME = "Admin";
-    private static final String EMAIL = "Admin@gmail.com";
+    private static final String EMAIL = "admin";
     private static final String PASSWORD = "admin";
 
     public static String getName() {
