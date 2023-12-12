@@ -171,6 +171,7 @@ public class InBody {
     }
 
     public void displayInBody(){
+        System.out.println("InBody Date:"+getInBody_date());
         System.out.println("Height:"+getHight());
         System.out.println("Total Weight"+getTotal_weight());
         System.out.println("Mass:"+getMass());

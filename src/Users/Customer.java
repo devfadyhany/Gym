@@ -5,7 +5,7 @@ import Services.Subscription;
 
 public class Customer extends Person {
     private Subscription subscription;
-    private InBody inBodies;
+    private InBody CurrentInBody;
     private Coach coach;
 
     public Customer(int ID, String name, String email, String password, String phone_number, char gender) {
@@ -21,11 +21,11 @@ public class Customer extends Person {
     }
 
     public InBody getInBodies() {
-        return inBodies;
+        return CurrentInBody;
     }
 
     public void setInBodies(InBody inBodies) {
-        this.inBodies = inBodies;
+        this.CurrentInBody = inBodies;
     }
 
     public Coach getCoach() {
@@ -62,14 +62,19 @@ public class Customer extends Person {
         }
     }
 
+    public void Subscribe(Subscription subscription, Coach coach){
+        this.setSubscription(subscription);
+        this.setCoach(coach);
+    }
+
     public void DisplayInfo() {
         System.out.println("ID: " + this.getID());
         System.out.println("Name: " + this.getName());
         System.out.println("Email: " + this.getEmail());
-        System.out.println("Password: " + this.getPassword());
-        System.out.println("Phonenumber: " + this.getPhone_number());
-        System.out.println("Services.Subscription: " + this.getSubscription());
-        System.out.println("Users.Coach: " + this.getCoach().getName());
+//        System.out.println("Password: " + this.getPassword());
+        System.out.println("Phone number: " + this.getPhone_number());
+        System.out.println("Subscription: " + this.getSubscription());
+        System.out.println("Coach: " + this.getCoach().getName());
     }
 
     public void DisplayCoachInfo() {

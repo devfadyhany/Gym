@@ -1,7 +1,7 @@
 package Users;
 
 public class Coach extends Person {
-    private float workingHoursPerDay;
+    private int workingHoursPerDay;
     private int numberOfClients = 0;
     private Customer[] clients = new Customer[10];
 
@@ -9,11 +9,11 @@ public class Coach extends Person {
         super(ID, name, email, password, phone_number, gender);
     }
 
-    public float getWorkingHoursPerDay() {
+    public int getWorkingHoursPerDay() {
         return workingHoursPerDay;
     }
 
-    public void setWorkingHoursPerDay(float workingHoursPerDay) {
+    public void setWorkingHoursPerDay(int workingHoursPerDay) {
         this.workingHoursPerDay = workingHoursPerDay;
     }
 
@@ -30,8 +30,7 @@ public class Coach extends Person {
     }
 
     public void AddClient(Customer client) {
-        clients[numberOfClients] = client;
-        numberOfClients++;
+        clients[clients.length - 1] = client;
     }
 
     public void RemoveClient(int ID) {
@@ -59,8 +58,8 @@ public class Coach extends Person {
         System.out.println("ID: " + this.getID());
         System.out.println("Name: " + this.getName());
         System.out.println("Email: " + this.getEmail());
-        System.out.println("Password: " + this.getPassword());
-        System.out.println("Phonenumber: " + this.getPhone_number());
+//        System.out.println("Password: " + this.getPassword());
+        System.out.println("Phone number: " + this.getPhone_number());
         System.out.println("Working Hours_Per_Day: " + this.getWorkingHoursPerDay());
         System.out.println("Number Of Clients: " + this.getNumberOfClients());
     }
@@ -78,7 +77,6 @@ public class Coach extends Person {
         for (int i = 0; i < 10; i++) {
             if (clients[i] != null) {
                 clients[i].DisplayInfo();
-                System.out.println("=================");
             }
         }
     }

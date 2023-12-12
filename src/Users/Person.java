@@ -1,6 +1,6 @@
 package Users;
 
-public class Person {
+public abstract class Person {
     private int ID;
     private String name;
     private String email;

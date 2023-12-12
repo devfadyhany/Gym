@@ -12,7 +12,6 @@ public class Membership_Plan {
         this.Monthly_plan=c;
         this.Registred_Months_num=i;
         this.Plan_price=f;
-
     }
 
     public void setStart_Date(LocalDate start_Date) {
@@ -49,18 +48,18 @@ public class Membership_Plan {
     public float getPlan_price() {
         return Plan_price;
     }
-    public float CalcDiscount() {
+    public float CalcDiscount(int months) {
         if (this.Monthly_plan == 'a' || this.Monthly_plan == 'A') {
-            if (this.Registred_Months_num >= 3) {
-                switch (Registred_Months_num) {
+            if (months >= 3) {
+                switch (months) {
                     case 3:
                         this.Plan_price -= this.Plan_price *= 0.2F;
                     case 6:
                         this.Plan_price -= this.Plan_price *= 0.3F;
                     case 12:
                         this.Plan_price -= this.Plan_price *= 0.4F;
-                    default:
-                        System.out.println("No discount will be applied ");
+//                    default:
+//                        System.out.println("No discount will be applied ");
                 }
 
 

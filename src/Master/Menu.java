@@ -2,6 +2,7 @@ package Master;
 
 import Services.Equipment;
 import Services.InBody;
+import Services.Membership_Plan;
 import Services.Subscription;
 import Users.Admin;
 import Users.Coach;
@@ -41,7 +42,28 @@ public class Menu extends Gym {
     Scanner input = new Scanner(System.in);
 
     public void MainMenu() {
+        for (Customer c : Customers) {
+            for (InBody b : Inbodies) {
+                if (b.getCustomer_ID() == c.getID()) {
+                    c.setInBodies(b);
+                }
+            }
+            for (Subscription s : Subscriptions) {
+                if (s.getCustomerId() == c.getID()) {
+                    c.setSubscription(s);
+                    c.setCoach(Gym.SearchCoachByID(s.getCoach()));
 
+                }
+            }
+        }
+
+        for (Coach c : Coaches) {
+            for (Subscription s : Gym.Subscriptions) {
+                if (s.getCoach() == c.getID()) {
+                    c.AddClient(Gym.SearchCustomerByID(s.getCustomerId()));
+                }
+            }
+        }
         char flag = 'y';
         do {
             int choice;
@@ -105,7 +127,7 @@ public class Menu extends Gym {
             } else {
                 System.out.println("Incorrect Email or Password, Press 1 to 'TryAgain' or any number to go 'Back'.");
                 ErrorChoice = input.nextInt();
-                if (ErrorChoice == 1){
+                if (ErrorChoice == 1) {
                     LoginMenu(1);
                 }
             }
@@ -115,7 +137,7 @@ public class Menu extends Gym {
             } else {
                 System.out.println("Incorrect Email or Password, Press 1 to 'TryAgain' or any number to go 'Back'.");
                 ErrorChoice = input.nextInt();
-                if (ErrorChoice == 1){
+                if (ErrorChoice == 1) {
                     LoginMenu(2);
                 }
             }
@@ -153,40 +175,131 @@ public class Menu extends Gym {
     }
 
     public void customerMenu(Customer customer) {
-
-        System.out.println(customer.isApproved());
         if (customer.isApproved()) {
             char flag = 'y';
             do {
                 System.out.println("========================================");
                 System.out.println("Welcome, " + customer.getName());
-                System.out.println("1-coach info\n2-Gym Equipment\n3-membership plan\n4-IN-BODY\n5-Kilos remaining\n6-Back To Main Menu");
+                System.out.println("1-Subscribe\n2-Gym Equipment\n3-coach info\n4-View MembershipPlan\n5-Take IN-BODY\n6-View IN-BODY\n7-Kilos remaining\n8-Back To Main Menu");
                 int choice = input.nextInt();
                 switch (choice) {
                     case 1:
-                        customer.DisplayCoachInfo();
+                        if (customer.getSubscription() == null) {
+                            char PlanChoice;
+                            Membership_Plan m = new Membership_Plan(LocalDate.now(), 'A', 0, 0.0f);
+                            int coachId = 0, numOfMonths = 0;
+                            do {
+                                System.out.println("Choose a Plan:  A-3 days per week   B-6 days per week");
+                                PlanChoice = input.next().charAt(0);
+                                m.setMonthly_plan(PlanChoice);
+                            } while (PlanChoice != 'a' && PlanChoice != 'A' && PlanChoice != 'b' && PlanChoice != 'B');
 
+                            if (m.getMonthly_plan() == 'a' || m.getMonthly_plan() == 'A') {
+                                m.setPlan_price(250f);
+                            } else if (m.getMonthly_plan() == 'b' || m.getMonthly_plan() == 'B') {
+                                m.setPlan_price(400f);
+                            } else {
+                                System.out.println("Invalid Option");
+                                break;
+                            }
+                            System.out.println("Enter number of months you want to register:");
+                            numOfMonths = input.nextInt();
+                            m.setRegistred_Months_num(numOfMonths);
+                            m.setPlan_price(250f * numOfMonths);
+                            if (m.getRegistred_Months_num() >= 3) {
+                                m.setPlan_price(m.CalcDiscount(numOfMonths));
+                            }
+                            System.out.println("your subscription Total price is: " + m.getPlan_price());
+                            System.out.println("available coaches:");
+                            System.out.println("-------------------");
+                            System.out.println("ID\t|\tName");
+                            System.out.println("-------------------");
+                            for (Coach c : Gym.Coaches) {
+                                if (c.getNumberOfClients() < 10) {
+                                    System.out.println(c.getID() + "\t|\t" + c.getName());
+                                }
+                            }
+                            do {
+                                System.out.println("Enter the id of the coach you want: ");
+                                coachId = input.nextInt();
+
+                                if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
+                                    System.out.println("Invalid Choice, Try Again");
+                                }
+                            } while (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10);
+                            Gym.AddSubscription(new Subscription(Gym.Subscriptions.size() + 1, customer.getID(), coachId, m));
+                            Gym.SearchCoachByID(coachId).AddClient(customer);
+                            Gym.SearchCoachByID(coachId).setNumberOfClients(Gym.SearchCoachByID(coachId).getNumberOfClients() + 1);
+                            customer.Subscribe(Gym.SearchSubscriptionById(Gym.Subscriptions.size()), Gym.SearchCoachByID(coachId));
+                        } else {
+                            System.out.println("You are already subscribed.");
+                        }
                         break;
                     case 2:
                         ViewEquipments();
-
                         break;
                     case 3:
+                        customer.DisplayCoachInfo();
+                        break;
+                    case 4:
                         if (customer.getSubscription() != null) {
                             customer.getSubscription().DisplaySubscriptionInfo();
                         }
                         break;
-                    case 4:
+                    case 5:
+                        if (customer.getInBodies() != null) {
+                            if (!LocalDate.now().minusDays(30).isBefore(customer.getInBodies().getInBody_date())) {
+                                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
+                                System.out.println("Enter you height:");
+                                b.setHight(input.nextFloat());
+                                System.out.println("Enter you Weight:");
+                                b.setTotal_wight(input.nextFloat());
+                                System.out.println("Enter number of Fats:");
+                                b.setFats(input.nextFloat());
+                                System.out.println("Enter your mass:");
+                                b.setMass(input.nextFloat());
+                                System.out.println("Enter your minerals number:");
+                                b.setMinerals(input.nextFloat());
+                                System.out.println("Enter your water number:");
+                                b.setWater(input.nextFloat());
+                                System.out.println("Enter you Age:");
+                                b.setAge(input.nextInt());
+                                Gym.AddInbody(b);
+                                customer.setInBodies(b);
+                            } else {
+                                System.out.println("You cannot Take another inBody this month, You have to wait for the Next Month");
+                            }
+                        } else {
+                            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
+                            System.out.println("Enter you height:");
+                            b.setHight(input.nextFloat());
+                            System.out.println("Enter you Weight:");
+                            b.setTotal_wight(input.nextFloat());
+                            System.out.println("Enter number of Fats:");
+                            b.setFats(input.nextFloat());
+                            System.out.println("Enter your mass:");
+                            b.setMass(input.nextFloat());
+                            System.out.println("Enter your minerals number:");
+                            b.setMinerals(input.nextFloat());
+                            System.out.println("Enter your water number:");
+                            b.setWater(input.nextFloat());
+                            System.out.println("Enter you Age:");
+                            b.setAge(input.nextInt());
+                            Gym.AddInbody(b);
+                            customer.setInBodies(b);
+                        }
+                        break;
+                    case 6:
                         if (customer.getInBodies() != null) {
                             customer.getInBodies().displayInBody();
                         }
                         break;
-                    case 5:
+                    case 7:
                         if (customer.getInBodies() != null) {
                             System.out.println(customer.getInBodies().CalcIdealWeight());
                         }
                         break;
-                    case 6:
+                    case 8:
                         flag = 'n';
                         break;
                 }
@@ -195,6 +308,7 @@ public class Menu extends Gym {
             System.out.println("========================================");
             System.out.println("Account is on Hold\nWaiting for Admin is Approval...");
         }
+
     }
 
     public void coachMenu(Coach coach) {
@@ -204,7 +318,7 @@ public class Menu extends Gym {
             do {
                 System.out.println("========================================");
                 System.out.println("Welcome, " + coach.getName());
-                System.out.println("1-Customers info\n2-InBody History for any of the Customers\n3-Get all the details of a customer by his name.\n4-Show a list of all female/male customers.\n5-Back To Main Menu.");
+                System.out.println("1-Customers info\n2-InBody History for any of the Customers\n3-Get all the details of a customer by his name.\n4-Show a list of all female/male customers.\n5-Set WorkingHours\n6-Back To Main Menu.");
                 int choice = input.nextInt();
                 String customerName;
                 int customerId;
@@ -234,6 +348,10 @@ public class Menu extends Gym {
                         coach.DisplayClientsByGender(customerGender);
                         break;
                     case 5:
+                        System.out.println("Enter how many hours you work per day:");
+                        coach.setWorkingHoursPerDay(input.nextInt());
+                        break;
+                    case 6:
                         flag = 'n';
                         break;
                 }

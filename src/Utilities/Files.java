@@ -26,7 +26,6 @@ public class Files {
         WriteEquipments();
         WriteCustomerApproval();
         WriteCoachApproval();
-        WriteCoachClients();
     }
 
     public void ReadFiles() {
@@ -39,7 +38,6 @@ public class Files {
         ReadEquipments();
         ReadCustomerApproval();
         ReadCoachApproval();
-        ReadCoachClients();
     }
 
     // *************************************************    Write Functions    *************************************************
@@ -239,26 +237,6 @@ public class Files {
         }
     }
 
-    public void WriteCoachClients() {
-        try {
-            int counter = 0;
-            FileWriter writer = new FileWriter("Data/CoachClients.csv");
-            writer.write("");
-            while (counter < Gym.Coaches.size()) {
-                for (Coach coach : Gym.Coaches) {
-                    for (Customer customer : coach.getClients()) {
-                        writer.append(String.valueOf(coach.getID())).append(",");
-                        writer.append(String.valueOf(customer.getID())).append("\n");
-                    }
-                    counter++;
-                }
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Failed to Write in CoachClients File.");
-        }
-    }
-
     // *************************************************    Read Functions    *************************************************
     public void ReadCustomers() {
         String file = "Data/Customers.csv";
@@ -354,7 +332,7 @@ public class Files {
                 for (Subscription subscription : Gym.Subscriptions) {
                     if (subscription.getSUBSCRIPTION_ID() == Integer.parseInt(row[0])) {
                         LocalDate l = LocalDate.parse(row[1]);
-                        subscription.setPlan(new Membership_Plan(l, row[2].charAt(0), Integer.parseInt(row[3]), Integer.parseInt(row[4])));
+                        subscription.setPlan(new Membership_Plan(l, row[2].charAt(0), Integer.parseInt(row[3]), Float.parseFloat(row[4])));
                     }
                 }
             }
@@ -492,34 +470,6 @@ public class Files {
                 reader.close();
             } catch (IOException e) {
                 System.out.println("CoachApproval File is already Closed.");
-            }
-        }
-    }
-
-    public void ReadCoachClients() {
-        String file = "Data/CoachClients.csv";
-        BufferedReader reader = null;
-        String line = "";
-
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            while ((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
-                for (Coach coach : Gym.Coaches) {
-                    if (coach.getID() == Integer.parseInt(row[0])) {
-                        coach.getClients()[coach.getNumberOfClients()] = Gym.SearchCustomerByID(Integer.parseInt(row[0]));
-                        coach.setNumberOfClients(coach.getNumberOfClients() + 1);
-                        break;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Failed to Read From CoachClients File.");
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                System.out.println("CoachClients File is already Closed.");
             }
         }
     }

@@ -89,6 +89,13 @@ public class Gym {
 
         for (Customer customer : Customers) {
             if (customer.getID() == ID) {
+                for (Coach c : Coaches) {
+                    for (Customer cus : c.getClients()) {
+                        if (cus.getID() == ID) {
+                            c.RemoveClient(ID);
+                        }
+                    }
+                }
                 Customers.remove(customer);
                 break;
             }
@@ -183,12 +190,22 @@ public class Gym {
         return equ;
     }
 
-    public void AddSubscription(Subscription Subscription) {
-
+    public static void AddSubscription(Subscription Subscription) {
         Subscriptions.add(Subscription);
     }
 
-    public void AddInbody(InBody inBody) {
+    public static Subscription SearchSubscriptionById(int id) {
+        Subscription sub = null;
+        for (Subscription subscription : Subscriptions) {
+            if (subscription.getSUBSCRIPTION_ID() == id) {
+                sub = subscription;
+                break;
+            }
+        }
+        return sub;
+    }
+
+    public static void AddInbody(InBody inBody) {
 
         Inbodies.add(inBody);
     }
