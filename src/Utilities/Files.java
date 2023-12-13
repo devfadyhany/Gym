@@ -22,8 +22,8 @@ public class Files {
         WriteSubscriptions();
         WriteMembershipPlan();
         WriteInBodies();
-        WriteTargetedMuscles();
         WriteEquipments();
+        WriteTargetedMuscles();
         WriteCustomerApproval();
         WriteCoachApproval();
     }
@@ -34,8 +34,8 @@ public class Files {
         ReadSubscriptions();
         ReadMembershipPlan();
         ReadInBodies();
-        ReadTargetedMuscles();
         ReadEquipments();
+        ReadTargetedMuscles();
         ReadCustomerApproval();
         ReadCoachApproval();
     }
@@ -100,7 +100,7 @@ public class Files {
                 for (Subscription subscription : Gym.Subscriptions) {
                     writer.append(String.valueOf(subscription.getSUBSCRIPTION_ID())).append(",");
                     writer.append(String.valueOf(subscription.getCustomerId())).append(",");
-                    writer.append(String.valueOf(subscription.getCoach())).append("\n");
+                    writer.append(String.valueOf(subscription.getCoachId())).append("\n");
 
                     counter++;
                 }
@@ -121,7 +121,7 @@ public class Files {
                     writer.append(String.valueOf(subscription.getSUBSCRIPTION_ID())).append(",");
                     writer.append(String.valueOf(subscription.getPlan().getStart_Date())).append(",");
                     writer.append(String.valueOf(subscription.getPlan().getMonthly_plan())).append(",");
-                    writer.append(String.valueOf(subscription.getPlan().getRegistred_Months_num())).append(",");
+                    writer.append(String.valueOf(subscription.getPlan().getRegistered_Months_num())).append(",");
                     writer.append(String.valueOf(subscription.getPlan().getPlan_price())).append("\n");
 
                     counter++;
@@ -138,17 +138,17 @@ public class Files {
             int counter = 0;
             FileWriter writer = new FileWriter("Data/InBodies.csv");
             writer.write("");
-            while (counter < Gym.Inbodies.size()) {
-                for (InBody inbody : Gym.Inbodies) {
+            while (counter < Gym.InBodies.size()) {
+                for (InBody inbody : Gym.InBodies) {
                     writer.append(String.valueOf(inbody.getCustomer_ID())).append(",");
                     writer.append(String.valueOf(inbody.getInBody_date())).append(",");
-                    writer.append(String.valueOf(inbody.getHight())).append(",");
+                    writer.append(String.valueOf(inbody.getHeight())).append(",");
                     writer.append(String.valueOf(inbody.getTotal_weight())).append(",");
                     writer.append(String.valueOf(inbody.getFats())).append(",");
                     writer.append(String.valueOf(inbody.getMass())).append(",");
                     writer.append(String.valueOf(inbody.getMinerals())).append(",");
                     writer.append(String.valueOf(inbody.getWater())).append(",");
-                    writer.append(String.valueOf(inbody.getProtien())).append(",");
+                    writer.append(String.valueOf(inbody.getProtein())).append(",");
                     writer.append(String.valueOf(inbody.getAge())).append("\n");
 
                     counter++;
@@ -241,7 +241,7 @@ public class Files {
     public void ReadCustomers() {
         String file = "Data/Customers.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
             int counter = 0;
@@ -260,7 +260,9 @@ public class Files {
             System.out.println("Failed to Read From Customers File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("Customers File is already Closed.");
             }
@@ -270,7 +272,7 @@ public class Files {
     public void ReadCoaches() {
         String file = "Data/Coaches.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
             int counter = 0;
@@ -288,7 +290,9 @@ public class Files {
             System.out.println("Failed to Read From Coaches File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("Coaches File is already Closed.");
             }
@@ -298,22 +302,21 @@ public class Files {
     public void ReadSubscriptions() {
         String file = "Data/Subscriptions.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
-            int counter = 0;
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 Gym.Subscriptions.add(new Subscription(Integer.parseInt(row[0]), Integer.parseInt(row[1]), Integer.parseInt(row[2]), null));
-
-                counter++;
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From Subscriptions File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("Subscriptions File is already Closed.");
             }
@@ -323,7 +326,7 @@ public class Files {
     public void ReadMembershipPlan() {
         String file = "Data/Membership_Plan.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -340,7 +343,9 @@ public class Files {
             System.out.println("Failed to Read From Services.Membership_Plan File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("Services.Membership_Plan File is already Closed.");
             }
@@ -350,23 +355,22 @@ public class Files {
     public void ReadInBodies() {
         String file = "Data/InBodies.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
-            int counter = 0;
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 LocalDate l = LocalDate.parse(row[1]);
-                Gym.Inbodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Integer.parseInt(row[9])));
-
-                counter++;
+                Gym.InBodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Integer.parseInt(row[9])));
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From InBodies File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("InBodies File is already Closed.");
             }
@@ -376,22 +380,21 @@ public class Files {
     public void ReadEquipments() {
         String file = "Data/Equipments.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
-            int counter = 0;
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 Gym.Sports_equipment.add(new Equipment(row[1], Integer.parseInt(row[2]), Integer.parseInt(row[0]), null));
-
-                counter++;
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From Equipments File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("Equipments File is already Closed.");
             }
@@ -401,7 +404,7 @@ public class Files {
     public void ReadTargetedMuscles() {
         String file = "Data/TargetedMuscles.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
             int counter = 0;
@@ -420,7 +423,9 @@ public class Files {
             System.out.println("Failed to Read From TargetedMuscles File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("TargetedMuscles File is already Closed.");
             }
@@ -431,7 +436,7 @@ public class Files {
     public void ReadCustomerApproval() {
         String file = "Data/CustomerApproval.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -444,7 +449,9 @@ public class Files {
             System.out.println("Failed to Read From CustomerApproval File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("CustomerApproval File is already Closed.");
             }
@@ -454,7 +461,7 @@ public class Files {
     public void ReadCoachApproval() {
         String file = "Data/CoachApproval.csv";
         BufferedReader reader = null;
-        String line = "";
+        String line;
 
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -467,7 +474,9 @@ public class Files {
             System.out.println("Failed to Read From CoachApproval File.");
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 System.out.println("CoachApproval File is already Closed.");
             }

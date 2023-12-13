@@ -13,57 +13,17 @@ import Utilities.Register;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.Scanner;
-
-//        For Customer:
-//        1. Get his coach info (Name, Phone number, working hours)
-//        2. Display for all the Master.Gym Services.Equipment.
-//        3. Display the customer the membership’s plan details.
-//        4. Display the in-body information at a specific date.
-//        5. Display for the user how many kilos need to be reduced according to his body
-//        (you can get any calculation through the internet)
-//
-//        For Coach:
-//        1. Show a list of all his customers.
-//        2. Get the inBody history of any of his customers.
-//        3. Get all the details of a customer by his name.
-//        4. Show a list of all his female/male customers.
-//
-//        For Admin:
-//        1. Can add/edit/delete coaches, types of equipment, and customers to the gym.
-//        2. Show the subscription history for a customer.
-//        3. Display all the customers that subscribed to the gym in a given month/day.
-//        4. Display all the customers of a specific coach.
-//        5. Display the GYM income in a given month.
-//        6. Display the coaches sorted in terms of the most assigned number of
-//        customers to the coaches.
 
 public class Menu extends Gym {
     Scanner input = new Scanner(System.in);
 
+    public Menu() {
+        super("GYM Name", "GYM Address", "00000000000");
+    }
+
     public void MainMenu() {
-        for (Customer c : Customers) {
-            for (InBody b : Inbodies) {
-                if (b.getCustomer_ID() == c.getID()) {
-                    c.setInBodies(b);
-                }
-            }
-            for (Subscription s : Subscriptions) {
-                if (s.getCustomerId() == c.getID()) {
-                    c.setSubscription(s);
-                    c.setCoach(Gym.SearchCoachByID(s.getCoach()));
-
-                }
-            }
-        }
-
-        for (Coach c : Coaches) {
-            for (Subscription s : Gym.Subscriptions) {
-                if (s.getCoach() == c.getID()) {
-                    c.AddClient(Gym.SearchCustomerByID(s.getCustomerId()));
-                }
-            }
-        }
         char flag = 'y';
         do {
             int choice;
@@ -74,11 +34,9 @@ public class Menu extends Gym {
                 case 1:
                 case 2:
                     RoleMenu(choice);
-
                     break;
                 case 3:
                     LoginMenu(choice);
-
                     break;
                 case 4:
                     flag = 'n';
@@ -88,7 +46,6 @@ public class Menu extends Gym {
     }
 
     public void RoleMenu(int choice) {
-
         int newchoice;
         do {
             System.out.println("========================================");
@@ -112,7 +69,6 @@ public class Menu extends Gym {
     }
 
     public void LoginMenu(int choice) {
-
         int ErrorChoice;
         String email, password;
         System.out.println("========================================");
@@ -125,7 +81,7 @@ public class Menu extends Gym {
             if (Login.CoachLogin(email, password) != null) {
                 coachMenu(Login.CoachLogin(email, password));
             } else {
-                System.out.println("Incorrect Email or Password, Press 1 to 'TryAgain' or any number to go 'Back'.");
+                System.out.println("Incorrect Email or Password, (1-TryAgain or 2-Back).");
                 ErrorChoice = input.nextInt();
                 if (ErrorChoice == 1) {
                     LoginMenu(1);
@@ -135,7 +91,7 @@ public class Menu extends Gym {
             if (Login.CustomerLogin(email, password) != null) {
                 customerMenu(Login.CustomerLogin(email, password));
             } else {
-                System.out.println("Incorrect Email or Password, Press 1 to 'TryAgain' or any number to go 'Back'.");
+                System.out.println("Incorrect Email or Password, (1-TryAgain or 2-Back).");
                 ErrorChoice = input.nextInt();
                 if (ErrorChoice == 1) {
                     LoginMenu(2);
@@ -145,14 +101,16 @@ public class Menu extends Gym {
             if (Login.AdminLogin(email, password)) {
                 adminMenu();
             } else {
-                System.out.println("Incorrect Email or Password, Try again.");
-                LoginMenu(3);
+                System.out.println("Incorrect Email or Password, (1-TryAgain or 2-Back).");
+                ErrorChoice = input.nextInt();
+                if (ErrorChoice == 1) {
+                    LoginMenu(3);
+                }
             }
         }
     }
 
     public void RegisterMenu(int choice) {
-
         String name, email, password, phoneNumber;
         char gender;
         System.out.println("========================================");
@@ -162,10 +120,24 @@ public class Menu extends Gym {
         email = input.next();
         System.out.println("enter your password");
         password = input.next();
-        System.out.println("enter your phone number");
-        phoneNumber = input.next();
-        System.out.println("enter your gender");
-        gender = input.next().charAt(0);
+        do {
+            System.out.println("enter your phone number");
+            phoneNumber = input.next();
+
+            if (!phoneNumber.matches("\\d+")) {
+                System.out.println("invalid PhoneNumber please enter numbers only.");
+            }
+        } while (!phoneNumber.matches("\\d+"));
+
+        do {
+            System.out.println("enter your gender ('m' for male or 'f' for female)");
+            gender = input.next().charAt(0);
+
+            if (gender != 'm' && gender != 'f') {
+                System.out.println("Enter 'm' for male & 'f' for female Only");
+            }
+
+        } while (gender != 'm' && gender != 'f');
 
         if (choice == 1) {
             coachMenu(Register.CoachRegister(name, email, password, phoneNumber, gender));
@@ -184,56 +156,7 @@ public class Menu extends Gym {
                 int choice = input.nextInt();
                 switch (choice) {
                     case 1:
-                        if (customer.getSubscription() == null) {
-                            char PlanChoice;
-                            Membership_Plan m = new Membership_Plan(LocalDate.now(), 'A', 0, 0.0f);
-                            int coachId = 0, numOfMonths = 0;
-                            do {
-                                System.out.println("Choose a Plan:  A-3 days per week   B-6 days per week");
-                                PlanChoice = input.next().charAt(0);
-                                m.setMonthly_plan(PlanChoice);
-                            } while (PlanChoice != 'a' && PlanChoice != 'A' && PlanChoice != 'b' && PlanChoice != 'B');
-
-                            if (m.getMonthly_plan() == 'a' || m.getMonthly_plan() == 'A') {
-                                m.setPlan_price(250f);
-                            } else if (m.getMonthly_plan() == 'b' || m.getMonthly_plan() == 'B') {
-                                m.setPlan_price(400f);
-                            } else {
-                                System.out.println("Invalid Option");
-                                break;
-                            }
-                            System.out.println("Enter number of months you want to register:");
-                            numOfMonths = input.nextInt();
-                            m.setRegistred_Months_num(numOfMonths);
-                            m.setPlan_price(250f * numOfMonths);
-                            if (m.getRegistred_Months_num() >= 3) {
-                                m.setPlan_price(m.CalcDiscount(numOfMonths));
-                            }
-                            System.out.println("your subscription Total price is: " + m.getPlan_price());
-                            System.out.println("available coaches:");
-                            System.out.println("-------------------");
-                            System.out.println("ID\t|\tName");
-                            System.out.println("-------------------");
-                            for (Coach c : Gym.Coaches) {
-                                if (c.getNumberOfClients() < 10) {
-                                    System.out.println(c.getID() + "\t|\t" + c.getName());
-                                }
-                            }
-                            do {
-                                System.out.println("Enter the id of the coach you want: ");
-                                coachId = input.nextInt();
-
-                                if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
-                                    System.out.println("Invalid Choice, Try Again");
-                                }
-                            } while (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10);
-                            Gym.AddSubscription(new Subscription(Gym.Subscriptions.size() + 1, customer.getID(), coachId, m));
-                            Gym.SearchCoachByID(coachId).AddClient(customer);
-                            Gym.SearchCoachByID(coachId).setNumberOfClients(Gym.SearchCoachByID(coachId).getNumberOfClients() + 1);
-                            customer.Subscribe(Gym.SearchSubscriptionById(Gym.Subscriptions.size()), Gym.SearchCoachByID(coachId));
-                        } else {
-                            System.out.println("You are already subscribed.");
-                        }
+                        CustomerSubscribe(customer);
                         break;
                     case 2:
                         ViewEquipments();
@@ -247,56 +170,16 @@ public class Menu extends Gym {
                         }
                         break;
                     case 5:
-                        if (customer.getInBodies() != null) {
-                            if (!LocalDate.now().minusDays(30).isBefore(customer.getInBodies().getInBody_date())) {
-                                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
-                                System.out.println("Enter you height:");
-                                b.setHight(input.nextFloat());
-                                System.out.println("Enter you Weight:");
-                                b.setTotal_wight(input.nextFloat());
-                                System.out.println("Enter number of Fats:");
-                                b.setFats(input.nextFloat());
-                                System.out.println("Enter your mass:");
-                                b.setMass(input.nextFloat());
-                                System.out.println("Enter your minerals number:");
-                                b.setMinerals(input.nextFloat());
-                                System.out.println("Enter your water number:");
-                                b.setWater(input.nextFloat());
-                                System.out.println("Enter you Age:");
-                                b.setAge(input.nextInt());
-                                Gym.AddInbody(b);
-                                customer.setInBodies(b);
-                            } else {
-                                System.out.println("You cannot Take another inBody this month, You have to wait for the Next Month");
-                            }
-                        } else {
-                            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
-                            System.out.println("Enter you height:");
-                            b.setHight(input.nextFloat());
-                            System.out.println("Enter you Weight:");
-                            b.setTotal_wight(input.nextFloat());
-                            System.out.println("Enter number of Fats:");
-                            b.setFats(input.nextFloat());
-                            System.out.println("Enter your mass:");
-                            b.setMass(input.nextFloat());
-                            System.out.println("Enter your minerals number:");
-                            b.setMinerals(input.nextFloat());
-                            System.out.println("Enter your water number:");
-                            b.setWater(input.nextFloat());
-                            System.out.println("Enter you Age:");
-                            b.setAge(input.nextInt());
-                            Gym.AddInbody(b);
-                            customer.setInBodies(b);
-                        }
+                        CustomerTakeInBody(customer);
                         break;
                     case 6:
-                        if (customer.getInBodies() != null) {
-                            customer.getInBodies().displayInBody();
+                        if (customer.getInBody() != null) {
+                            customer.getInBody().displayInBody();
                         }
                         break;
                     case 7:
-                        if (customer.getInBodies() != null) {
-                            System.out.println(customer.getInBodies().CalcIdealWeight());
+                        if (customer.getInBody() != null) {
+                            System.out.println(customer.getInBody().CalcIdealWeight());
                         }
                         break;
                     case 8:
@@ -311,8 +194,228 @@ public class Menu extends Gym {
 
     }
 
-    public void coachMenu(Coach coach) {
+    public void CustomerSubscribe(Customer customer) {
+        if (customer.getSubscription() == null) {
+            char PlanChoice;
+            Membership_Plan m = new Membership_Plan(LocalDate.now(), 'A', 0, 0.0f);
+            int coachId = 0, numOfMonths = 0;
+            do {
+                System.out.println("Choose a Plan:  A-(3 days per week)   B-(6 days per week)");
+                PlanChoice = input.next().charAt(0);
 
+            } while (PlanChoice != 'a' && PlanChoice != 'A' && PlanChoice != 'b' && PlanChoice != 'B');
+            m.setMonthly_plan(PlanChoice);
+
+            if (m.getMonthly_plan() == 'a' || m.getMonthly_plan() == 'A') {
+                m.setPlan_price(250f);
+            } else if (m.getMonthly_plan() == 'b' || m.getMonthly_plan() == 'B') {
+                m.setPlan_price(400f);
+            }
+
+            System.out.println("Enter number of months you want to register:");
+            try {
+                numOfMonths = input.nextInt();
+            } catch (InputMismatchException exp) {
+                System.out.println("Invalid Input, Please Enter a Number only.");
+            } finally {
+                input.nextLine();
+            }
+            m.setRegistered_Months_num(numOfMonths);
+            m.setPlan_price(250f * numOfMonths);
+
+            if (m.getRegistered_Months_num() >= 3) {
+                m.setPlan_price(m.CalcDiscount(numOfMonths));
+            }
+            System.out.println("your subscription Total price is: " + m.getPlan_price());
+            System.out.println("available coaches:");
+            System.out.println("-------------------");
+            System.out.println("ID\t|\tName");
+            System.out.println("-------------------");
+            for (Coach c : Gym.Coaches) {
+                if (c.getNumberOfClients() < 10) {
+                    System.out.println(c.getID() + "\t|\t" + c.getName());
+                }
+            }
+            do {
+                System.out.println("Enter the id of the coach you want: ");
+                try {
+                    coachId = input.nextInt();
+                } catch (InputMismatchException exp) {
+                    System.out.println("Invalid Input, Please Enter a Number only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
+                    System.out.println("Invalid Choice, Try Again");
+                }
+            } while (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10);
+
+            Gym.AddSubscription(new Subscription(Gym.Subscriptions.size() + 1, customer.getID(), coachId, m));
+            Gym.SearchCoachByID(coachId).AddClient(customer);
+            Gym.SearchCoachByID(coachId).setNumberOfClients(Gym.SearchCoachByID(coachId).getNumberOfClients() + 1);
+            customer.Subscribe(Gym.SearchSubscriptionById(Gym.Subscriptions.size()), Gym.SearchCoachByID(coachId));
+
+            System.out.println("YOU HAVE SUCCESSFULLY SUBSCRIBED.");
+        } else {
+            System.out.println("You are already subscribed.");
+        }
+    }
+
+    public void CustomerTakeInBody(Customer customer) {
+        if (customer.getInBody() != null) {
+            if (!LocalDate.now().minusDays(30).isBefore(customer.getInBody().getInBody_date())) {
+                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
+
+                System.out.println("Enter you height:");
+                try {
+                    b.setHeight(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter you Weight:");
+                try {
+                    b.setTotal_wight(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter number of Fats:");
+                try {
+                    b.setFats(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter your mass:");
+                try {
+                    b.setMass(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter your minerals number:");
+                try {
+                    b.setMinerals(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter your water number:");
+                try {
+                    b.setWater(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter your protein number:");
+                try {
+                    b.setProtein(input.nextFloat());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                System.out.println("Enter you Age:");
+                try {
+                    b.setAge(input.nextInt());
+                } catch (InputMismatchException exp) {
+                    System.out.println("Please Enter Numbers Only.");
+                } finally {
+                    input.nextLine();
+                }
+
+                Gym.AddInBody(b);
+                customer.setInBody(b);
+            } else {
+                System.out.println("You cannot Take another inBody this month, You have to wait for the Next Month");
+            }
+        } else {
+            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
+
+            System.out.println("Enter you height:");
+            try {
+                b.setHeight(input.nextFloat());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            System.out.println("Enter you Weight:");
+            try {
+                b.setTotal_wight(input.nextFloat());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            System.out.println("Enter number of Fats:");
+            try {
+                b.setFats(input.nextFloat());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            System.out.println("Enter your mass:");
+            try {
+                b.setMass(input.nextFloat());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            System.out.println("Enter your minerals number:");
+            try {
+                b.setMinerals(input.nextFloat());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            System.out.println("Enter your water number:");
+            try {
+                b.setWater(input.nextFloat());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            System.out.println("Enter you Age:");
+            try {
+                b.setAge(input.nextInt());
+            } catch (InputMismatchException exp) {
+                System.out.println("Please Enter Numbers Only.");
+            } finally {
+                input.nextLine();
+            }
+
+            Gym.AddInBody(b);
+            customer.setInBody(b);
+        }
+    }
+
+    public void coachMenu(Coach coach) {
         if (coach.isApproved()) {
             char flag = 'y';
             do {
@@ -321,17 +424,23 @@ public class Menu extends Gym {
                 System.out.println("1-Customers info\n2-InBody History for any of the Customers\n3-Get all the details of a customer by his name.\n4-Show a list of all female/male customers.\n5-Set WorkingHours\n6-Back To Main Menu.");
                 int choice = input.nextInt();
                 String customerName;
-                int customerId;
+                int customerId = 0;
                 char customerGender;
                 switch (choice) {
                     case 1:
                         coach.DisplayClientsInfo();
-
                         break;
                     case 2:
                         System.out.println("enter id for customer");
-                        customerId = input.nextInt();
-                        for (InBody B : Gym.Inbodies) {
+                        try {
+                            customerId = input.nextInt();
+                        } catch (InputMismatchException exp) {
+                            System.out.println("Please Enter Numbers Only.");
+                        } finally {
+                            input.nextLine();
+                        }
+
+                        for (InBody B : Gym.InBodies) {
                             if (B.getCustomer_ID() == customerId) {
                                 B.displayInBody();
                             }
@@ -343,13 +452,27 @@ public class Menu extends Gym {
                         coach.DisplayClientInfo(customerName);
                         break;
                     case 4:
-                        System.out.println("Choose Male or Female: (M for Male,F for Female).");
-                        customerGender = input.next().charAt(0);
+                        do {
+                            System.out.println("Choose Male or Female: (m for Male,f for Female).");
+                            customerGender = input.next().charAt(0);
+
+                            if (customerGender != 'm' && customerGender != 'M' && customerGender != 'f' && customerGender != 'F') {
+                                System.out.println("invalid option please enter (m for male and f for female) only.");
+                            }
+
+                        } while (customerGender != 'm' && customerGender != 'M' && customerGender != 'f' && customerGender != 'F');
+
                         coach.DisplayClientsByGender(customerGender);
                         break;
                     case 5:
                         System.out.println("Enter how many hours you work per day:");
-                        coach.setWorkingHoursPerDay(input.nextInt());
+                        try {
+                            coach.setWorkingHoursPerDay(input.nextInt());
+                        } catch (InputMismatchException exp) {
+                            System.out.println("Please Enter Numbers Only.");
+                        } finally {
+                            input.nextLine();
+                        }
                         break;
                     case 6:
                         flag = 'n';
@@ -363,13 +486,12 @@ public class Menu extends Gym {
     }
 
     public void adminMenu() {
-
         char flag = 'y';
         do {
             System.out.println("========================================");
             System.out.println("Welcome, " + Admin.getName());
             System.out.println("Which menu do you want?\n");
-            System.out.println("1-Customers\n2-Gym Equipments\n3-Coaches\n4-Back To Main Menu");
+            System.out.println("1-Customers\n2-Gym Equipments\n3-Coaches\n4-Edit GYM Info\n5-View GYM Info\n6-Back To Main Menu");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
@@ -382,6 +504,12 @@ public class Menu extends Gym {
                     AdminCoachMenu();
                     break;
                 case 4:
+                    EditGYM();
+                    break;
+                case 5:
+                    ViewGymInfo();
+                    break;
+                case 6:
                     flag = 'n';
                     break;
             }
@@ -389,7 +517,6 @@ public class Menu extends Gym {
     }
 
     public void AdminCustomerMenu() {
-
         char flag = 'y';
         do {
             System.out.println("========================================");
@@ -425,8 +552,8 @@ public class Menu extends Gym {
                 case 4:
                     int cID;
                     System.out.println("Enter Customer ID:");
-                    ID = input.nextInt();
-                    Gym.ViewSubscriptions(ID);
+                    cID = input.nextInt();
+                    Gym.ViewSubscriptions(cID);
                     break;
                 case 5:
                     int day, month;
@@ -479,7 +606,6 @@ public class Menu extends Gym {
     }
 
     public void AdminEquipmentMenu() {
-
         char flag = 'y';
         do {
             System.out.println("========================================");
@@ -515,7 +641,6 @@ public class Menu extends Gym {
                     System.out.println("Enter Services.Equipment ID:");
                     ID = input.nextInt();
                     RemoveEquipment(ID);
-
                     break;
                 case 4:
                     flag = 'n';
@@ -525,7 +650,6 @@ public class Menu extends Gym {
     }
 
     public void AdminCoachMenu() {
-
         char flag = 'y';
         do {
             System.out.println("========================================");
@@ -558,13 +682,12 @@ public class Menu extends Gym {
                     System.out.println("Enter Coach ID:");
                     ID = input.nextInt();
                     RemoveCoach(ID);
-
                     break;
                 case 4:
                     int CoachID;
                     System.out.println("Enter Coach ID:");
                     CoachID = input.nextInt();
-                    getCoachByID(CoachID).DisplayClientsInfo();
+                    SearchCoachByID(CoachID).DisplayClientsInfo();
 
                     break;
                 case 5:
@@ -608,17 +731,18 @@ public class Menu extends Gym {
     }
 
     public void EditCustomer() {
-
         int customerID;
-        String newName, newEmail, newPassword, newGender, newNumber;
+        String newName, newEmail, newPassword, newNumber;
+        char newGender;
         System.out.println("========================================");
         System.out.println("Enter customer ID");
         customerID = input.nextInt();
-        Customer editedcustomer = null;
-        char flag;
+
 
         int index = Gym.Customers.indexOf(Gym.SearchCustomerByID(customerID));
-        editedcustomer = Gym.Customers.get(index);
+        Customer editedcustomer = Gym.Customers.get(index);
+
+        char flag;
         do {
             System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
@@ -646,12 +770,12 @@ public class Menu extends Gym {
                     break;
                 case 5:
                     System.out.println("enter the new Gender");
-                    newGender = input.next();
-                    editedcustomer.setEmail(newGender);
+                    newGender = input.next().charAt(0);
+                    editedcustomer.setGender(newGender);
                     break;
             }
 
-            Gym.replaceCustomer(index, editedcustomer);
+            Gym.Customers.set(index, editedcustomer);
             System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
         } while (flag == 'y' || flag == 'Y');
@@ -659,15 +783,16 @@ public class Menu extends Gym {
 
     public void EditCoach() {
         int coachID;
-        String newName, newEmail, newPassword, newGender, newNumber;
+        String newName, newEmail, newPassword, newNumber;
+        char newGender;
         System.out.println("========================================");
         System.out.println("Enter coach ID");
         coachID = input.nextInt();
-        Coach editedcoach = null;
-        char flag;
 
         int index = Gym.Coaches.indexOf(Gym.SearchCoachByID(coachID));
-        editedcoach = Gym.Coaches.get(index);
+        Coach editedcoach = Gym.Coaches.get(index);
+
+        char flag;
         do {
             System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)email      3)password      4)phone-number       5)Gender");
@@ -695,30 +820,29 @@ public class Menu extends Gym {
                     break;
                 case 5:
                     System.out.println("enter the new Gender");
-                    newGender = input.next();
-                    editedcoach.setEmail(newGender);
+                    newGender = input.next().charAt(0);
+                    editedcoach.setGender(newGender);
                     break;
             }
 
-            Gym.replaceCoach(index, editedcoach);
+            Gym.Coaches.set(index, editedcoach);
             System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
         } while (flag == 'y' || flag == 'Y');
     }
 
     public void EditEquipments() {
-
         int equipmentcode;
         String newName;
         int newQuantity;
         System.out.println("========================================");
         System.out.println("Enter equipment code");
         equipmentcode = input.nextInt();
-        Equipment editedequipment = null;
-        char flag;
 
         int index = Gym.Sports_equipment.indexOf(Gym.SearchEquipmentByCode(equipmentcode));
-        editedequipment = Gym.Sports_equipment.get(index);
+        Equipment editedequipment = Gym.Sports_equipment.get(index);
+
+        char flag;
         do {
             System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)quantity      3)targeted muscles");
@@ -747,11 +871,47 @@ public class Menu extends Gym {
 
                     muscle = input.next();
 
-                    editedequipment.replaceTargetedMuscles(choice - 1, muscle);
+                    editedequipment.targetedMuscles.set(choice - 1, muscle);
                     break;
             }
 
-            Gym.replaceEquipment(index, editedequipment);
+            Gym.Sports_equipment.set(index, editedequipment);
+            System.out.println("do you want to edit another thing?y/n");
+            flag = input.next().charAt(0);
+        } while (flag == 'y' || flag == 'Y');
+    }
+
+    public void EditGYM() {
+        String name, address, phone;
+        System.out.println("========================================");
+        char flag;
+        do {
+            System.out.println("========================================");
+            System.out.println("what do you want to edit ====== 1)Name     2)Address      3)Phone_Number");
+            int answer = input.nextInt();
+            switch (answer) {
+                case 1:
+                    System.out.println("enter the new name");
+                    name = input.next();
+                    setName(name);
+                    break;
+                case 2:
+                    System.out.println("enter the new Address");
+                    address = input.next();
+                    setAddress(address);
+                    break;
+                case 3:
+                    System.out.println("enter the new Phone_Number");
+                    do {
+                        phone = input.next();
+                        if (!phone.matches("\\d+")) {
+                            System.out.println("invalid phone number, please enter numbers only.");
+                        }
+
+                    } while (!phone.matches("\\d+"));
+                    setPhoneNumber(phone);
+                    break;
+            }
             System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
         } while (flag == 'y' || flag == 'Y');

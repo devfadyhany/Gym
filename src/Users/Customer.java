@@ -20,22 +20,6 @@ public class Customer extends Person {
         this.subscription = subscription;
     }
 
-    public InBody getInBodies() {
-        return CurrentInBody;
-    }
-
-    public void setInBodies(InBody inBodies) {
-        this.CurrentInBody = inBodies;
-    }
-
-    public Coach getCoach() {
-        return coach;
-    }
-
-    public void setCoach(Coach coach) {
-        this.coach = coach;
-    }
-
     public int getSubscription_ID() {
         if (subscription != null) {
             return this.subscription.getSUBSCRIPTION_ID();
@@ -47,6 +31,22 @@ public class Customer extends Person {
         if (subscription != null) {
             subscription.setSUBSCRIPTION_ID(subscription_ID);
         }
+    }
+
+    public InBody getInBody() {
+        return CurrentInBody;
+    }
+
+    public void setInBody(InBody inBodies) {
+        this.CurrentInBody = inBodies;
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
     }
 
     public int getCoach_ID() {
@@ -62,23 +62,20 @@ public class Customer extends Person {
         }
     }
 
-    public void Subscribe(Subscription subscription, Coach coach){
+    public void Subscribe(Subscription subscription, Coach coach) {
         this.setSubscription(subscription);
         this.setCoach(coach);
     }
 
     public void DisplayInfo() {
-        System.out.println("ID: " + this.getID());
-        System.out.println("Name: " + this.getName());
-        System.out.println("Email: " + this.getEmail());
-//        System.out.println("Password: " + this.getPassword());
-        System.out.println("Phone number: " + this.getPhone_number());
-        System.out.println("Subscription: " + this.getSubscription());
-        System.out.println("Coach: " + this.getCoach().getName());
+        System.out.println(getID() + "\t|\t" + getName() + "\t|\t" + getEmail() + "\t|\t" + getPhone_number() + "\t|\t" + getGender() + "\t|\t" + getCoach().getName());
     }
 
     public void DisplayCoachInfo() {
-        if (coach != null){
+        if (coach != null) {
+            System.out.println("------------------------------------------------------------------------------------------------");
+            System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
+            System.out.println("------------------------------------------------------------------------------------------------");
             coach.DisplayInfo();
         }
     }

@@ -10,74 +10,71 @@ import java.util.ArrayList;
 
 public class Gym {
 
-    private String Name;
-    private String Address;
-    private String Phone_number;
+    private static String Name;
+    private static String Address;
+    private static String Phone_number;
     public static ArrayList<Customer> Customers = new ArrayList<>();
     public static ArrayList<Coach> Coaches = new ArrayList<>();
     public static ArrayList<Equipment> Sports_equipment = new ArrayList<>();
     public static ArrayList<Subscription> Subscriptions = new ArrayList<>();
-
-    public static ArrayList<InBody> Inbodies = new ArrayList<>();
-
-    public Gym() {
-        this.Name = "GYM";
-        this.Address = "Default";
-        this.Phone_number = "00000000000";
-    }
+    public static ArrayList<InBody> InBodies = new ArrayList<>();
 
     public Gym(String Name, String Address, String Phone_number) {
-        this.Name = Name;
-        this.Address = Address;
-        this.Phone_number = Phone_number;
+        Gym.Name = Name;
+        Gym.Address = Address;
+        Gym.Phone_number = Phone_number;
+
+        for (Customer c : Customers) {
+            for (InBody b : InBodies) {
+                if (b.getCustomer_ID() == c.getID()) {
+                    c.setInBody(b);
+                }
+            }
+            for (Subscription s : Subscriptions) {
+                if (s.getCustomerId() == c.getID()) {
+                    c.setSubscription(s);
+                    c.setCoach(Gym.SearchCoachByID(s.getCoachId()));
+
+                }
+            }
+        }
+
+        for (Coach c : Coaches) {
+            for (Subscription s : Gym.Subscriptions) {
+                if (s.getCoachId() == c.getID()) {
+                    c.AddClient(Gym.SearchCustomerByID(s.getCustomerId()));
+                }
+            }
+        }
+
     }
 
-
-    public void setName(String Name) {
-        this.Name = Name;
+    public void ViewGymInfo(){
+        System.out.println("Name\t|\tAddress\t|\tPhone_number");
+        System.out.println(getName() + "\t|\t" + getAddress() + "\t|\t" + getPhoneNumber());
     }
-
     public String getName() {
         return Name;
     }
 
-    public void setAddress(String Address) {
-        this.Address = Address;
+    public void setName(String Name) {
+        Gym.Name = Name;
     }
 
     public String getAddress() {
         return Address;
     }
 
-    public void setPhoneNumber(String Phone_number) {
-        this.Phone_number = Phone_number;
+    public void setAddress(String Address) {
+        Gym.Address = Address;
     }
 
     public String getPhoneNumber() {
         return Phone_number;
     }
 
-    public void AddEquipment(Equipment equipment) {
-        Sports_equipment.add(equipment);
-    }
-
-    public void RemoveEquipment(int Code) {
-
-
-        for (Equipment equipment : Sports_equipment) {
-            if (equipment.getEQUIPMENTCODE() == Code) {
-                Sports_equipment.remove(equipment);
-                break;
-            }
-        }
-    }
-
-    public void ViewEquipments() {
-        for (Equipment equipment : Sports_equipment) {
-            equipment.DisplayInfo();
-            System.out.println("=================");
-
-        }
+    public void setPhoneNumber(String Phone_number) {
+        Gym.Phone_number = Phone_number;
     }
 
     public static void AddCustomer(Customer customer) {
@@ -85,8 +82,6 @@ public class Gym {
     }
 
     public static void RemoveCustomer(int ID) {
-
-
         for (Customer customer : Customers) {
             if (customer.getID() == ID) {
                 for (Coach c : Coaches) {
@@ -102,11 +97,15 @@ public class Gym {
         }
     }
 
-    public static void ViewCustomers() {
+    public static Customer SearchCustomerByID(int id) {
+        Customer cus = null;
         for (Customer customer : Customers) {
-            customer.DisplayInfo();
-            System.out.println("=================");
+            if (customer.getID() == id) {
+                cus = customer;
+                break;
+            }
         }
+        return cus;
     }
 
     public static void AddCoach(Coach coach) {
@@ -143,41 +142,25 @@ public class Gym {
         return c;
     }
 
-    public static Customer SearchCustomerByID(int id) {
-        Customer cus = null;
-        for (Customer customer : Customers) {
-            if (customer.getID() == id) {
-                cus = customer;
+    public void AddEquipment(Equipment equipment) {
+        Sports_equipment.add(equipment);
+    }
+
+    public void RemoveEquipment(int Code) {
+        for (Equipment equipment : Sports_equipment) {
+            if (equipment.getEQUIPMENTCODE() == Code) {
+                Sports_equipment.remove(equipment);
                 break;
             }
         }
-        return cus;
     }
 
-    public static void replaceCustomer(int index, Customer co) {
-
-        Customers.remove(index);
-        Customers.add(co);
-
-
+    public void ViewEquipments() {
+        for (Equipment equipment : Sports_equipment) {
+            equipment.DisplayInfo();
+            System.out.println("=================");
+        }
     }
-
-    public static void replaceCoach(int index, Coach co) {
-
-        Coaches.remove(index);
-        Coaches.add(co);
-
-
-    }
-
-    public static void replaceEquipment(int index, Equipment eq) {
-
-        Sports_equipment.remove(index);
-        Sports_equipment.add(eq);
-
-
-    }
-
 
     public static Equipment SearchEquipmentByCode(int code) {
         Equipment equ = null;
@@ -205,23 +188,6 @@ public class Gym {
         return sub;
     }
 
-    public static void AddInbody(InBody inBody) {
-
-        Inbodies.add(inBody);
-    }
-
-    public void RemoveSubscriptions(int ID) {
-
-        for (Subscription subscription : Subscriptions) {
-            if (subscription.getSUBSCRIPTION_ID() == ID) {
-                Subscriptions.remove(subscription);
-                break;
-            }
-        }
-
-
-    }
-
     public static void ViewSubscriptions(int ID) {
         for (Subscription subscription : Subscriptions) {
             if (subscription.getCustomerId() == ID) {
@@ -232,24 +198,8 @@ public class Gym {
         }
     }
 
-    public Coach getCoachByID(int ID) {
-        Coach C = null;
-        for (Coach coach : Coaches) {
-            if (coach.getID() == ID) {
-                C = coach;
-            }
-        }
-        return C;
-    }
-
-    public InBody getInbody_By_CustomerID(int ID) {
-        InBody inBody = null;
-        for (InBody inbody : Inbodies) {
-            if (inbody.getCustomer_ID() == ID) {
-                inBody = inbody;
-            }
-        }
-        return inBody;
+    public static void AddInBody(InBody inBody) {
+        InBodies.add(inBody);
     }
 }
 

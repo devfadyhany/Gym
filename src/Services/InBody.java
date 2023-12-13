@@ -4,118 +4,106 @@ import java.time.LocalDate;
 
 public class InBody {
 
-    private int Customer_ID;
+    private final int Customer_ID;
     protected LocalDate InBody_date;
-    protected float hight;
+    protected float height;
     protected float Total_Weight;
-    protected float Fats;
+    protected float fats;
     protected float mass;
     protected float minerals;
     protected float water;
-    protected float protien;
-    private float Bmi;
+    protected float protein;
+//    private float Bmi;
     public int age;
-   // public float activity_factor;
+    // public float activity_factor;
 
-    public static int numberOfInbodies = 0;
-
-    public InBody(int customer_ID,LocalDate l, float hight, float Total_Weight, float Fats, float mass, float minerals, float water, float protien/*float Bmi*/, int age/*, float activity_factor*/) {
+    public InBody(int customer_ID, LocalDate start_date, float height, float Total_Weight, float fats, float mass, float minerals, float water, float protein /*, float Bmi*/, int age/*, float activity_factor*/) {
         this.Customer_ID = customer_ID;
-        this.InBody_date = l;
-        this.hight = hight;
+        this.InBody_date = start_date;
+        this.height = height;
         this.Total_Weight = Total_Weight;
-        this.Fats = Fats;
+        this.fats = fats;
         this.mass = mass;
         this.minerals = minerals;
         this.water = water;
-        this.protien = protien;
+        this.protein = protein;
         // this.Bmi=Bmi;
         this.age = age;
-       // this.activity_factor = activity_factor;
-        numberOfInbodies++;
+        // this.activity_factor = activity_factor;
     }
 
     public int getCustomer_ID() {
         return Customer_ID;
     }
 
-    public void setCustomer_ID(int customer_ID) {
-        Customer_ID = customer_ID;
-    }
-
-    public void setInBody_date(LocalDate inBody_date) {
-        InBody_date = inBody_date;
-    }
-
     public LocalDate getInBody_date() {
         return InBody_date;
     }
 
-
-    public void setHight(float h) {
-        hight = h;
+    public float getHeight() {
+        return height;
     }
 
-    public float getHight() {
-        return hight;
-    }
-
-
-    public void setTotal_wight(float w) {
-        Total_Weight = w;
+    public void setHeight(float h) {
+        height = h;
     }
 
     public float getTotal_weight() {
         return Total_Weight;
     }
 
-    public void setFats(float f) {
-        Fats = f;
+    public void setTotal_wight(float w) {
+        Total_Weight = w;
     }
 
     public float getFats() {
-        return Fats;
+        return fats;
     }
 
-    public void setMass(float m) {
-        mass = m;
+    public void setFats(float f) {
+        fats = f;
     }
 
     public float getMass() {
         return mass;
     }
 
-    public void setMinerals(float x) {
-        minerals = x;
+    public void setMass(float m) {
+        mass = m;
     }
 
     public float getMinerals() {
         return minerals;
     }
 
-    public void setWater(float w) {
-        water = w;
+    public void setMinerals(float x) {
+        minerals = x;
     }
 
     public float getWater() {
         return water;
     }
 
-    public void setProtien(float p) {
-        protien = p;
+    public void setWater(float w) {
+        water = w;
     }
 
-    public float getProtien() {
-        return protien;
+    public float getProtein() {
+        return protein;
     }
 
-    /*public void setBmi(float B) {
-        Bmi=B;
+    public void setProtein(float p) {
+        protein = p;
     }
-*/
-   /* public float getBmi() {
-        return Bmi;
-    }*/
+
+//    public void setBmi(float B) {
+//        Bmi=B;
+//    }
+//
+//    public float getBmi() {
+//        return Bmi;
+//    }
+
     public int getAge() {
         return age;
     }
@@ -125,59 +113,43 @@ public class InBody {
     }
 
     public float CalcBmi() {
-        return (getTotal_weight()) / (getHight() * getHight());
+        return (getTotal_weight()) / (getHeight() * getHeight());
     }
 
     public float CalcIdealWeight() {
-        return (float) ((2.2 * this.CalcBmi()) + (3.5 * this.CalcBmi()) * (this.getHight() - 1.5));
-
+        return (float) ((2.2 * this.CalcBmi()) + (3.5 * this.CalcBmi()) * (this.getHeight() - 1.5));
     }
 
-    public float Calc_bmr_male() {
-        return (float) ((10 * getTotal_weight()) + (6.25 * (getHight() * 100)) - (5 * getAge()) + 5);
+//    public float Calc_bmr_male() {
+//        return (float) ((10 * getTotal_weight()) + (6.25 * (getHeight() * 100)) - (5 * getAge()) + 5);
+//
+//    }
+//
+//    public float Calc_bmr_female() {
+//        return (float) ((10 * getTotal_weight()) + (6.25 * (getHeight() * 100)) - (5 * getAge()) - 16);
+//
+//    }
 
-    }
+//    public float calcBMI(int choose) {
+//        System.out.println("1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
+//        switch (choose) {
+//            case 1:
+//                return (1.2f * Calc_bmr_male());
+//            case 2:
+//                return (1.375f * Calc_bmr_male());
+//            case 3:
+//                return (1.55f * Calc_bmr_male());
+//            case 4:
+//            case 5:
+//                return (1.725f * Calc_bmr_male());
+//            default:
+//                System.out.println("UNAVAILABLE CHOICE.");
+//                break;
+//        }
+//        return 0.0f;
+//    }
 
-    public float Calc_bmr_fmale() {
-        return (float) ((10 * getTotal_weight()) + (6.25 * (getHight() * 100)) - (5 * getAge()) - 16);
-
-    }
-
-    public float calcBMI(int choose) {
-
-        while (true) {
-            System.out.println("press 1->no excercise\npress 2->light excerise\npress 3->moderate excercise\npress 4->heavy excercise\npress 5->very heavy excercise\n");
-
-            switch (choose) {
-                case 1:
-                    return (float) (1.2 * Calc_bmr_male());
-
-                case 2:
-                    return (float) (1.375 * Calc_bmr_male());
-
-                case 3:
-                    return (float) (1.55 * Calc_bmr_male());
-
-                case 4:
-                    return (float) (1.725 * Calc_bmr_male());
-
-                case 5:
-                    return (float) (1.725 * Calc_bmr_male());
-
-                default:
-                    System.out.println("unavalible choise");
-            }
-        }
-    }
-
-    public void displayInBody(){
-        System.out.println("InBody Date:"+getInBody_date());
-        System.out.println("Height:"+getHight());
-        System.out.println("Total Weight"+getTotal_weight());
-        System.out.println("Mass:"+getMass());
-        System.out.println("Water:"+getWater());
-        System.out.println("Fats:"+getFats());
-        System.out.println("Minerals:"+getMinerals());
-        System.out.println("Protein:"+getProtien());
+    public void displayInBody() {
+        System.out.println(getInBody_date() + "\t|\t" + getHeight() + "\t|\t" + getTotal_weight() + "\t|\t" + getMass() + "\t|\t" + getWater() + "\t|\t" + getFats() + "\t|\t" + getMinerals() + "\t|\t" + getProtein() + "\t|\t" + getAge());
     }
 }

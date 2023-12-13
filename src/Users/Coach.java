@@ -3,7 +3,7 @@ package Users;
 public class Coach extends Person {
     private int workingHoursPerDay;
     private int numberOfClients = 0;
-    private Customer[] clients = new Customer[10];
+    private final Customer[] clients = new Customer[10];
 
     public Coach(int ID, String name, String email, String password, String phone_number, char gender) {
         super(ID, name, email, password, phone_number, gender);
@@ -30,7 +30,7 @@ public class Coach extends Person {
     }
 
     public void AddClient(Customer client) {
-        clients[clients.length - 1] = client;
+        clients[numberOfClients - 1] = client;
     }
 
     public void RemoveClient(int ID) {
@@ -55,40 +55,55 @@ public class Coach extends Person {
     }
 
     public void DisplayInfo() {
-        System.out.println("ID: " + this.getID());
-        System.out.println("Name: " + this.getName());
-        System.out.println("Email: " + this.getEmail());
-//        System.out.println("Password: " + this.getPassword());
-        System.out.println("Phone number: " + this.getPhone_number());
-        System.out.println("Working Hours_Per_Day: " + this.getWorkingHoursPerDay());
-        System.out.println("Number Of Clients: " + this.getNumberOfClients());
+        System.out.println(getID() + "\t|\t" + getName() + "\t|\t" + getEmail() + "\t|\t" + getPhone_number() + "\t|\t" + getGender() + "\t|\t" + getWorkingHoursPerDay() + "\t|\t" + getNumberOfClients());
     }
 
     public void DisplayClientInfo(String Name) {
-        for (int i = 0; i < 10; i++) {
-            if (clients[i].getName().equals(Name)) {
-                clients[i].DisplayInfo();
-                break;
+        if (numberOfClients > 0) {
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
+            System.out.println("---------------------------------------------------------------");
+            for (int i = 0; i < 10; i++) {
+                if (clients[i].getName().equals(Name)) {
+                    clients[i].DisplayInfo();
+                    break;
+                }
             }
+        } else {
+            System.out.println("YOU DON'T HAVE ANY CLIENTS AVAILABLE.");
         }
     }
 
     public void DisplayClientsInfo() {
-        for (int i = 0; i < 10; i++) {
-            if (clients[i] != null) {
-                clients[i].DisplayInfo();
+        if (numberOfClients > 0) {
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
+            System.out.println("---------------------------------------------------------------");
+            for (int i = 0; i < 10; i++) {
+                if (clients[i] != null) {
+                    clients[i].DisplayInfo();
+                    System.out.println("---------------------------------------------------------------");
+                }
             }
+        } else {
+            System.out.println("YOU DON'T HAVE ANY CLIENTS AVAILABLE.");
         }
     }
 
 
     public void DisplayClientsByGender(char Gender) {
-
-        for (int i = 0; i < 10; i++) {
-            if (clients[i].getGender() == Gender) {
-                clients[i].DisplayInfo();
-                System.out.println("=================");
+        if (numberOfClients > 0) {
+            System.out.println("---------------------------------------------------------------");
+            System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
+            System.out.println("---------------------------------------------------------------");
+            for (int i = 0; i < 10; i++) {
+                if (clients[i].getGender() == Gender) {
+                    clients[i].DisplayInfo();
+                    System.out.println("---------------------------------------------------------------");
+                }
             }
+        } else {
+            System.out.println("YOU DON'T HAVE ANY CLIENTS AVAILABLE.");
         }
     }
 }
