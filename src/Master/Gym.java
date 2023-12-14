@@ -171,9 +171,10 @@ public class Gym {
     }
 
     public void ViewEquipments() {
+        System.out.println("CODE\t|\tName\t|\tQuantity\t|\tTargeted-Muscles");
         for (Equipment equipment : Sports_equipment) {
             equipment.DisplayInfo();
-            System.out.println("=================");
+            System.out.println("---------------------------------------------------");
         }
     }
 
