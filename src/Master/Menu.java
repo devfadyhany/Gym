@@ -606,6 +606,7 @@ public class Menu extends Gym {
                             month = input.nextInt();
                             error = false;
                         } catch (InputMismatchException exp) {
+                            System.out.println("Please Enter Numbers Only.");
                             error = true;
                         }
                     } while (error);
@@ -1108,10 +1109,15 @@ public class Menu extends Gym {
         String name, address, phone;
         System.out.println("========================================");
         char flag;
+        int answer;
         do {
             System.out.println("========================================");
             System.out.println("what do you want to edit ====== 1)Name     2)Address      3)Phone_Number");
-            int answer = input.nextInt();
+            try {
+                answer = input.nextInt();
+            }catch (InputMismatchException exp){
+                answer = 4;
+            }
             switch (answer) {
                 case 1:
                     System.out.println("enter the new name");
@@ -1134,6 +1140,8 @@ public class Menu extends Gym {
                     } while (!phone.matches("\\d+"));
                     setPhoneNumber(phone);
                     break;
+                default:
+                    System.out.println("INVALID CHOICE");
             }
             System.out.println("do you want to edit another thing?y/n");
             flag = input.next().charAt(0);
