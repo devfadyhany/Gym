@@ -30,7 +30,12 @@ public class Coach extends Person {
     }
 
     public void AddClient(Customer client) {
-        clients[numberOfClients - 1] = client;
+        for (Customer c : clients){
+            if (c == null){
+                c = client;
+                break;
+            }
+        }
     }
 
     public void RemoveClient(int ID) {

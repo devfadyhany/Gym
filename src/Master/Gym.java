@@ -9,14 +9,17 @@ import Users.Customer;
 import java.util.ArrayList;
 
 public class Gym {
-
     private static String Name;
     private static String Address;
     private static String Phone_number;
     public static ArrayList<Customer> Customers = new ArrayList<>();
+    public static int CustomersIdsCounter = 0;
     public static ArrayList<Coach> Coaches = new ArrayList<>();
+    public static int CoachesIdsCounter = 0;
     public static ArrayList<Equipment> Sports_equipment = new ArrayList<>();
+    public static int EquipmentsIdsCounter = 0;
     public static ArrayList<Subscription> Subscriptions = new ArrayList<>();
+    public static int SubscriptionsIdsCounter = 0;
     public static ArrayList<InBody> InBodies = new ArrayList<>();
 
     public Gym(String Name, String Address, String Phone_number) {
@@ -34,9 +37,9 @@ public class Gym {
                 if (s.getCustomerId() == c.getID()) {
                     c.setSubscription(s);
                     c.setCoach(Gym.SearchCoachByID(s.getCoachId()));
-
                 }
             }
+            CustomersIdsCounter++;
         }
 
         for (Coach c : Coaches) {
@@ -45,6 +48,15 @@ public class Gym {
                     c.AddClient(Gym.SearchCustomerByID(s.getCustomerId()));
                 }
             }
+            CoachesIdsCounter++;
+        }
+
+        for (Subscription s : Subscriptions){
+            SubscriptionsIdsCounter++;
+        }
+
+        for (Equipment e : Sports_equipment){
+            EquipmentsIdsCounter++;
         }
 
     }
@@ -79,6 +91,7 @@ public class Gym {
 
     public static void AddCustomer(Customer customer) {
         Customers.add(customer);
+        CustomersIdsCounter++;
     }
 
     public static void RemoveCustomer(int ID) {
@@ -110,6 +123,7 @@ public class Gym {
 
     public static void AddCoach(Coach coach) {
         Coaches.add(coach);
+        CoachesIdsCounter++;
     }
 
     public static void RemoveCoach(int ID) {
@@ -144,6 +158,7 @@ public class Gym {
 
     public void AddEquipment(Equipment equipment) {
         Sports_equipment.add(equipment);
+        EquipmentsIdsCounter++;
     }
 
     public void RemoveEquipment(int Code) {
@@ -175,6 +190,7 @@ public class Gym {
 
     public static void AddSubscription(Subscription Subscription) {
         Subscriptions.add(Subscription);
+        SubscriptionsIdsCounter++;
     }
 
     public static Subscription SearchSubscriptionById(int id) {

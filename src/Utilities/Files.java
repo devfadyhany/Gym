@@ -26,6 +26,7 @@ public class Files {
         WriteTargetedMuscles();
         WriteCustomerApproval();
         WriteCoachApproval();
+        WriteIdsCounter();
     }
 
     public void ReadFiles() {
@@ -38,6 +39,7 @@ public class Files {
         ReadTargetedMuscles();
         ReadCustomerApproval();
         ReadCoachApproval();
+        ReadIdsCounter();
     }
 
     // *************************************************    Write Functions    *************************************************
@@ -234,6 +236,21 @@ public class Files {
             writer.close();
         } catch (IOException e) {
             System.out.println("Failed to Write in CoachApproval File.");
+        }
+    }
+
+    public void WriteIdsCounter() {
+        try {
+            FileWriter writer = new FileWriter("Data/IdsCounter.csv");
+            writer.write("");
+            writer.append(String.valueOf(Gym.CustomersIdsCounter)).append(",");
+            writer.append(String.valueOf(Gym.CoachesIdsCounter)).append(",");
+            writer.append(String.valueOf(Gym.EquipmentsIdsCounter)).append(",");
+            writer.append(String.valueOf(Gym.SubscriptionsIdsCounter));
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Failed to Write in Coaches File.");
         }
     }
 
@@ -469,6 +486,34 @@ public class Files {
                 for (Coach c : Gym.Coaches) {
                     c.setApproved(!(String.valueOf(c.getID()).equals(line)));
                 }
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to Read From CoachApproval File.");
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                System.out.println("CoachApproval File is already Closed.");
+            }
+        }
+    }
+
+    public void ReadIdsCounter() {
+        String file = "Data/IdsCounter.csv";
+        BufferedReader reader = null;
+        String line;
+
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(",");
+
+                Gym.CustomersIdsCounter = Integer.parseInt(row[0]);
+                Gym.CoachesIdsCounter = Integer.parseInt(row[1]);
+                Gym.EquipmentsIdsCounter = Integer.parseInt(row[2]);
+                Gym.SubscriptionsIdsCounter = Integer.parseInt(row[3]);
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From CoachApproval File.");
