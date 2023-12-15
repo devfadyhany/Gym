@@ -381,7 +381,7 @@ public class Files {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 LocalDate l = LocalDate.parse(row[1]);
-                Gym.InBodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Float.parseFloat(row[9]), Integer.parseInt(row[9]), Integer.parseInt(row[10])));
+                Gym.InBodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Float.parseFloat(row[9]), Integer.parseInt(row[10]), Integer.parseInt(row[11])));
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From InBodies File.");

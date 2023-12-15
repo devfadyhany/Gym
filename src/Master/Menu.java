@@ -210,7 +210,7 @@ public class Menu extends Gym {
                     case 6:
                         if (customer.getInBody() != null) {
                             System.out.println("----------------------------------------------------------------------------------------------");
-                            System.out.println("Date\n|\nHeight\n|\nWeight\n|\nMass\n|\nWater\n|\nFat\n|\nMinerals\n|\nProtein\n|\nBMI\n|\nAge");
+                            System.out.println("Date\t|\tHeight\t|\tWeight\t|\tMass\t|\tWater\t|\tFat\t|\tMinerals\t|\tProtein\t|\tBMI\t|\tAge");
                             System.out.println("----------------------------------------------------------------------------------------------");
                             customer.getInBody().displayInBody();
                         } else {
