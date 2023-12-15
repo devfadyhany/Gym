@@ -179,12 +179,12 @@ public class Menu extends Gym {
             do {
                 System.out.println("========================================");
                 System.out.println("Welcome, " + customer.getName());
-                System.out.println("1-Subscribe\n2-Gym Equipment\n3-coach info\n4-View MembershipPlan\n5-Take IN-BODY\n6-View IN-BODY\n7-Kilos remaining\n8-Back To Main Menu");
+                System.out.println("1-Subscribe\n2-Gym Equipment\n3-coach info\n4-View MembershipPlan\n5-Take IN-BODY\n6-View IN-BODY\n7-Kilos remaining\n8-Calculate Needed Calories.\n9-Back To Main Menu");
                 try {
                     choice = input.nextInt();
                 } catch (InputMismatchException exp) {
                     System.out.println("INVALID CHOICE");
-                    choice = 9;
+                    choice = 10;
                 }
 
                 switch (choice) {
@@ -209,6 +209,9 @@ public class Menu extends Gym {
                         break;
                     case 6:
                         if (customer.getInBody() != null) {
+                            System.out.println("----------------------------------------------------------------------------------------------");
+                            System.out.println("Date\n|\nHeight\n|\nWeight\n|\nMass\n|\nWater\n|\nFat\n|\nMinerals\n|\nProtein\n|\nBMI\n|\nAge");
+                            System.out.println("----------------------------------------------------------------------------------------------");
                             customer.getInBody().displayInBody();
                         } else {
                             System.out.println("You didn't take any InBodies before.");
@@ -222,6 +225,13 @@ public class Menu extends Gym {
                         }
                         break;
                     case 8:
+                        if (customer.getInBody() != null) {
+                            System.out.println(customer.getInBody().CalcCalories(customer.getInBody().activity_factor, customer.gender));
+                        } else {
+                            System.out.println("You need to take an InBody first.");
+                        }
+                        break;
+                    case 9:
                         flag = 'n';
                         break;
                     default:
@@ -313,7 +323,7 @@ public class Menu extends Gym {
         boolean error;
         if (customer.getInBody() != null) {
             if (!LocalDate.now().minusDays(30).isBefore(customer.getInBody().getInBody_date())) {
-                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0,0,0);
+                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 char gender;
 
                 do {
@@ -339,12 +349,12 @@ public class Menu extends Gym {
                         System.out.println("Enter your protein number:");
                         b.setProtein(input.nextFloat());
 
-                        System.out.println("Enter your Gender: (m for male & f for female");
+                        System.out.println("Enter your Gender: (m for male & f for female)");
                         gender = input.next().charAt(0);
 
                         System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
                         b.activity_factor = input.nextInt();
-                        b.setBmi(b.CalcCalories(b.activity_factor,gender));
+                        b.setBmi(b.CalcCalories(b.activity_factor, gender));
 
                         System.out.println("Enter you Age:");
                         b.setAge(input.nextInt());
@@ -363,7 +373,7 @@ public class Menu extends Gym {
                 System.out.println("You cannot Take another inBody this month, You have to wait for the Next Month");
             }
         } else {
-            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0,0,0);
+            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             char gender;
 
             do {
@@ -389,12 +399,12 @@ public class Menu extends Gym {
                     System.out.println("Enter your protein number:");
                     b.setProtein(input.nextFloat());
 
-                    System.out.println("Enter your Gender: (m for male & f for female");
+                    System.out.println("Enter your Gender: (m for male & f for female)");
                     gender = input.next().charAt(0);
 
                     System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
                     b.activity_factor = input.nextInt();
-                    b.setBmi(b.CalcCalories(b.activity_factor,gender));
+                    b.setBmi(b.CalcCalories(b.activity_factor, gender));
 
                     System.out.println("Enter you Age:");
                     b.setAge(input.nextInt());
@@ -1131,7 +1141,7 @@ public class Menu extends Gym {
             System.out.println("what do you want to edit ====== 1)Name     2)Address      3)Phone_Number");
             try {
                 answer = input.nextInt();
-            }catch (InputMismatchException exp){
+            } catch (InputMismatchException exp) {
                 answer = 4;
             }
             switch (answer) {
