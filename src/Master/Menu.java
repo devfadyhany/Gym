@@ -313,7 +313,8 @@ public class Menu extends Gym {
         boolean error;
         if (customer.getInBody() != null) {
             if (!LocalDate.now().minusDays(30).isBefore(customer.getInBody().getInBody_date())) {
-                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
+                InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0,0,0);
+                char gender;
 
                 do {
                     try {
@@ -338,6 +339,13 @@ public class Menu extends Gym {
                         System.out.println("Enter your protein number:");
                         b.setProtein(input.nextFloat());
 
+                        System.out.println("Enter your Gender: (m for male & f for female");
+                        gender = input.next().charAt(0);
+
+                        System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
+                        b.activity_factor = input.nextInt();
+                        b.setBmi(b.CalcCalories(b.activity_factor,gender));
+
                         System.out.println("Enter you Age:");
                         b.setAge(input.nextInt());
 
@@ -355,11 +363,12 @@ public class Menu extends Gym {
                 System.out.println("You cannot Take another inBody this month, You have to wait for the Next Month");
             }
         } else {
-            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0);
+            InBody b = new InBody(customer.getID(), LocalDate.now(), 0, 0, 0, 0, 0, 0, 0, 0,0,0);
+            char gender;
 
             do {
-                System.out.println("Enter you height:");
                 try {
+                    System.out.println("Enter you height:");
                     b.setHeight(input.nextFloat());
 
                     System.out.println("Enter you Weight:");
@@ -379,6 +388,13 @@ public class Menu extends Gym {
 
                     System.out.println("Enter your protein number:");
                     b.setProtein(input.nextFloat());
+
+                    System.out.println("Enter your Gender: (m for male & f for female");
+                    gender = input.next().charAt(0);
+
+                    System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
+                    b.activity_factor = input.nextInt();
+                    b.setBmi(b.CalcCalories(b.activity_factor,gender));
 
                     System.out.println("Enter you Age:");
                     b.setAge(input.nextInt());

@@ -151,7 +151,9 @@ public class Files {
                     writer.append(String.valueOf(inbody.getMinerals())).append(",");
                     writer.append(String.valueOf(inbody.getWater())).append(",");
                     writer.append(String.valueOf(inbody.getProtein())).append(",");
-                    writer.append(String.valueOf(inbody.getAge())).append("\n");
+                    writer.append(String.valueOf(inbody.getBmi())).append(",");
+                    writer.append(String.valueOf(inbody.getAge())).append(",");
+                    writer.append(String.valueOf(inbody.activity_factor)).append("\n");
 
                     counter++;
                 }
@@ -379,7 +381,7 @@ public class Files {
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 LocalDate l = LocalDate.parse(row[1]);
-                Gym.InBodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Integer.parseInt(row[9])));
+                Gym.InBodies.add(new InBody(Integer.parseInt(row[0]), l, Float.parseFloat(row[2]), Float.parseFloat(row[3]), Float.parseFloat(row[4]), Float.parseFloat(row[5]), Float.parseFloat(row[6]), Float.parseFloat(row[7]), Float.parseFloat(row[8]), Float.parseFloat(row[9]), Integer.parseInt(row[9]), Integer.parseInt(row[10])));
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From InBodies File.");

@@ -13,11 +13,11 @@ public class InBody {
     protected float minerals;
     protected float water;
     protected float protein;
-//    private float Bmi;
+    private float Bmi;
     public int age;
-    // public float activity_factor;
+     public int activity_factor;
 
-    public InBody(int customer_ID, LocalDate start_date, float height, float Total_Weight, float fats, float mass, float minerals, float water, float protein /*, float Bmi*/, int age/*, float activity_factor*/) {
+    public InBody(int customer_ID, LocalDate start_date, float height, float Total_Weight, float fats, float mass, float minerals, float water, float protein , float Bmi, int age, int activity_factor) {
         this.Customer_ID = customer_ID;
         this.InBody_date = start_date;
         this.height = height;
@@ -27,9 +27,9 @@ public class InBody {
         this.minerals = minerals;
         this.water = water;
         this.protein = protein;
-        // this.Bmi=Bmi;
+         this.Bmi=Bmi;
         this.age = age;
-        // this.activity_factor = activity_factor;
+         this.activity_factor = activity_factor;
     }
 
     public int getCustomer_ID() {
@@ -96,13 +96,13 @@ public class InBody {
         protein = p;
     }
 
-//    public void setBmi(float B) {
-//        Bmi=B;
-//    }
-//
-//    public float getBmi() {
-//        return Bmi;
-//    }
+    public void setBmi(float B) {
+        Bmi=B;
+    }
+
+    public float getBmi() {
+        return Bmi;
+    }
 
     public int getAge() {
         return age;
@@ -120,36 +120,53 @@ public class InBody {
         return (float) ((2.2 * this.CalcBmi()) + (3.5 * this.CalcBmi()) * (this.getHeight() - 1.5));
     }
 
-//    public float Calc_bmr_male() {
-//        return (float) ((10 * getTotal_weight()) + (6.25 * (getHeight() * 100)) - (5 * getAge()) + 5);
-//
-//    }
-//
-//    public float Calc_bmr_female() {
-//        return (float) ((10 * getTotal_weight()) + (6.25 * (getHeight() * 100)) - (5 * getAge()) - 16);
-//
-//    }
+    public float Calc_bmr_male() {
+        return (float) ((10 * getTotal_weight()) + (6.25 * (getHeight() * 100)) - (5 * getAge()) + 5);
 
-//    public float calcBMI(int choose) {
-//        System.out.println("1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
-//        switch (choose) {
-//            case 1:
-//                return (1.2f * Calc_bmr_male());
-//            case 2:
-//                return (1.375f * Calc_bmr_male());
-//            case 3:
-//                return (1.55f * Calc_bmr_male());
-//            case 4:
-//            case 5:
-//                return (1.725f * Calc_bmr_male());
-//            default:
-//                System.out.println("UNAVAILABLE CHOICE.");
-//                break;
-//        }
-//        return 0.0f;
-//    }
+    }
+
+    public float Calc_bmr_female() {
+        return (float) ((10 * getTotal_weight()) + (6.25 * (getHeight() * 100)) - (5 * getAge()) - 16);
+
+    }
+
+    public float CalcCalories(int choose, char gender) {
+
+        if (gender == 'm' || gender == 'M'){
+            switch (choose) {
+                case 1:
+                    return (1.2f * Calc_bmr_male());
+                case 2:
+                    return (1.375f * Calc_bmr_male());
+                case 3:
+                    return (1.55f * Calc_bmr_male());
+                case 4:
+                case 5:
+                    return (1.725f * Calc_bmr_male());
+                default:
+                    System.out.println("UNAVAILABLE CHOICE.");
+                    break;
+            }
+        }else if (gender == 'f' || gender == 'F'){
+            switch (choose) {
+                case 1:
+                    return (1.2f * Calc_bmr_female());
+                case 2:
+                    return (1.375f * Calc_bmr_female());
+                case 3:
+                    return (1.55f * Calc_bmr_female());
+                case 4:
+                case 5:
+                    return (1.725f * Calc_bmr_female());
+                default:
+                    System.out.println("UNAVAILABLE CHOICE.");
+                    break;
+            }
+        }
+        return 0.0f;
+    }
 
     public void displayInBody() {
-        System.out.println(getInBody_date() + "\t|\t" + getHeight() + "\t|\t" + getTotal_weight() + "\t|\t" + getMass() + "\t|\t" + getWater() + "\t|\t" + getFats() + "\t|\t" + getMinerals() + "\t|\t" + getProtein() + "\t|\t" + getAge());
+        System.out.println(getInBody_date() + "\t|\t" + getHeight() + "\t|\t" + getTotal_weight() + "\t|\t" + getMass() + "\t|\t" + getWater() + "\t|\t" + getFats() + "\t|\t" + getMinerals() + "\t|\t" + getProtein() + "\t|\t" + getBmi() + "\t|\t" + getAge());
     }
 }
