@@ -100,8 +100,11 @@ public class Gym {
             if (customer.getID() == ID) {
                 for (Coach c : Coaches) {
                     for (Customer cus : c.getClients()) {
-                        if (cus.getID() == ID) {
-                            c.RemoveClient(ID);
+                        if (cus != null) {
+                            if (cus.getID() == ID) {
+                                c.RemoveClient(ID);
+                            }
+
                         }
                     }
                 }
@@ -115,12 +118,12 @@ public class Gym {
         System.out.println("------------------------------------------------------------------------------------------------");
         System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
         System.out.println("------------------------------------------------------------------------------------------------");
-        for (Customer customer : Customers) {
-            try {
-                customer.DisplayInfo();
-                System.out.println("------------------------------------------------------------------------------------------------");
-            } catch (NullPointerException exp) {
-                continue;
+        if (Customers != null) {
+            for (Customer customer : Customers) {
+                if (customer != null) {
+                    customer.DisplayInfo();
+                    System.out.println("------------------------------------------------------------------------------------------------");
+                }
             }
         }
     }

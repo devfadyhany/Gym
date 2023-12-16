@@ -68,7 +68,12 @@ public class Customer extends Person {
     }
 
     public void DisplayInfo() {
-        System.out.println(getID() + "\t|\t" + getName() + "\t|\t" + getEmail() + "\t|\t" + getPhone_number() + "\t|\t" + getGender() + "\t|\t" + getCoach().getName());
+        if (coach == null) {
+            System.out.println(getID() + "\t|\t" + getName() + "\t|\t" + getEmail() + "\t|\t" + getPhone_number() + "\t|\t" + getGender() + "\t|\t" + "-");
+        } else {
+            System.out.println(getID() + "\t|\t" + getName() + "\t|\t" + getEmail() + "\t|\t" + getPhone_number() + "\t|\t" + getGender() + "\t|\t" + getCoach().getName());
+
+        }
     }
 
     public void DisplayCoachInfo() {
