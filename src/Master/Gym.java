@@ -51,20 +51,21 @@ public class Gym {
             CoachesIdsCounter++;
         }
 
-        for (Subscription s : Subscriptions){
+        for (Subscription s : Subscriptions) {
             SubscriptionsIdsCounter++;
         }
 
-        for (Equipment e : Sports_equipment){
+        for (Equipment e : Sports_equipment) {
             EquipmentsIdsCounter++;
         }
 
     }
 
-    public void ViewGymInfo(){
+    public void ViewGymInfo() {
         System.out.println("Name\t|\tAddress\t|\tPhone_number");
         System.out.println(getName() + "\t|\t" + getAddress() + "\t|\t" + getPhoneNumber());
     }
+
     public String getName() {
         return Name;
     }

@@ -2,14 +2,14 @@ package Services;
 
 public class Subscription {
     private int SUBSCRIPTION_ID;
-    private final int Customer_ID;
-    private final int Assigned_Coach_ID;
+    private final int CUSTOMER_ID;
+    private final int ASSIGNED_COACH_ID;
     private Membership_Plan plan;
 
     public Subscription(int SUBSCRIPTION_ID, int Customer_ID, int Assigned_Coach_ID, Membership_Plan plan) {
         this.SUBSCRIPTION_ID = SUBSCRIPTION_ID;
-        this.Customer_ID = Customer_ID;
-        this.Assigned_Coach_ID = Assigned_Coach_ID;
+        this.CUSTOMER_ID = Customer_ID;
+        this.ASSIGNED_COACH_ID = Assigned_Coach_ID;
         this.plan = plan;
     }
 
@@ -22,11 +22,11 @@ public class Subscription {
     }
 
     public int getCustomerId() {
-        return Customer_ID;
+        return CUSTOMER_ID;
     }
 
     public int getCoachId() {
-        return Assigned_Coach_ID;
+        return ASSIGNED_COACH_ID;
     }
 
     public Membership_Plan getPlan() {

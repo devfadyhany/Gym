@@ -181,7 +181,6 @@ public class Menu extends Gym {
                 try {
                     choice = input.nextInt();
                 } catch (InputMismatchException exp) {
-                    System.out.println("INVALID CHOICE");
                     choice = 10;
                 }
 
@@ -298,13 +297,14 @@ public class Menu extends Gym {
                     error = false;
                 } catch (InputMismatchException exp) {
                     System.out.println("Invalid Input, Please Enter a Number only.");
+                    input.nextLine();
                     error = true;
                 }
 
                 if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
                     System.out.println("Invalid Choice, Try Again");
                 }
-            } while (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10 || error);
+            } while (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10 && error);
 
             Gym.AddSubscription(new Subscription(Gym.SubscriptionsIdsCounter + 1, customer.getID(), coachId, m));
             Gym.SearchCoachByID(coachId).AddClient(customer);
@@ -360,6 +360,7 @@ public class Menu extends Gym {
                         error = false;
                     } catch (InputMismatchException exp) {
                         System.out.println("Please Enter Numbers Only.");
+                        input.nextLine();
                         error = true;
                     }
                 } while (error);
@@ -410,6 +411,7 @@ public class Menu extends Gym {
                     error = false;
                 } catch (InputMismatchException exp) {
                     System.out.println("Please Enter Numbers Only.");
+                    input.nextLine();
                     error = true;
                 }
             } while (error);
@@ -432,7 +434,6 @@ public class Menu extends Gym {
                 try {
                     choice = input.nextInt();
                 } catch (InputMismatchException exp) {
-                    System.out.println("INVALID CHOICE");
                     choice = 7;
                 }
 
@@ -451,6 +452,7 @@ public class Menu extends Gym {
                                 error = false;
                             } catch (InputMismatchException exp) {
                                 System.out.println("Please Enter Numbers Only.");
+                                input.nextLine();
                                 error = true;
                             }
 
@@ -489,6 +491,7 @@ public class Menu extends Gym {
                                 error = false;
                             } catch (InputMismatchException exp) {
                                 System.out.println("Please Enter Numbers Only.");
+                                input.nextLine();
                                 error = true;
                             }
                         } while (error);
@@ -598,6 +601,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter numbers only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -613,6 +617,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter numbers only.");
+                            input.nextLine();
                             error = true;
                         }
                     }
@@ -631,6 +636,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -683,6 +689,9 @@ public class Menu extends Gym {
                 case 7:
                     flag = 'n';
                     break;
+                default:
+                    System.out.println("INVALID CHOICE");
+                    break;
             }
         } while (flag == 'y');
     }
@@ -712,6 +721,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -723,6 +733,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -749,6 +760,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -767,11 +779,16 @@ public class Menu extends Gym {
 
     public void AdminCoachMenu() {
         char flag = 'y';
+        int choice;
         do {
             System.out.println("========================================");
             System.out.println("1-Add Coaches\n2-Edit Coaches\n3-Delete Coaches\n4-Display all the customers of a specific coach.\n5-Display the coaches sorted in terms of the most assigned number of " +
                     "customers to the coaches.\n6-Approve Coaches.\n7-Back.");
-            int choice = input.nextInt();
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException exp) {
+                choice = 8;
+            }
             switch (choice) {
                 case 1:
                     String name, email, password, phoneNumber;
@@ -819,6 +836,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -833,6 +851,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -863,6 +882,7 @@ public class Menu extends Gym {
                                     error = false;
                                 } catch (InputMismatchException exp) {
                                     System.out.println("Please Enter Numbers Only.");
+                                    input.nextLine();
                                     error = true;
                                 }
                             } while (error);
@@ -884,6 +904,9 @@ public class Menu extends Gym {
                 case 7:
                     flag = 'n';
                     break;
+                default:
+                    System.out.println("INVALID CHOICE");
+                    break;
             }
         } while (flag == 'y');
 
@@ -901,6 +924,7 @@ public class Menu extends Gym {
                 error = false;
             } catch (InputMismatchException exp) {
                 System.out.println("Please Enter Numbers Only.");
+                input.nextLine();
                 error = true;
             }
         } while (error);
@@ -978,6 +1002,7 @@ public class Menu extends Gym {
                 error = false;
             } catch (InputMismatchException exp) {
                 System.out.println("Please Enter Numbers Only.");
+                input.nextLine();
                 error = true;
             }
         } while (error);
@@ -1054,6 +1079,7 @@ public class Menu extends Gym {
                 error = false;
             } catch (InputMismatchException exp) {
                 System.out.println("Please Enter Numbers Only.");
+                input.nextLine();
                 error = true;
             }
         } while (error);
@@ -1085,6 +1111,7 @@ public class Menu extends Gym {
                             error = false;
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error);
@@ -1108,6 +1135,7 @@ public class Menu extends Gym {
 
                         } catch (InputMismatchException exp) {
                             System.out.println("Please Enter Numbers Only.");
+                            input.nextLine();
                             error = true;
                         }
                     } while (error || choice > Gym.Sports_equipment.get(index).targetedMuscles.size());

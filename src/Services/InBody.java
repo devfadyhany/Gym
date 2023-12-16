@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class InBody {
 
-    private final int Customer_ID;
+    private final int CUSTOMER_ID;
     protected LocalDate InBody_date;
     protected float height;
     protected float Total_Weight;
@@ -18,7 +18,7 @@ public class InBody {
      public int activity_factor;
 
     public InBody(int customer_ID, LocalDate start_date, float height, float Total_Weight, float fats, float mass, float minerals, float water, float protein , float Bmi, int age, int activity_factor) {
-        this.Customer_ID = customer_ID;
+        this.CUSTOMER_ID = customer_ID;
         this.InBody_date = start_date;
         this.height = height;
         this.Total_Weight = Total_Weight;
@@ -33,7 +33,7 @@ public class InBody {
     }
 
     public int getCustomer_ID() {
-        return Customer_ID;
+        return CUSTOMER_ID;
     }
 
     public LocalDate getInBody_date() {
