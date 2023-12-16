@@ -199,6 +199,9 @@ public class Menu extends Gym {
                         break;
                     case 4:
                         if (customer.getSubscription() != null) {
+                            System.out.println("------------------------------------------------------------------------------------------------");
+                            System.out.println("SUBSCRIPTION_ID\t|\tCUSTOMER_ID\t|\tCOACH_ID\t|\tStart_Date\t|\tMonthly_Plan\t|\tRegistered_Months_Number\t|\tPrice");
+                            System.out.println("------------------------------------------------------------------------------------------------");
                             customer.getSubscription().DisplaySubscriptionInfo();
                         } else {
                             System.out.println("You are not subscribed into any plan.");
@@ -304,12 +307,12 @@ public class Menu extends Gym {
                     error = true;
                 }
 
-                if (Gym.SearchCoachByID(coachId) != null){
+                if (Gym.SearchCoachByID(coachId) != null) {
                     if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
                         System.out.println("Invalid Choice, Try Again");
                         error = true;
                     }
-                }else {
+                } else {
                     error = true;
                 }
             } while (error);
@@ -355,8 +358,11 @@ public class Menu extends Gym {
                         System.out.println("Enter your protein number:");
                         b.setProtein(input.nextFloat());
 
-                        System.out.println("Enter your Gender: (m for male & f for female)");
-                        gender = input.next().charAt(0);
+                        do {
+                            System.out.println("Enter your Gender: (m for male & f for female)");
+                            gender = input.next().charAt(0);
+
+                        } while (gender != 'm' && gender != 'M' && gender != 'f' && gender != 'F');
 
                         System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
                         b.activity_factor = input.nextInt();
@@ -947,7 +953,7 @@ public class Menu extends Gym {
                 customerID = input.nextInt();
                 error = false;
 
-                if (Gym.SearchCustomerByID(customerID) == null){
+                if (Gym.SearchCustomerByID(customerID) == null) {
                     error = true;
                 }
 
