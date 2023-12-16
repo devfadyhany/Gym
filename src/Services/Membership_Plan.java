@@ -65,7 +65,7 @@ public class Membership_Plan {
                 }
             }
         } else if (this.Monthly_plan == 'b' || this.Monthly_plan == 'B') {
-            switch (Registered_Months_Num) {
+            switch (months) {
                 case 3:
                     this.Plan_price -= this.Plan_price * 0.3F;
                     break;

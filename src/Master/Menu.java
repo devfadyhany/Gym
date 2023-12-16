@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class Menu extends Gym {
     Scanner input = new Scanner(System.in);
-    boolean error = false;
+    boolean error = false;  //used in handling exceptions
 
     public Menu() {
         super("GYM Name", "GYM Address", "00000000000");
@@ -33,7 +33,6 @@ public class Menu extends Gym {
             try {
                 choice = input.nextInt();
             } catch (InputMismatchException exp) {
-                System.out.println("Invalid Choice");
                 choice = 5;
             }
             switch (choice) {
@@ -62,7 +61,6 @@ public class Menu extends Gym {
             try {
                 newchoice = input.nextInt();
             } catch (InputMismatchException exp) {
-                System.out.println("INVALID CHOICE");
                 newchoice = 4;
             }
             switch (newchoice) {
@@ -149,7 +147,7 @@ public class Menu extends Gym {
         do {
             System.out.println("enter your phone number");
             phoneNumber = input.next();
-
+            //-\\d+ m3naha en kolo numbers
             if (!phoneNumber.matches("\\d+")) {
                 System.out.println("invalid PhoneNumber please enter numbers only.");
             }
@@ -159,11 +157,11 @@ public class Menu extends Gym {
             System.out.println("enter your gender ('m' for male or 'f' for female)");
             gender = input.next().charAt(0);
 
-            if (gender != 'm' && gender != 'f') {
+            if (gender != 'm' && gender != 'M' && gender != 'f' && gender != 'F') {
                 System.out.println("Please enter 'm' for male & 'f' for female Only");
             }
 
-        } while (gender != 'm' && gender != 'f');
+        } while (gender != 'm' && gender != 'M' && gender != 'f' && gender != 'F');
 
         if (choice == 1) {
             coachMenu(Register.CoachRegister(name, email, password, phoneNumber, gender));
@@ -247,7 +245,6 @@ public class Menu extends Gym {
     }
 
     public void CustomerSubscribe(Customer customer) {
-        boolean error;
         if (customer.getSubscription() == null || !LocalDate.now().minusDays(customer.getSubscription().getPlan().getRegistered_Months_num() * 30L).isBefore(customer.getSubscription().getPlan().getStart_Date())) {
             char PlanChoice;
             Membership_Plan m = new Membership_Plan(LocalDate.now(), 'A', 0, 0.0f);
@@ -273,6 +270,7 @@ public class Menu extends Gym {
                     error = false;
                 } catch (InputMismatchException exp) {
                     System.out.println("Invalid Input, Please Enter a Number only.");
+                    input.nextLine();
                     error = true;
                 }
             } while (error);
@@ -280,7 +278,7 @@ public class Menu extends Gym {
             m.setRegistered_Months_num(numOfMonths);
             m.setPlan_price(m.getPlan_price() * numOfMonths);
 
-            if (m.getRegistered_Months_num() >= 3) {
+            if (numOfMonths >= 3) {
                 m.setPlan_price(m.CalcDiscount(numOfMonths));
             }
             System.out.println("your subscription Total price is: " + m.getPlan_price());
