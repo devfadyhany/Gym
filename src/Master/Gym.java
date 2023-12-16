@@ -61,12 +61,12 @@ public class Gym {
 
     }
 
-    public void ViewGymInfo() {
+    public static void ViewGymInfo() {
         System.out.println("Name\t|\tAddress\t|\tPhone_number");
-        System.out.println(getName() + "\t|\t" + getAddress() + "\t|\t" + getPhoneNumber());
+        System.out.println(Gym.getName() + "\t|\t" + getAddress() + "\t|\t" + getPhoneNumber());
     }
 
-    public String getName() {
+    public static String getName() {
         return Name;
     }
 
@@ -74,7 +74,7 @@ public class Gym {
         Gym.Name = Name;
     }
 
-    public String getAddress() {
+    public static String getAddress() {
         return Address;
     }
 
@@ -82,7 +82,7 @@ public class Gym {
         Gym.Address = Address;
     }
 
-    public String getPhoneNumber() {
+    public static String getPhoneNumber() {
         return Phone_number;
     }
 

@@ -544,7 +544,7 @@ public class Menu extends Gym {
                     EditGYM();
                     break;
                 case 5:
-                    ViewGymInfo();
+                    Gym.ViewGymInfo();
                     break;
                 case 6:
                     flag = 'n';
