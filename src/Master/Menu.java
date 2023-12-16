@@ -301,10 +301,15 @@ public class Menu extends Gym {
                     error = true;
                 }
 
-                if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
-                    System.out.println("Invalid Choice, Try Again");
+                if (Gym.SearchCoachByID(coachId) != null){
+                    if (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10) {
+                        System.out.println("Invalid Choice, Try Again");
+                        error = true;
+                    }
+                }else {
+                    error = true;
                 }
-            } while (Gym.SearchCoachByID(coachId).getNumberOfClients() == 10 && error);
+            } while (error);
 
             Gym.AddSubscription(new Subscription(Gym.SubscriptionsIdsCounter + 1, customer.getID(), coachId, m));
             Gym.SearchCoachByID(coachId).AddClient(customer);
@@ -445,6 +450,7 @@ public class Menu extends Gym {
                         coach.DisplayClientsInfo();
                         break;
                     case 2:
+                        coach.DisplayClientsInfo();
                         do {
                             System.out.println("enter id for customer");
                             try {
@@ -466,6 +472,7 @@ public class Menu extends Gym {
                         }
                         break;
                     case 3:
+                        coach.DisplayClientsInfo();
                         System.out.println("Enter Customer's Name");
                         customerName = input.next();
                         coach.DisplayClientInfo(customerName);
@@ -594,6 +601,7 @@ public class Menu extends Gym {
                     break;
                 case 3:
                     int ID = 0;
+                    Gym.ViewCustomers();
                     System.out.println("Enter Customer ID:");
                     do {
                         try {
@@ -610,6 +618,7 @@ public class Menu extends Gym {
                     break;
                 case 4:
                     int cID = 0;
+                    Gym.ViewCustomers();
                     System.out.println("Enter Customer ID:");
                     do {
                         try {
@@ -916,6 +925,7 @@ public class Menu extends Gym {
         int customerID = 0;
         String newName, newEmail, newPassword, newNumber;
         char newGender;
+        Gym.ViewCustomers();
         System.out.println("========================================");
         do {
             try {

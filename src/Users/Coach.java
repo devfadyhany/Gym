@@ -30,9 +30,9 @@ public class Coach extends Person {
     }
 
     public void AddClient(Customer client) {
-        for (Customer c : clients){
-            if (c == null){
-                c = client;
+        for (int i = 0; i < clients.length; i++) {
+            if (clients[i] == null) {
+                clients[i] = client;
                 break;
             }
         }
@@ -69,9 +69,11 @@ public class Coach extends Person {
             System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
             System.out.println("---------------------------------------------------------------");
             for (int i = 0; i < 10; i++) {
-                if (clients[i].getName().equals(Name)) {
-                    clients[i].DisplayInfo();
-                    break;
+                if (clients[i] != null) {
+                    if (clients[i].getName().equalsIgnoreCase(Name)) {
+                        clients[i].DisplayInfo();
+                        break;
+                    }
                 }
             }
         } else {
@@ -102,9 +104,18 @@ public class Coach extends Person {
             System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
             System.out.println("---------------------------------------------------------------");
             for (int i = 0; i < 10; i++) {
-                if (clients[i].getGender() == Gender) {
-                    clients[i].DisplayInfo();
-                    System.out.println("---------------------------------------------------------------");
+                if (clients[i] != null) {
+                    if (Gender == 'f' || Gender == 'F') {
+                        if (clients[i].getGender() == 'f' || clients[i].getGender() == 'F') {
+                            clients[i].DisplayInfo();
+                            System.out.println("---------------------------------------------------------------");
+                        }
+                    }else if (Gender == 'm' || Gender == 'M') {
+                        if (clients[i].getGender() == 'm' || clients[i].getGender() == 'M') {
+                            clients[i].DisplayInfo();
+                            System.out.println("---------------------------------------------------------------");
+                        }
+                    }
                 }
             }
         } else {

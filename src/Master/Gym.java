@@ -111,6 +111,18 @@ public class Gym {
         }
     }
 
+    public static void ViewCustomers() {
+        System.out.println("------------------------------------------------------------------------------------------------");
+        System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
+        System.out.println("------------------------------------------------------------------------------------------------");
+        for (Customer customer : Customers) {
+            if (customer != null) {
+                customer.DisplayInfo();
+                System.out.println("------------------------------------------------------------------------------------------------");
+            }
+        }
+    }
+
     public static Customer SearchCustomerByID(int id) {
         Customer cus = null;
         for (Customer customer : Customers) {
@@ -138,11 +150,12 @@ public class Gym {
     }
 
     public static void ViewCoaches() {
+        System.out.println("------------------------------------------------------------------------------------------------");
+        System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
+        System.out.println("------------------------------------------------------------------------------------------------");
         for (Coach coach : Coaches) {
-
             coach.DisplayInfo();
-            System.out.println("=================");
-
+            System.out.println("------------------------------------------------------------------------------------------------");
         }
     }
 
