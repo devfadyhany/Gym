@@ -594,7 +594,8 @@ public class Menu extends Gym {
 
                     Customer C = new Customer(Gym.CustomersIdsCounter + 1, name, email, password, phoneNumber, gender);
                     C.setApproved(true);
-                    AddCustomer(C);
+                    Gym.AddCustomer(C);
+                    System.out.println("CUSTOMER HAS BEEN ADDED SUCCESSFULLY");
                     break;
                 case 2:
                     EditCustomer();
@@ -755,9 +756,11 @@ public class Menu extends Gym {
                     }
 
                     Equipment E = new Equipment(name, quantity, EquipmentsIdsCounter + 1, targetedMuscles);
-                    AddEquipment(E);
+                    Gym.AddEquipment(E);
+                    System.out.println("EQUIPMENT HAS BEEN ADDED SUCCESSFULLY");
                     break;
                 case 2:
+                    Gym.ViewEquipments();
                     EditEquipments();
                     break;
                 case 3:
@@ -832,12 +835,14 @@ public class Menu extends Gym {
                     Coach C = new Coach(Gym.CoachesIdsCounter + 1, name, email, password, phoneNumber, gender);
                     C.setApproved(true);
                     AddCoach(C);
+                    System.out.println("COACH HAS BEEN ADDED SUCCESSFULLY");
                     break;
                 case 2:
                     EditCoach();
                     break;
                 case 3:
                     int ID = 0;
+                    Gym.ViewCoaches();
                     System.out.println("Enter Coach ID:");
                     do {
                         try {
@@ -853,6 +858,7 @@ public class Menu extends Gym {
                     break;
                 case 4:
                     int CoachID = 0;
+                    Gym.ViewCoaches();
                     System.out.println("Enter Coach ID:");
                     do {
                         try {
@@ -932,6 +938,11 @@ public class Menu extends Gym {
                 System.out.println("Enter customer ID");
                 customerID = input.nextInt();
                 error = false;
+
+                if (Gym.SearchCustomerByID(customerID) == null){
+                    error = true;
+                }
+
             } catch (InputMismatchException exp) {
                 System.out.println("Please Enter Numbers Only.");
                 input.nextLine();

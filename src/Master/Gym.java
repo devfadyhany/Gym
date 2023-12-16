@@ -119,7 +119,7 @@ public class Gym {
             try {
                 customer.DisplayInfo();
                 System.out.println("------------------------------------------------------------------------------------------------");
-            }catch (NullPointerException exp){
+            } catch (NullPointerException exp) {
                 continue;
             }
         }
@@ -156,8 +156,12 @@ public class Gym {
         System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
         System.out.println("------------------------------------------------------------------------------------------------");
         for (Coach coach : Coaches) {
-            coach.DisplayInfo();
-            System.out.println("------------------------------------------------------------------------------------------------");
+            try {
+                coach.DisplayInfo();
+                System.out.println("------------------------------------------------------------------------------------------------");
+            } catch (NullPointerException exp) {
+                continue;
+            }
         }
     }
 
@@ -172,12 +176,12 @@ public class Gym {
         return c;
     }
 
-    public void AddEquipment(Equipment equipment) {
+    public static void AddEquipment(Equipment equipment) {
         Sports_equipment.add(equipment);
         EquipmentsIdsCounter++;
     }
 
-    public void RemoveEquipment(int Code) {
+    public static void RemoveEquipment(int Code) {
         for (Equipment equipment : Sports_equipment) {
             if (equipment.getEQUIPMENTCODE() == Code) {
                 Sports_equipment.remove(equipment);
@@ -186,11 +190,17 @@ public class Gym {
         }
     }
 
-    public void ViewEquipments() {
+    public static void ViewEquipments() {
+        System.out.println("---------------------------------------------------");
         System.out.println("CODE\t|\tName\t|\tQuantity\t|\tTargeted-Muscles");
+        System.out.println("---------------------------------------------------");
         for (Equipment equipment : Sports_equipment) {
-            equipment.DisplayInfo();
-            System.out.println("---------------------------------------------------");
+            try {
+                equipment.DisplayInfo();
+                System.out.println("---------------------------------------------------");
+            } catch (NullPointerException exp) {
+                continue;
+            }
         }
     }
 
@@ -222,11 +232,13 @@ public class Gym {
     }
 
     public static void ViewSubscriptions(int ID) {
+        System.out.println("------------------------------------------------------------------------------------------------");
+        System.out.println("SUBSCRIPTION_ID\t|\tCUSTOMER_ID\t|\tCOACH_ID\t|\tStart_Date\t|\tMonthly_Plan\t|\tRegistered_Months_Number\t|\tPrice");
+        System.out.println("------------------------------------------------------------------------------------------------");
         for (Subscription subscription : Subscriptions) {
             if (subscription.getCustomerId() == ID) {
                 subscription.DisplaySubscriptionInfo();
-                System.out.println("=================");
-
+                System.out.println("------------------------------------------------------------------------------------------------");
             }
         }
     }
