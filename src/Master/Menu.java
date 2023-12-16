@@ -34,6 +34,7 @@ public class Menu extends Gym {
                 choice = input.nextInt();
             } catch (InputMismatchException exp) {
                 choice = 5;
+                input.nextLine();
             }
             switch (choice) {
                 case 1:
@@ -183,6 +184,7 @@ public class Menu extends Gym {
                     choice = input.nextInt();
                 } catch (InputMismatchException exp) {
                     choice = 10;
+                    input.nextLine();
                 }
 
                 switch (choice) {
@@ -441,6 +443,7 @@ public class Menu extends Gym {
                     choice = input.nextInt();
                 } catch (InputMismatchException exp) {
                     choice = 7;
+                    input.nextLine();
                 }
 
                 String customerName;
@@ -530,6 +533,7 @@ public class Menu extends Gym {
                 choice = input.nextInt();
             } catch (InputMismatchException exp) {
                 choice = 7;
+                input.nextLine();
             }
             switch (choice) {
                 case 1:
@@ -567,6 +571,7 @@ public class Menu extends Gym {
                 choice = input.nextInt();
             } catch (InputMismatchException exp) {
                 choice = 8;
+                input.nextLine();
             }
             switch (choice) {
                 case 1:
@@ -717,6 +722,7 @@ public class Menu extends Gym {
                 choice = input.nextInt();
             } catch (InputMismatchException exp) {
                 choice = 5;
+                input.nextLine();
             }
             switch (choice) {
                 case 1:
@@ -801,6 +807,7 @@ public class Menu extends Gym {
                 choice = input.nextInt();
             } catch (InputMismatchException exp) {
                 choice = 8;
+                input.nextLine();
             }
             switch (choice) {
                 case 1:

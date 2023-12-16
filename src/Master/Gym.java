@@ -147,9 +147,12 @@ public class Gym {
     public static void RemoveCoach(int ID) {
 
         for (Coach coach : Coaches) {
-            if (coach.getID() == ID) {
-                Coaches.remove(coach);
-                break;
+            if (coach != null) {
+                if (coach.getID() == ID) {
+                    Coaches.remove(coach);
+                    break;
+                }
+
             }
         }
     }
@@ -186,9 +189,11 @@ public class Gym {
 
     public static void RemoveEquipment(int Code) {
         for (Equipment equipment : Sports_equipment) {
-            if (equipment.getEQUIPMENTCODE() == Code) {
-                Sports_equipment.remove(equipment);
-                break;
+            if (equipment != null) {
+                if (equipment.getEQUIPMENTCODE() == Code) {
+                    Sports_equipment.remove(equipment);
+                    break;
+                }
             }
         }
     }
