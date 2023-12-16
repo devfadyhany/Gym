@@ -116,9 +116,11 @@ public class Gym {
         System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
         System.out.println("------------------------------------------------------------------------------------------------");
         for (Customer customer : Customers) {
-            if (customer != null) {
+            try {
                 customer.DisplayInfo();
                 System.out.println("------------------------------------------------------------------------------------------------");
+            }catch (NullPointerException exp){
+                continue;
             }
         }
     }
