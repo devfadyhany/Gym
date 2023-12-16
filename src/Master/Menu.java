@@ -62,6 +62,7 @@ public class Menu extends Gym {
                 newchoice = input.nextInt();
             } catch (InputMismatchException exp) {
                 newchoice = 4;
+                input.nextLine();
             }
             switch (newchoice) {
                 case 1:

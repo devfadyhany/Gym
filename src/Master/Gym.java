@@ -158,12 +158,12 @@ public class Gym {
         System.out.println("------------------------------------------------------------------------------------------------");
         System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
         System.out.println("------------------------------------------------------------------------------------------------");
-        for (Coach coach : Coaches) {
-            try {
-                coach.DisplayInfo();
-                System.out.println("------------------------------------------------------------------------------------------------");
-            } catch (NullPointerException exp) {
-                continue;
+        if (Coaches != null) {
+            for (Coach coach : Coaches) {
+                if (coach != null) {
+                    coach.DisplayInfo();
+                    System.out.println("------------------------------------------------------------------------------------------------");
+                }
             }
         }
     }
@@ -197,12 +197,12 @@ public class Gym {
         System.out.println("---------------------------------------------------");
         System.out.println("CODE\t|\tName\t|\tQuantity\t|\tTargeted-Muscles");
         System.out.println("---------------------------------------------------");
-        for (Equipment equipment : Sports_equipment) {
-            try {
-                equipment.DisplayInfo();
-                System.out.println("---------------------------------------------------");
-            } catch (NullPointerException exp) {
-                continue;
+        if (Sports_equipment != null) {
+            for (Equipment equipment : Sports_equipment) {
+                if (equipment != null) {
+                    equipment.DisplayInfo();
+                    System.out.println("---------------------------------------------------");
+                }
             }
         }
     }
