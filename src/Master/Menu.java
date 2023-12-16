@@ -139,7 +139,7 @@ public class Menu extends Gym {
         char gender;
         System.out.println("========================================");
         System.out.println("enter your name");
-        name = input.next();
+        name = input.nextLine();
         System.out.println("enter your email");
         email = input.next();
         System.out.println("enter your password");
@@ -572,7 +572,7 @@ public class Menu extends Gym {
                     String name, email, password, phoneNumber;
                     char gender;
                     System.out.println("enter your name");
-                    name = input.next();
+                    name = input.nextLine();
                     System.out.println("enter your email");
                     email = input.next();
                     System.out.println("enter your password");
@@ -723,7 +723,7 @@ public class Menu extends Gym {
                     int quantity = 0, noOfMuscles = 0;
                     ArrayList<String> targetedMuscles = new ArrayList<>();
                     System.out.println("enter equipment name");
-                    name = input.next();
+                    name = input.nextLine();
                     do {
                         try {
                             System.out.println("enter equipment quantity");
@@ -760,11 +760,11 @@ public class Menu extends Gym {
                     System.out.println("EQUIPMENT HAS BEEN ADDED SUCCESSFULLY");
                     break;
                 case 2:
-                    Gym.ViewEquipments();
                     EditEquipments();
                     break;
                 case 3:
                     int ID = 0;
+                    Gym.ViewEquipments();
                     System.out.println("Enter Equipment ID:");
                     do {
                         try {
@@ -806,7 +806,7 @@ public class Menu extends Gym {
                     String name, email, password, phoneNumber;
                     char gender;
                     System.out.println("enter your name");
-                    name = input.next();
+                    name = input.nextLine();
                     System.out.println("enter your email");
                     email = input.next();
                     System.out.println("enter your password");
@@ -1092,6 +1092,7 @@ public class Menu extends Gym {
         int equipmentcode = 0;
         String newName;
         int newQuantity = 0;
+        Gym.ViewEquipments();
         System.out.println("========================================");
         do {
             try {
