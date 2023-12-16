@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Files {
 
@@ -191,9 +192,11 @@ public class Files {
             writer.write("");
             while (counter < Gym.Sports_equipment.size()) {
                 for (Equipment equipment : Gym.Sports_equipment) {
-                    for (String muscle : equipment.targetedMuscles) {
-                        writer.append(String.valueOf(equipment.getEQUIPMENTCODE())).append(",");
-                        writer.append(muscle).append("\n");
+                    if (equipment.targetedMuscles != null) {
+                        for (String muscle : equipment.targetedMuscles) {
+                            writer.append(String.valueOf(equipment.getEQUIPMENTCODE())).append(",");
+                            writer.append(muscle).append("\n");
+                        }
                     }
                     counter++;
                 }
@@ -405,7 +408,7 @@ public class Files {
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
-                Gym.Sports_equipment.add(new Equipment(row[1], Integer.parseInt(row[2]), Integer.parseInt(row[0]), null));
+                Gym.Sports_equipment.add(new Equipment(row[1], Integer.parseInt(row[2]), Integer.parseInt(row[0]), new ArrayList<>()));
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From Equipments File.");
@@ -426,17 +429,16 @@ public class Files {
         String line;
 
         try {
-            int counter = 0;
             reader = new BufferedReader(new FileReader(file));
             while ((line = reader.readLine()) != null) {
                 String[] row = line.split(",");
                 for (Equipment equipment : Gym.Sports_equipment) {
-                    if (Gym.Sports_equipment.get(counter).getEQUIPMENTCODE() == Integer.parseInt(row[0])) {
+                    if (equipment.getEQUIPMENTCODE() == Integer.parseInt(row[0])) {
                         equipment.targetedMuscles.add(row[1]);
+                        break;
                     }
-                    break;
                 }
-                counter++;
+
             }
         } catch (IOException e) {
             System.out.println("Failed to Read From TargetedMuscles File.");
