@@ -113,7 +113,7 @@ public class Gym {
 
     public static void ViewCustomers() {
         System.out.println("------------------------------------------------------------------------------------------------");
-        System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tWorking Hours-Per-Day\t|\tNumber Of Clients");
+        System.out.println("ID\t|\tName\t|\tEmail\t|\tPhoneNumber\t|\tGender\t|\tCoach Name");
         System.out.println("------------------------------------------------------------------------------------------------");
         for (Customer customer : Customers) {
             try {
