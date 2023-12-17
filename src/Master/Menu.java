@@ -366,7 +366,7 @@ public class Menu extends Gym {
 
                         System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
                         b.activity_factor = input.nextInt();
-                        b.setBmi(b.CalcCalories(b.activity_factor, gender));
+                        b.setBmi(b.CalcBmi() * (10*10*10*10));
 
                         System.out.println("Enter you Age:");
                         b.setAge(input.nextInt());

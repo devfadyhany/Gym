@@ -39,7 +39,6 @@ public class Gym {
                     c.setCoach(Gym.SearchCoachByID(s.getCoachId()));
                 }
             }
-            CustomersIdsCounter++;
         }
 
         for (Coach c : Coaches) {
@@ -48,17 +47,7 @@ public class Gym {
                     c.AddClient(Gym.SearchCustomerByID(s.getCustomerId()));
                 }
             }
-            CoachesIdsCounter++;
         }
-
-        for (Subscription s : Subscriptions) {
-            SubscriptionsIdsCounter++;
-        }
-
-        for (Equipment e : Sports_equipment) {
-            EquipmentsIdsCounter++;
-        }
-
     }
 
     public static void ViewGymInfo() {
