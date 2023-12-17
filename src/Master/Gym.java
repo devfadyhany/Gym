@@ -138,6 +138,9 @@ public class Gym {
         for (Coach coach : Coaches) {
             if (coach != null) {
                 if (coach.getID() == ID) {
+                    for (Customer C : coach.getClients()) {
+                        C.setCoach(null);
+                    }
                     Coaches.remove(coach);
                     break;
                 }
@@ -145,6 +148,7 @@ public class Gym {
             }
         }
     }
+
 
     public static void ViewCoaches() {
         System.out.println("------------------------------------------------------------------------------------------------");
