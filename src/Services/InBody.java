@@ -113,7 +113,7 @@ public class InBody {
     }
 
     public float CalcBmi() {
-        return (getTotal_weight()) / (getHeight() * getHeight());
+        return ((getTotal_weight()) / (getHeight() * getHeight()) * (float)(1/(10*10*10*10)));
     }
 
     public float CalcIdealWeight() {

@@ -358,15 +358,11 @@ public class Menu extends Gym {
                         System.out.println("Enter your protein number:");
                         b.setProtein(input.nextFloat());
 
-                        do {
-                            System.out.println("Enter your Gender: (m for male & f for female)");
-                            gender = input.next().charAt(0);
-
-                        } while (gender != 'm' && gender != 'M' && gender != 'f' && gender != 'F');
+                        gender = customer.gender;
 
                         System.out.println("Choose Your Activity Rate:\n1->no exercise\n2->light exercise\n3->moderate exercise\n4->heavy exercise\n5->very heavy exercise\n");
                         b.activity_factor = input.nextInt();
-                        b.setBmi(b.CalcBmi() * (10*10*10*10));
+                        b.setBmi(b.CalcBmi());
 
                         System.out.println("Enter you Age:");
                         b.setAge(input.nextInt());
