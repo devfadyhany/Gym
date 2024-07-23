@@ -13,6 +13,7 @@
 ##### Clients have access to some functions such as (view clients info - get clients inbody history - search for client details using name).
 ##### Coaches have access to some functions such as (subscribe - view coach info - view subscription info - do inbody - calculate perfect weight).
 ##### Admin have access to some functions such as (add/edit/delete coaches, clients, equipment, subscriptions - view clients subscription history - etc...).
+<hr>
 
 ### Team (Proud To Work With Them):
 ##### Karim Sherif
